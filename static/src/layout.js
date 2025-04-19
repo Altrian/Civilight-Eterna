@@ -1,9 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
-    initializeDrawer();
-    initializeHeaderObserver();
-    initializeSectionClick();
-});
-
+// This file contains JavaScript code to manage the drawer functionality, header opacity, and section click events.
 function initializeDrawer() {
     const openBtn = document.querySelector("[data-drawer-open]");
     const closeBtn = document.querySelector("[data-drawer-close]");
@@ -123,3 +118,7 @@ function initializeSectionClick() {
         }
     });
 }
+
+initializeDrawer();
+initializeHeaderObserver();
+initializeSectionClick();
