@@ -337,7 +337,12 @@ async function updateOperators() {
     // Fetch only missing tags
     if (missingTags.length > 0) {
         console.log("Fetching missing tags:", missingTags);
-        const fetchedOperators = await fetchRecruitableOperators(missingTags);
+        let fetchedOperators = [];
+        try {
+            fetchedOperators = await fetchRecruitableOperators(missingTags);
+        } catch (error) {
+            return; // Exit the function or handle the error as needed
+        }
 
         // Store operators uniquely in a Map (keyed by `id`)
         fetchedOperators.forEach(op => cachedOperators.set(op.id, op));
