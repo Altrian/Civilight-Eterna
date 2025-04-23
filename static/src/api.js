@@ -34,51 +34,17 @@ function toastNotification(message, {
     autoDismiss = 5000,
     clickToDismiss = true,
     hoverToPause = true,
-    position = 'bottom-left', // top-left, top-right, bottom-left, bottom-right
+    position = 'bottom', // top-left, top-right, bottom-left, bottom-right
     type = 'info', // info, success, warning, error
     key = null,
     repeat = false,
 } = {}) {
     
 
-
     let options = { message };
     // Create or find the toast container
     let toast = document.querySelector(".toast-notifications");
-    let toastContainer = toast ? toast.firstChild : null;
-    if (!toast) {
-        toast = document.createElement("section");
-        toast.className = "toast-notifications";
-        toastContainer = document.createElement("div");
-        toastContainer.className = "toast-container";
-        toast.appendChild(toastContainer);
-        document.body.appendChild(toast);
-
-        toastContainer.addEventListener('mouseover', (e) => {
-            const toastMessage = e.target.closest('.toast-message.hover-to-pause');
-            if (toastMessage && activeToasts.has(toastMessage)) {
-                const data = activeToasts.get(toastMessage);
-                clearTimeout(data.timeoutId);
-                const elapsed = Date.now() - data.startTime;
-                data.remaining -= elapsed;
-            }
-        });
-        toastContainer.addEventListener('mouseout', (e) => {
-            const toastMessage = e.target.closest('.toast-message.hover-to-pause');
-            if (toastMessage && activeToasts.has(toastMessage)) {
-                const data = activeToasts.get(toastMessage);
-                startTimer(data, toastMessage);
-            }
-        });
-        toastContainer.addEventListener('click', (e) => {
-            const toastMessage = e.target.closest('.toast-message.clickable');
-            if (toastMessage && activeToasts.has(toastMessage)) {
-                toastMessage.classList.add('exit');
-                toastMessage.addEventListener('animationend', () => toastMessage.remove(), { once: true });
-                activeToasts.delete(toastMessage);
-            }
-        });
-    }
+    let toastContainer = toast ? toast.querySelector(`.toast-container[data-toast-position="${position}"]`) : null;
     // Check if a toast with the same key already exists to update it instead of creating a new one
     if (key !== null && repeat) {
         for (let [el, data] of activeToasts.entries()) {
@@ -95,7 +61,8 @@ function toastNotification(message, {
     const toastMessage = document.createElement("output");
     toastMessage.className = `toast-message ${type} ${position}`;
     if (clickToDismiss) toastMessage.classList.add('clickable');
-    if (hoverToPause) toastMessage.classList.add('hover-to-pause');
+    // Ensure hover-to-pause is only applied when auto-dismiss is enabled
+    if (hoverToPause && autoDismiss !== null) toastMessage.classList.add('hover-to-pause');
     toastMessage.setAttribute("aria-live", "assertive");
     toastMessage.setAttribute("role", "status");
     toastMessage.textContent = options.message;
@@ -120,3 +87,36 @@ function toastNotification(message, {
     if(autoDismiss) startTimer(data, toastMessage);
     activeToasts.set(toastMessage, data);
 }
+
+function setupToastContainer() {
+    const toast = document.querySelector(".toast-notifications");
+    const toastContainers = toast.children
+    for (const child of toastContainers) {
+        child.addEventListener('mouseover', (e) => {
+            const toastMessage = e.target.closest('.toast-message.hover-to-pause');
+            if (toastMessage && activeToasts.has(toastMessage)) {
+                const data = activeToasts.get(toastMessage);
+                clearTimeout(data.timeoutId);
+                const elapsed = Date.now() - data.startTime;
+                data.remaining -= elapsed;
+            }
+        });
+        child.addEventListener('mouseout', (e) => {
+            const toastMessage = e.target.closest('.toast-message.hover-to-pause');
+            if (toastMessage && activeToasts.has(toastMessage)) {
+                const data = activeToasts.get(toastMessage);
+                startTimer(data, toastMessage);
+            }
+        });
+        child.addEventListener('click', (e) => {
+            const toastMessage = e.target.closest('.toast-message.clickable');
+            if (toastMessage && activeToasts.has(toastMessage)) {
+                toastMessage.classList.add('exit');
+                toastMessage.addEventListener('animationend', () => toastMessage.remove(), { once: true });
+                activeToasts.delete(toastMessage);
+            }
+        });
+    }
+}
+
+setupToastContainer();
