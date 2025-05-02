@@ -25,98 +25,205 @@ export async function fetchRecruitableOperators(tags = []) {
         const message = error.name === 'TypeError'
             ? "Network error. Server Offline for the moment, try again later."
             : `Error: ${error.message}`;
-        toastNotification(message, { autoDismiss: null, key: 12});
+        toastNotification(message, { autoDismiss: 3000, key: 12});
         throw error;
     }
 }
 
+function startTimer(data, toastMessage) {
+        
+    data.startTime = Date.now();
+    data.timeoutId = setTimeout(() => {
+        toastMessage.classList.add('exit');
+        toastMessage.addEventListener('animationend', () => toastMessage.remove(), { once: true });
+        activeToasts.delete(toastMessage);
+    }, data.remaining);
+}
+
 function toastNotification(message, {
     autoDismiss = 5000,
-    clickToDismiss = true,
+    clickToDismiss = false,
     hoverToPause = true,
-    position = 'bottom', // top-left, top-right, bottom-left, bottom-right
+    position = 'top', // top-left, top-right, bottom-left, bottom-right
     type = 'info', // info, success, warning, error
     key = null,
-    repeat = false,
+    repeat = true,
 } = {}) {
+    // Ensure toast system is initialized
+    const system = initToasts();
     
+    // Validate position
+    position = position === 'bottom' ? 'bottom' : 'top';
 
-    let options = { message };
-    // Create or find the toast container
-    let toast = document.querySelector(".toast-notifications");
-    let toastContainer = toast ? toast.querySelector(`.toast-container[data-toast-position="${position}"]`) : null;
+    let toastContainer = system.container.querySelector(`.toast-container[data-toast-position="${position}"]`);
     // Check if a toast with the same key already exists to update it instead of creating a new one
-    if (key !== null && repeat) {
-        for (let [el, data] of activeToasts.entries()) {
-            if (data.key === key) {
+    if (key && !repeat) {
+        const existingToast = Array.from(activeToasts.entries())
+            .find(([toast, data]) => data.key == key);
+        if (existingToast) {
+            const [toast, data] = existingToast;
+            toast.classList.add('update');
+            toast.textContent = message;
+            if (autoDismiss) {
                 clearTimeout(data.timeoutId);
-                data.remaining = autoDismiss; // Reset remaining time
-                data.startTime = Date.now(); // Reset start time
-                el.textContent = message + " (Updated)"; // Update message
-                if(autoDismiss) startTimer(data, el); // Restart the timer
-                return;
+                data.remaining = autoDismiss;
+                startTimer(data, toast);
             }
+
+            if (clickToDismiss) toast.dataset.dismissible = '';
+            if (hoverToPause && autoDismiss) toastMessage.dataset.pausable = '';
+            return existingToast;
         }
     }
+
+    // Create new Toast
     const toastMessage = document.createElement("output");
-    toastMessage.className = `toast-message ${type} ${position}`;
-    if (clickToDismiss) toastMessage.classList.add('clickable');
-    // Ensure hover-to-pause is only applied when auto-dismiss is enabled
-    if (hoverToPause && autoDismiss !== null) toastMessage.classList.add('hover-to-pause');
+    toastMessage.className = 'toast-message';
+    toastMessage.dataset.type = type;
+    toastMessage.dataset.toastPosition = position;
+
+    // Set attributes
+    if (key) toastMessage.dataset.key = key;
+    if (clickToDismiss) toastMessage.dataset.dismissible = '';
+    if (hoverToPause && autoDismiss) toastMessage.dataset.pausable = '';
     toastMessage.setAttribute("aria-live", "assertive");
     toastMessage.setAttribute("role", "status");
-    toastMessage.textContent = options.message;
-    toastContainer.appendChild(toastMessage);
+    toastMessage.textContent = message;
+
+    // Set translate-y CSS variable for vertical animations
+    toastMessage.style.setProperty('--translate-y', position === 'top' ? '-100%' : '100%');
 
     const data = {
-        key: key,
+        key,
+        position,
+        type,
         remaining: autoDismiss,
         startTime: Date.now(),
         timeoutId: null,
     };
 
-    function startTimer(data, toastMessage) {
-        data.startTime = Date.now();
-        data.timeoutId = setTimeout(() => {
-            toastMessage.classList.add('exit');
-            toastMessage.addEventListener('animationend', () => toastMessage.remove(), { once: true });
-            activeToasts.delete(toastMessage);
-        }, data.remaining);
-    }
+    toastContainer.appendChild(toastMessage);
 
-    if(autoDismiss) startTimer(data, toastMessage);
+    if (autoDismiss) startTimer(data, toastMessage);
     activeToasts.set(toastMessage, data);
 }
 
+let toastSystem = null;
+
 function setupToastContainer() {
-    const toast = document.querySelector(".toast-notifications");
-    const toastContainers = toast.children
-    for (const child of toastContainers) {
-        child.addEventListener('mouseover', (e) => {
-            const toastMessage = e.target.closest('.toast-message.hover-to-pause');
-            if (toastMessage && activeToasts.has(toastMessage)) {
-                const data = activeToasts.get(toastMessage);
-                clearTimeout(data.timeoutId);
-                const elapsed = Date.now() - data.startTime;
-                data.remaining -= elapsed;
+    if (toastSystem?.cleanup) {
+        toastSystem.cleanup();
+    }
+    const toast = document.querySelector(".toast-notifications") || createToastContainer();
+
+    const intersectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting && entry.target.classList.contains('exit')) {
+                entry.target.remove();
+                activeToasts.delete(entry.target);
+                intersectionObserver.unobserve(entry.target);
             }
         });
-        child.addEventListener('mouseout', (e) => {
-            const toastMessage = e.target.closest('.toast-message.hover-to-pause');
-            if (toastMessage && activeToasts.has(toastMessage)) {
-                const data = activeToasts.get(toastMessage);
-                startTimer(data, toastMessage);
-            }
+    }, { threshold: 0 });
+
+    const mutationObserver = new MutationObserver((mutations) => {
+        mutations.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+                if (node.classList?.contains('toast-message')) {
+                    intersectionObserver.observe(node);
+                }
+            });
+            mutation.removedNodes.forEach(node => {
+                if (node.classList?.contains('toast-message')) {
+                    intersectionObserver.unobserve(node);
+                }
+            });
         });
-        child.addEventListener('click', (e) => {
-            const toastMessage = e.target.closest('.toast-message.clickable');
-            if (toastMessage && activeToasts.has(toastMessage)) {
-                toastMessage.classList.add('exit');
-                toastMessage.addEventListener('animationend', () => toastMessage.remove(), { once: true });
-                activeToasts.delete(toastMessage);
-            }
-        });
+    });
+
+    const handleMouseover = (e) => {
+        const toastMessage = e.target.closest('.toast-message[data-pausable]');
+        if (toastMessage && activeToasts.has(toastMessage)) {
+            const data = activeToasts.get(toastMessage);
+            clearTimeout(data.timeoutId);
+            const elapsed = Date.now() - data.startTime;
+            data.remaining = Math.max(0, data.remaining - elapsed);
+        }
+    };
+
+    const handleMouseout = (e) => {
+        const toastMessage = e.target.closest('.toast-message[data-pausable]');
+        if (toastMessage && activeToasts.has(toastMessage)) {
+            const data = activeToasts.get(toastMessage);
+            startTimer(data, toastMessage);
+        }
+    };
+
+    const handleClick = (e) => {
+        const toast = e.target.closest('.toast-message[data-dismissible]');
+        if (toast) {
+            toast.classList.add('exit');
+            toast.addEventListener('animationend', (event) => {
+                if (event.animationName === 'toast-exit') {
+                    toast.remove();
+                    activeToasts.delete(toast);
+                    intersectionObserver.unobserve(toast);
+                }
+            }, { once: true });
+        }
+    };
+
+    // Add event listeners using delegation
+    toast.addEventListener('mouseover', handleMouseover);
+    toast.addEventListener('mouseout', handleMouseout);
+    toast.addEventListener('click', handleClick);
+
+    mutationObserver.observe(toast, { childList: true, subtree: true });
+
+    // Store system state
+    toastSystem = {
+        container: toast,
+        intersectionObserver,
+        mutationObserver,
+        handleMouseover,
+        handleMouseout,
+        handleClick,
+        cleanup() {
+            this.mutationObserver.disconnect();
+            this.intersectionObserver.disconnect();
+            this.container.removeEventListener('mouseover', this.handleMouseover);
+            this.container.removeEventListener('mouseout', this.handleMouseout);
+            this.container.removeEventListener('click', this.handleClick);
+            activeToasts.clear();
+        }
+    };
+
+    return toastSystem;
+}
+
+function createToastContainer() {
+    const container = document.createElement('section');
+    container.className = 'toast-notifications';
+    document.body.appendChild(container);
+    return container;
+}
+
+// Replace direct call with initialization function
+export function initToasts() {
+    if (!toastSystem) {
+        console.log("Initializing toast system...");
+        setupToastContainer();
+    }
+    return toastSystem;
+}
+
+// Add cleanup function
+export function cleanupToasts() {
+    if (toastSystem) {
+        toastSystem.cleanup();
+        toastSystem = null;
     }
 }
 
-setupToastContainer();
+// Initialize toasts when module loads
+initToasts();
