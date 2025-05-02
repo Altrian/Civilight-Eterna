@@ -105,6 +105,7 @@ function populateTags(tags) {
     categoryDivider.className = "tag-category-divider";
     
     // Create tag-category divs
+    let isFirstTag = true; // Flag to check if it's the first iteration
     for (const category in categorizedTags) {
         const categoryDiv = document.createElement("div")
         categoryDiv.className = "tag-category";
@@ -132,7 +133,11 @@ function populateTags(tags) {
             listItem.setAttribute("role", "checkbox");
             listItem.setAttribute("aria-checked", "false");
             listItem.setAttribute("aria-checked", "false");
-            listItem.setAttribute("tabindex", "0");
+            listItem.setAttribute("tabindex", "-1");
+            if (isFirstTag) {
+                listItem.setAttribute("tabindex", "0");
+                isFirstTag = false; // Set to false after the first iteration
+            }
             listItem.setAttribute("aria-labelledby", tag.name);
 
             const input = document.createElement("input");
@@ -159,8 +164,8 @@ function populateTags(tags) {
     }
 
     // Event delegation for clicks
-    container.addEventListener("click", (event) => {
-        const li = event.target.closest(".tag-item");
+    container.addEventListener("click", (e) => {
+        const li = e.target.closest(".tag-item");
         if (!li || li.getAttribute("aria-disabled") === "true") return;
 
         const checkbox = li.querySelector("input[type='checkbox']");
@@ -168,6 +173,74 @@ function populateTags(tags) {
 
         checkbox.checked = !checkbox.checked;
         checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+
+    // Event delegation for keyboard navigation
+    container.addEventListener("keydown", (e) => {
+        const activeElement = document.activeElement;
+
+        if (!activeElement.classList.contains("tag-item")) return;
+
+        const currentTag = activeElement;
+        const currentList = currentTag.closest('.tag-list');
+        const currentCategory = currentTag.closest('.tag-category');
+
+        let nextTag = null;
+        if (e.key === 'ArrowRight') {
+            // Move to next tag in the same category
+            nextTag = currentTag.nextElementSibling;
+            while (nextTag && !nextTag.classList.contains('tag-item')) {
+                nextTag = nextTag.nextElementSibling;
+            }
+        } else if (e.key === 'ArrowLeft') {
+            // Move to previous tag in the same category
+            nextTag = currentTag.previousElementSibling;
+            while (nextTag && !nextTag.classList.contains('tag-item')) {
+                nextTag = nextTag.previousElementSibling;
+            }
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            // Move vertically between categories
+    
+            // First: find the index of the current item in its list
+            const tagsInCurrentList = Array.from(currentList.querySelectorAll('.tag-item'));
+            const currentIndex = tagsInCurrentList.indexOf(currentTag);
+    
+            let siblingCategory = null;
+            if (e.key === 'ArrowDown') {
+                // Next category
+                siblingCategory = currentCategory.nextElementSibling;
+                while (siblingCategory && !siblingCategory.classList.contains('tag-category')) {
+                    siblingCategory = siblingCategory.nextElementSibling;
+                }
+            } else if (e.key === 'ArrowUp') {
+                // Previous category
+                siblingCategory = currentCategory.previousElementSibling;
+                while (siblingCategory && !siblingCategory.classList.contains('tag-category')) {
+                    siblingCategory = siblingCategory.previousElementSibling;
+                }
+            }
+    
+            if (siblingCategory) {
+                const siblingList = siblingCategory.querySelector('.tag-list');
+                if (siblingList) {
+                    const tagsInSiblingList = Array.from(siblingList.querySelectorAll('.tag-item'));
+                    if (tagsInSiblingList.length > 0) {
+                        // Try to focus the tag in the same position, or fallback to the last one
+                        nextTag = tagsInSiblingList[Math.min(currentIndex, tagsInSiblingList.length - 1)];
+                    }
+                }
+            }
+        } else if (e.key === 'Enter') {
+            // Trigger click on the current tag
+            e.preventDefault();
+            currentTag.click();
+        }
+        if (nextTag) {
+            e.preventDefault();
+            currentTag.setAttribute('tabindex', '-1');
+            nextTag.setAttribute('tabindex', '0');
+            nextTag.focus();
+        }
     });
 
     // Handle checkbox logic
