@@ -341,6 +341,15 @@ async function updateOperators() {
         try {
             fetchedOperators = await fetchRecruitableOperators(missingTags);
         } catch (error) {
+            const container = document.getElementById("tag-selection");
+            missingTags.forEach(tagId => {
+                const checkbox = container.querySelector(`input[type="checkbox"][id="${tagId}"]`);
+                if (checkbox) {
+                    checkbox.checked = false;
+                    selectedTags.delete(tagId);
+                    updateTagsState();
+                }
+            })
             return; // Exit the function or handle the error as needed
         }
 
