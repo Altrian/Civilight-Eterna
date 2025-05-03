@@ -1,5 +1,5 @@
 const API_BASE_URL = "http://127.0.0.1:8000/api";
-const activeToasts = new Map();
+// Removed global activeToasts to use toastSystem.activeToasts consistently
 
 export async function fetchAllTags() {
     const response = await fetch(`${API_BASE_URL}/tags`);
@@ -30,14 +30,70 @@ export async function fetchRecruitableOperators(tags = []) {
     }
 }
 
-function startTimer(data, toastMessage) {
-        
+let toastSystem = null;
+
+function startTimer(toast, data) {
     data.startTime = Date.now();
     data.timeoutId = setTimeout(() => {
-        toastMessage.classList.add('exit');
-        toastMessage.addEventListener('animationend', () => toastMessage.remove(), { once: true });
-        activeToasts.delete(toastMessage);
+        toast.classList.add('exit');
+        toast.addEventListener('animationend', () => cleanupToast(toast), { once: true });
     }, data.remaining);
+}
+
+function cleanupToast(toast) {
+    if (!toast) return;
+    const data = toastSystem.activeToasts.get(toast);
+    if (data?.timeoutId) {
+        clearTimeout(data.timeoutId);
+        data.timeoutId = null;
+    }
+    toastSystem.activeToasts.delete(toast);  
+    toastSystem.intersectionObserver.unobserve(toast);
+    toast.remove();
+}
+
+function updateToast(message, options = {}) {
+    let existingToastEntry = null;
+    for (const [toast, data] of toastSystem.activeToasts.entries()) {
+        if (data.key === options.key) {
+            existingToastEntry = [toast, data];
+            break;
+        }
+    }
+    if (!existingToastEntry) return null; // No existing toast found with the same key
+    // Update existing toast
+    const [toast, data] = existingToastEntry;
+    const { autoDismiss, clickToDismiss, hoverToPause } = options;
+
+    toast.classList.add('update');
+    toast.textContent = message;
+
+    if (autoDismiss) {
+        clearTimeout(data.timeoutId);
+        data.remaining = autoDismiss;
+        startTimer(toast, data);
+    }
+
+    if (clickToDismiss) {
+        toast.dataset.dismissible = '';
+    } else {
+        delete toast.dataset.dismissible;
+    }
+
+    if (hoverToPause && autoDismiss) {
+        toast.dataset.pausable = '';
+    } else {
+        delete toast.dataset.pausable;
+    }
+
+    // Optional: remove 'update' class after the animation
+    toast.addEventListener('animationend', (event) => {
+        if (event.animationName === 'toast-update') {
+            toast.classList.remove('update');
+        }
+    }, { once: true });
+
+    return [toast, data];
 }
 
 function toastNotification(message, {
@@ -55,25 +111,11 @@ function toastNotification(message, {
     // Validate position
     position = position === 'bottom' ? 'bottom' : 'top';
 
-    let toastContainer = system.container.querySelector(`.toast-container[data-toast-position="${position}"]`);
+    const toastContainer = system.container.querySelector(`.toast-container[data-toast-position="${position}"]`);
     // Check if a toast with the same key already exists to update it instead of creating a new one
     if (key && !repeat) {
-        const existingToast = Array.from(activeToasts.entries())
-            .find(([toast, data]) => data.key == key);
-        if (existingToast) {
-            const [toast, data] = existingToast;
-            toast.classList.add('update');
-            toast.textContent = message;
-            if (autoDismiss) {
-                clearTimeout(data.timeoutId);
-                data.remaining = autoDismiss;
-                startTimer(data, toast);
-            }
-
-            if (clickToDismiss) toast.dataset.dismissible = '';
-            if (hoverToPause && autoDismiss) toastMessage.dataset.pausable = '';
-            return existingToast;
-        }
+        const updatedToast = updateToast(message, { autoDismiss, clickToDismiss, hoverToPause });
+        if (updatedToast) return;
     }
 
     // Create new Toast
@@ -104,24 +146,21 @@ function toastNotification(message, {
 
     toastContainer.appendChild(toastMessage);
 
-    if (autoDismiss) startTimer(data, toastMessage);
-    activeToasts.set(toastMessage, data);
+    if (autoDismiss) startTimer(toastMessage, data);
+    toastSystem.activeToasts.set(toastMessage, data);
+    return;
 }
-
-let toastSystem = null;
 
 function setupToastContainer() {
     if (toastSystem?.cleanup) {
         toastSystem.cleanup();
     }
-    const toast = document.querySelector(".toast-notifications") || createToastContainer();
+    const container = document.querySelector(".toast-notifications") || createToastContainer();
 
     const intersectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting && entry.target.classList.contains('exit')) {
-                entry.target.remove();
-                activeToasts.delete(entry.target);
-                intersectionObserver.unobserve(entry.target);
+                cleanupToast(entry.target);
             }
         });
     }, { threshold: 0 });
@@ -133,18 +172,13 @@ function setupToastContainer() {
                     intersectionObserver.observe(node);
                 }
             });
-            mutation.removedNodes.forEach(node => {
-                if (node.classList?.contains('toast-message')) {
-                    intersectionObserver.unobserve(node);
-                }
-            });
         });
     });
 
     const handleMouseover = (e) => {
         const toastMessage = e.target.closest('.toast-message[data-pausable]');
-        if (toastMessage && activeToasts.has(toastMessage)) {
-            const data = activeToasts.get(toastMessage);
+        if (toastMessage && toastSystem.activeToasts.has(toastMessage)) {
+            const data = toastSystem.activeToasts.get(toastMessage);
             clearTimeout(data.timeoutId);
             const elapsed = Date.now() - data.startTime;
             data.remaining = Math.max(0, data.remaining - elapsed);
@@ -153,9 +187,9 @@ function setupToastContainer() {
 
     const handleMouseout = (e) => {
         const toastMessage = e.target.closest('.toast-message[data-pausable]');
-        if (toastMessage && activeToasts.has(toastMessage)) {
-            const data = activeToasts.get(toastMessage);
-            startTimer(data, toastMessage);
+        if (toastMessage && toastSystem.activeToasts.has(toastMessage)) {
+            const data = toastSystem.activeToasts.get(toastMessage);
+            startTimer(toastMessage, data);
         }
     };
 
@@ -165,24 +199,23 @@ function setupToastContainer() {
             toast.classList.add('exit');
             toast.addEventListener('animationend', (event) => {
                 if (event.animationName === 'toast-exit') {
-                    toast.remove();
-                    activeToasts.delete(toast);
-                    intersectionObserver.unobserve(toast);
+                    cleanupToast(toast);
                 }
             }, { once: true });
         }
     };
 
     // Add event listeners using delegation
-    toast.addEventListener('mouseover', handleMouseover);
-    toast.addEventListener('mouseout', handleMouseout);
-    toast.addEventListener('click', handleClick);
+    container.addEventListener('mouseover', handleMouseover);
+    container.addEventListener('mouseout', handleMouseout);
+    container.addEventListener('click', handleClick);
 
-    mutationObserver.observe(toast, { childList: true, subtree: true });
+    mutationObserver.observe(container, { childList: true });
 
     // Store system state
     toastSystem = {
-        container: toast,
+        container: container,
+        activeToasts: new WeakMap(),
         intersectionObserver,
         mutationObserver,
         handleMouseover,
@@ -191,10 +224,15 @@ function setupToastContainer() {
         cleanup() {
             this.mutationObserver.disconnect();
             this.intersectionObserver.disconnect();
-            this.container.removeEventListener('mouseover', this.handleMouseover);
-            this.container.removeEventListener('mouseout', this.handleMouseout);
-            this.container.removeEventListener('click', this.handleClick);
-            activeToasts.clear();
+            container.removeEventListener('mouseover', this.handleMouseover);
+            container.removeEventListener('mouseout', this.handleMouseout);
+            container.removeEventListener('click', this.handleClick);
+
+            // Clean up all active toasts
+            for (const [toast] of this.activeToasts.entries()) {
+                cleanupToast(toast);
+            }
+            this.activeToasts.clear();
         }
     };
 
