@@ -1356,7 +1356,7 @@ small {
   
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 15;
   pointer-events: none;
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -1388,6 +1388,7 @@ small {
   --exit-duration: 200ms;
   --dismiss-time: 5000ms;
   
+  pointer-events: none;
   width: var(--toast-width);
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
@@ -1395,7 +1396,6 @@ small {
   color: rgb(var(--color));
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   font-size: 0.875rem;
-  pointer-events: auto;
   position: relative;
   overflow: hidden;
 }
@@ -1407,21 +1407,21 @@ small {
 .toast-message[data-type="error"] { background: rgb(var(--theme-status-red)); }
 
 /* Mobile animations (vertical) */
-.toast-message[data-toast-position="top"] {
+.toast-container[data-toast-position="top"] .toast-message {
   transform: translateY(-100%);
   animation: toast-enter-vertical var(--enter-duration) ease forwards;
 }
 
-.toast-message[data-toast-position="bottom"] {
+.toast-container[data-toast-position="bottom"] .toast-message {
   transform: translateY(100%);
   animation: toast-enter-vertical var(--enter-duration) ease forwards;
 }
 
-.toast-message.exit[data-toast-position="top"] {
+.toast-container[data-toast-position="top"] .toast-message.exit {
   animation: toast-exit-vertical-top var(--exit-duration) ease forwards;
 }
 
-.toast-message.exit[data-toast-position="bottom"] {
+.toast-container[data-toast-position="bottom"] .toast-message.exit {
   animation: toast-exit-vertical-bottom var(--exit-duration) ease forwards;
 }
 
@@ -1441,6 +1441,7 @@ small {
 
 /* Interactive states */
 .toast-message[data-dismissible] {
+  pointer-events: auto;
   cursor: pointer;
 }
 
@@ -1449,7 +1450,7 @@ small {
 }
 
 /* Desktop styles */
-@media (min-width: 768px) {
+@media (min-width: 64rem) {
   .toast-notifications {
       --toast-width: 24rem;
   }
@@ -1460,12 +1461,12 @@ small {
   }
 
   /* Horizontal animation only for top toasts on desktop */
-  .toast-message[data-toast-position="top"] {
+  .toast-container[data-toast-position="top"] .toast-message {
       transform: translateX(100%);
       animation: toast-enter-horizontal var(--enter-duration) ease forwards;
   }
 
-  .toast-message[data-toast-position="top"].exit {
+  .toast-container[data-toast-position="top"] .toast-message.exit {
       animation: toast-exit-horizontal var(--exit-duration) ease forwards;
   }
 }
@@ -1474,7 +1475,6 @@ small {
 @keyframes toast-enter-vertical {
   from {
       opacity: 0;
-      transform: translateY(var(--translate-y, 100%));
   }
   to {
       opacity: 1;
@@ -1507,7 +1507,6 @@ small {
 @keyframes toast-enter-horizontal {
   from {
       opacity: 0;
-      transform: translateX(100%);
   }
   to {
       opacity: 1;
