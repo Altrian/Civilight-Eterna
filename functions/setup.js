@@ -10,16 +10,6 @@ export async function onRequestPost(context) {
       }
   
       const db = context.env.DB;
-
-      const createTableSQL = `
-      CREATE TABLE IF NOT EXISTS recruitment_tags (
-        id INTEGER PRIMARY KEY,
-        tag_name TEXT NOT NULL
-      );
-    `;
-
-    // Execute the query
-    await db.prepare(createTableSQL).run();
       const insertStmt = db.prepare(`
         INSERT INTO recruitment_tags (id, tag_name)
         VALUES (?, ?)
