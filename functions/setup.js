@@ -9,7 +9,7 @@ export async function onRequestPost(context) {
         );
       }
   
-      const db = context.env.DB;
+      const db = context.env.ARKNIGHTS_DB;
       const insertStmt = db.prepare(`
         INSERT INTO recruitment_tags (id, tag_name)
         VALUES (?, ?)
