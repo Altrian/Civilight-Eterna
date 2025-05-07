@@ -12,6 +12,9 @@ export async function fetchAllTags() {
 }
 
 export async function fetchRecruitableOperators(tags = []) {
+    // Constructs the URL based on the presence of tags
+    // If tags are provided, the URL will include a query string with tag IDs
+    // If no tags are provided, it will fetch all operators
     const url = tags.length 
         ? `${API_BASE_URL}/filter?${tags.map(tag => `tag_ids=${tag}`).join('&')}` 
         : `${API_BASE_URL}/operators`;
@@ -31,4 +34,3 @@ export async function fetchRecruitableOperators(tags = []) {
         throw error;
     }
 }
-

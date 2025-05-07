@@ -2,7 +2,7 @@ export async function onRequestPost(context) {
     try {
       const data = await context.request.json();
   
-      if (!data.gachaTags || !Array.isArray(data.gachaTags)) {
+      if (!data?.gachaTags || !Array.isArray(data.gachaTags)) {
         return new Response(
           JSON.stringify({ error: 'Invalid JSON format: expected gachaTags array.' }),
           { status: 400, headers: { 'Content-Type': 'application/json' } }
@@ -10,6 +10,12 @@ export async function onRequestPost(context) {
       }
   
       const db = context.env.ARKNIGHTS_DB;
+      if (!db) {
+        return new Response(
+          JSON.stringify({ error: 'Database instance is not configured properly.' }),
+          { status: 500, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
       const insertStmt = db.prepare(`
         INSERT INTO recruitment_tags (id, tag_name)
         VALUES (?, ?)
