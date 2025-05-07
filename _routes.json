@@ -1,5 +1,0 @@
-{
-    "version": 2,
-    "include": ["/*"],
-    "exclude": ["/functions/*", "/api/*"] 
-}
