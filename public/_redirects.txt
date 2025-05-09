@@ -1,1 +1,4 @@
-/* / 200
+/*  /  200
+/about  /index.html  200
+/home302  /  302
+/querystrings  /?query=string  301
