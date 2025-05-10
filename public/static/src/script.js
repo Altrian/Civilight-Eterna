@@ -138,7 +138,7 @@ function populateTags(tags) {
                 listItem.setAttribute("tabindex", "0");
                 isFirstTag = false; // Set to false after the first iteration
             }
-            listItem.setAttribute("aria-labelledby", tag.name);
+            listItem.setAttribute("aria-labelledby", tag.tag_name);
 
             const input = document.createElement("input");
             input.className = "checkbox-input";
@@ -152,7 +152,7 @@ function populateTags(tags) {
 
             const span = document.createElement("span");
             span.className = "tag-item-name";
-            span.textContent = tag.name;
+            span.textContent = tag.tag_name;
             itemContainer.appendChild(span);
 
             listItem.appendChild(input);
@@ -467,11 +467,11 @@ function displayResults() {
     // Calculate which sections should be visible
     selectedTags.forEach(tagId => {
         const tag = allTags.find(t => t.id === tagId);
-        const key = getSectionKey(tag.name);
+        const key = getSectionKey(tag.tag_name);
         if (!currentSections.has(key)) {
             // Create section only if it doesn't exist
             const section = createSection({
-                title: tag.name,
+                title: tag.tag_name,
                 tagIds: tagId,
                 allowRarity6: tagId === 11
             });
