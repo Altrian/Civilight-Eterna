@@ -1,6 +1,6 @@
 export async function onRequest(context) {
     const { results } = await context.env.ARKNIGHTS_DB
-        .prepare('SELECT id, tag_name FROM tags')
+        .prepare('SELECT id, tag_name FROM recruitment_tags')
         .all();
 
     return new Response(JSON.stringify(results), {
