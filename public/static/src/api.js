@@ -1,10 +1,10 @@
 import { toastNotification } from "./toast.js";
 
-const API_BASE_URL = "http://127.0.0.1:8000/api";
+const API_BASE_URL = "/api/arknights";
 
 
 export async function fetchAllTags() {
-    const response = await fetch(`${API_BASE_URL}/tags`);
+    const response = await fetch(`${API_BASE_URL}/recruitment-tags`);
     if (!response.ok) {
         throw new Error(`Failed to fetch tags: ${response.status}`);
     }
