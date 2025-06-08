@@ -59,8 +59,8 @@ async function loadRecruitment(forceUpdate = false) {
     let tags = []
     const isTagOutdated = await isLocalDataOutdated("tags", jsonData.tags.updatedAt);
     if (isTagOutdated || forceUpdate) {
-        tags = await fetchAllTags();
-        saveToDB("tags", jsonData.tags);
+        await saveToDB("tags", jsonData.tags);
+        tags = await getFromDB("tags");
     } else {
         tags = await getFromDB("tags");
     }
