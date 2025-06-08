@@ -4,7 +4,7 @@ const API_BASE_URL = "/static/arknights";
 
 
 export async function fetchAllTags() {
-    const response = await fetch(`${API_BASE_URL}/recruitment.json`);
+    const response = await fetch(`https://development.civilight-eterna.pages.dev/static/arknights/recruitment.json`);
     if (!response.ok) {
         throw new Error(`Failed to fetch tags: ${response.status}`);
     }
