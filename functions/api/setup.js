@@ -103,7 +103,7 @@ export async function onRequestPost(context) {
 
       await db.batch(
         data.operators.data(operator =>
-          operator.tags.map(tagId =>
+          [...new Set(operator.tags)].map(tagId =>
             operatorTagStmt.bind(operator.id, tagId)
           )
         ).flat()
