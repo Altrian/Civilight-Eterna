@@ -66,9 +66,9 @@ async function loadRecruitment(forceUpdate = false) {
     }
     populateTags(tags);
 
-    const isOperatorOutdated = await isLocalDataOutdated("operators", jsonData.operators.updatedAt);
+    const isOperatorOutdated = await isLocalDataOutdated("operators", jsonData.recruitment_list.updatedAt);
     if (isOperatorOutdated || forceUpdate) {
-        await saveToDB("operators", jsonData.operators);
+        await saveToDB("operators", jsonData.recruitment_list);
     } 
 }
 
