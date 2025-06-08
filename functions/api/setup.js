@@ -2,7 +2,7 @@ export async function onRequestPost(context) {
     try {
       const data = await context.request.json();
   
-      if (!data?.tags.data || !Array.isArray(data.tags.data)) {
+      if (!(data?.tags.data || data?.recruitment_list.data) || !Array.isArray(data.tags.data)) {
         return new Response(
           JSON.stringify({ error: 'Invalid JSON format: expected data array from tags.' }),
           { status: 400, headers: { 'Content-Type': 'application/json' } }
@@ -67,7 +67,7 @@ export async function onRequestPost(context) {
       `);
       
       await db.batch(
-        data.operators.data.map(operator =>
+        data.recruitment_list.data.map(operator =>
           operatorsStmt.bind(
             operator.id,
             operator.appellation,
@@ -104,7 +104,7 @@ export async function onRequestPost(context) {
       `);
 
       await db.batch(
-        data.operators.data(operator =>
+        data.recruitment_list.data(operator =>
           [...new Set(operator.tags)].map(tagId =>
             operatorTagStmt.bind(operator.id, tagId)
           )
