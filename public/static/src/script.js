@@ -112,6 +112,12 @@ function populateTags(tags) {
             categorizedTags.Specialization.push(tag);
         }
     });
+    // Sort Specialization tags by name
+    const locale = navigator.language || 'en'; // fallback to 'en' if unavailable
+    categorizedTags.Specialization.sort((a, b) =>
+        a[`name_${locale}`]?.localeCompare(b[`name_${locale}`], locale) ??
+        a[`name_en`]?.localeCompare(b[`name_en`], 'en') // fallback if field is missing
+    );
 
     // Create tag-category divider
     const categoryDivider = document.createElement("hr");
