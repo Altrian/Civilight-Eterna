@@ -1,6 +1,6 @@
 import { toastNotification } from "./toast.js";
 
-const API_BASE_URL = "static/arknights";
+const API_BASE_URL = "/static/arknights";
 
 
 export async function fetchAllTags() {
