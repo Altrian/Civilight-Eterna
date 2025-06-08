@@ -17,7 +17,7 @@ export async function onRequestPost(context) {
         );
       }
 
-      await db.batch([
+      const createTables = [
         db.exec(`
           CREATE TABLE IF NOT EXISTS operators (
             id TEXT PRIMARY KEY,
@@ -48,7 +48,9 @@ export async function onRequestPost(context) {
             FOREIGN KEY (tag_id) REFERENCES recruitment_tags(id)
           )
         `)
-      ]);
+      ];
+
+      await db.batch(createTables);
 
       const operatorsStmt = db.prepare(`
         INSERT INTO operators (id, appellation, name_zh, name_en, name_ja, rarity, profession, subProfessionId, IsRecruitOnly)
@@ -65,13 +67,13 @@ export async function onRequestPost(context) {
       `);
       
       await db.batch(
-        data.operators.data(operator =>
+        data.operators.data.map(operator =>
           operatorsStmt.bind(
             operator.id,
             operator.appellation,
             operator.name_zh,
             operator.name_en,
-            operator.name_jp,
+            operator.name_ja,
             operator.rarity,
             operator.profession,
             operator.subProfessionId,
