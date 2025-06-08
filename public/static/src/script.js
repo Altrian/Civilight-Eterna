@@ -1,5 +1,5 @@
-import { fetchAllTags, fetchRecruitableOperators } from "./api.js";
-import { saveToDB, getFromDB } from "./db.js";
+import { fetchAllTags, fetchRecruitableOperators, fetchRecruitmentData } from "./api.js";
+import { saveToDB, getFromDB, isLocalDataOutdated } from "./db.js";
 
 let STORAGE_KEY_COMMON = 'hideRarityCommonSections';
 let STORAGE_KEY_ROBOT = 'hideOnlyRarityRobotSections';
@@ -53,6 +53,19 @@ window.addEventListener("beforeinstallprompt", event => {
 window.addEventListener("appinstalled", () => {
     isPWAInstalled = true;
 });
+
+async function loadRecruitment(forceUpdate = false) {
+    let jsonData = await fetchRecruitmentData()
+    let tags = []
+    const isTagOutdated = await isLocalDataOutdated("tags", jsonData.tags.updatedAt);
+    if (isTagOutdated || forceUpdate) {
+        tags = await fetchAllTags();
+        saveToDB("tags", jsonData.tags);
+    } else {
+        tags = await getFromDB("tags");
+    }
+    populateTags(tags);
+}
 
 async function fetchAllOperators() {
     const operators = await fetchRecruitableOperators();
@@ -834,6 +847,6 @@ function initializeCheckbox(checkboxId) {
 document.addEventListener('DOMContentLoaded', () => {
     initializeCheckbox('toggle-rarity-common');
     initializeCheckbox('toggle-rarity-robot');
-    loadTags();
+    loadRecruitment();
 });
 

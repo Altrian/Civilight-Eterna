@@ -11,6 +11,14 @@ export async function fetchAllTags() {
     return response.json();
 }
 
+export async function fetchRecruitmentData() {
+    const response = await fetch(`${API_BASE_URL}/recruitment`);
+    if (!response.ok) {
+        throw new Error(`Failed to fetch recruitment data: ${response.status}`);
+    }
+    return response.json();
+}
+
 export async function fetchRecruitableOperators(tags = []) {
     // Constructs the URL based on the presence of tags
     // If tags are provided, the URL will include a query string with tag IDs
