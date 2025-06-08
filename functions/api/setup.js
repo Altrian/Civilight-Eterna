@@ -28,14 +28,14 @@ export async function onRequestPost(context) {
           profession TEXT,
           subProfessionId TEXT,
           IsRecruitOnly BOOLEAN
-        )`),
+        )`.trim()),
 
         db.exec(`CREATE TABLE IF NOT EXISTS recruitment_tags (
           id INTEGER PRIMARY KEY,
           name_zh TEXT,
           name_en TEXT,
           name_jp TEXT
-        )`),
+        )`.trim()),
 
         db.exec(`CREATE TABLE IF NOT EXISTS operators_tags (
           operator_id TEXT,
@@ -43,7 +43,7 @@ export async function onRequestPost(context) {
           PRIMARY KEY (operator_id, tag_id),
           FOREIGN KEY (operator_id) REFERENCES operators(id),
           FOREIGN KEY (tag_id) REFERENCES recruitment_tags(id)
-        )`)
+        )`.trim())
       ];
 
       await Promise.all(createTables);
