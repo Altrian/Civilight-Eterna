@@ -1,10 +1,10 @@
 import { toastNotification } from "./toast.js";
 
-const API_BASE_URL = "/static/arknights";
+const API_BASE_URL = "/api/arknights";
 
 
 export async function fetchAllTags() {
-    const response = await fetch(`https://development.civilight-eterna.pages.dev/static/arknights/recruitment.json`);
+    const response = await fetch(`${API_BASE_URL}/recruitment-tags`);
     if (!response.ok) {
         throw new Error(`Failed to fetch tags: ${response.status}`);
     }
@@ -12,7 +12,7 @@ export async function fetchAllTags() {
 }
 
 export async function fetchRecruitmentData() {
-    const response = await fetch(`${API_BASE_URL}/recruitment`);
+    const response = await fetch(`/static/arknights/recruitment.json`);
     if (!response.ok) {
         throw new Error(`Failed to fetch recruitment data: ${response.status}`);
     }
