@@ -58,8 +58,8 @@ export async function getFromDB(storeName) {
     });
 }
 
-export async function isLocalDataOutdated(storeName, remoteDateStr, db) {
-    const db = db || await openDB();
+export async function isLocalDataOutdated(storeName, remoteDateStr) {
+    const db = await openDB();
     const tx = db.transaction("meta", "readonly");
     const metaStore = tx.objectStore("meta");
 
