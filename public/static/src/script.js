@@ -54,24 +54,6 @@ window.addEventListener("appinstalled", () => {
     isPWAInstalled = true;
 });
 
-async function loadRecruitment(forceUpdate = false) {
-    let jsonData = await fetchRecruitmentData()
-    let tags = []
-    const isTagOutdated = await isLocalDataOutdated("tags", jsonData.tags.updatedAt);
-    if (isTagOutdated || forceUpdate) {
-        await saveToDB("tags", jsonData.tags);
-        tags = await getFromDB("tags");
-    } else {
-        tags = await getFromDB("tags");
-    }
-    populateTags(tags);
-
-    const isOperatorOutdated = await isLocalDataOutdated("operators", jsonData.recruitment_list.updatedAt);
-    if (isOperatorOutdated || forceUpdate) {
-        await saveToDB("operators", jsonData.recruitment_list);
-    } 
-}
-
 async function fetchAllOperators() {
     const operators = await fetchRecruitableOperators();
     saveToDB("operators", operators);
@@ -437,6 +419,7 @@ async function updateOperators() {
         let fetchedOperators = [];
         try {
             fetchedOperators = await fetchRecruitableOperators(missingTags);
+            
         } catch (error) {
             const container = document.getElementById("tag-selection");
             missingTags.forEach(tagId => {
@@ -858,6 +841,6 @@ function initializeCheckbox(checkboxId) {
 document.addEventListener('DOMContentLoaded', () => {
     initializeCheckbox('toggle-rarity-common');
     initializeCheckbox('toggle-rarity-robot');
-    loadRecruitment();
+    loadTags();
 });
 

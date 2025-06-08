@@ -10,12 +10,10 @@ function openDB() {
             db = event.target.result;
             if (!db.objectStoreNames.contains("tags")) {
                 db.createObjectStore("tags", { keyPath: "id" });
-            }
+}
             if (!db.objectStoreNames.contains("operators")) {
-                db.createObjectStore("operators", { keyPath: "id" });
-            }
-            if (!db.objectStoreNames.contains("meta")) {
-                db.createObjectStore("meta", { keyPath: "key" }); // e.g., key: 'tags-updatedAt'
+                store = db.createObjectStore("operators", { keyPath: "id" });
+                store.createIndex("tagsIndex", "tags", { multiEntry: true });
             }
         };
 
@@ -30,17 +28,12 @@ function openDB() {
     });
 }
 
-export async function saveToDB(storeName, storeData) {
+export async function saveToDB(storeName, data) {
     const db = await openDB();
-    const transaction = db.transaction([storeName, "meta"], "readwrite");
+    const transaction = db.transaction(storeName, "readwrite");
     const store = transaction.objectStore(storeName);
-    const metaStore = transaction.objectStore("meta");
 
-    storeData.data.forEach(item => store.put(item));
-    metaStore.put({
-        key: `${storeName}-updatedAt`,
-        value: storeData.updatedAt
-    });
+    data.forEach(item => store.put(item));
 
     return transaction.complete;
 }

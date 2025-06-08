@@ -2,9 +2,9 @@ export async function onRequestPost(context) {
     try {
       const data = await context.request.json();
   
-      if (!data?.gachaTags || !Array.isArray(data.gachaTags)) {
+      if (!data?.tags.data || !Array.isArray(data.tags.data)) {
         return new Response(
-          JSON.stringify({ error: 'Invalid JSON format: expected gachaTags array.' }),
+          JSON.stringify({ error: 'Invalid JSON format: expected data array from tags.' }),
           { status: 400, headers: { 'Content-Type': 'application/json' } }
         );
       }
@@ -16,20 +16,99 @@ export async function onRequestPost(context) {
           { status: 500, headers: { 'Content-Type': 'application/json' } }
         );
       }
-      const insertStmt = db.prepare(`
-        INSERT INTO recruitment_tags (id, tag_name)
-        VALUES (?, ?)
+
+      await db.batch([
+        db.exec(`
+          CREATE TABLE IF NOT EXISTS operators (
+            id TEXT PRIMARY KEY,
+            appellation TEXT,
+            name_zh TEXT,
+            name_en TEXT,
+            name_ja TEXT,
+            rarity TEXT,
+            profession TEXT,
+            subProfessionId TEXT,
+            IsRecruitOnly BOOLEAN
+          )
+        `),
+        db.exec(`
+          CREATE TABLE IF NOT EXISTS recruitment_tags (
+            id INTEGER PRIMARY KEY,
+            name_zh TEXT,
+            name_en TEXT,
+            name_jp TEXT
+          )
+        `),
+        db.exec(`
+          CREATE TABLE IF NOT EXISTS operators_tags (
+            operator_id TEXT,
+            tag_id INTEGER,
+            PRIMARY KEY (operator_id, tag_id),
+            FOREIGN KEY (operator_id) REFERENCES operators(id),
+            FOREIGN KEY (tag_id) REFERENCES recruitment_tags(id)
+          )
+        `)
+      ]);
+
+      const operatorsStmt = db.prepare(`
+        INSERT INTO operators (id, appellation, name_zh, name_en, name_ja, rarity, profession, subProfessionId, IsRecruitOnly)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE SET
-          tag_name = excluded.tag_name
+          appellation = excluded.appellation,
+          name_zh = excluded.name_zh,
+          name_en = excluded.name_en,
+          name_ja = excluded.name_ja,
+          rarity = excluded.rarity,
+          profession = excluded.profession,
+          subProfessionId = excluded.subProfessionId,
+          IsRecruitOnly = excluded.IsRecruitOnly
+      `);
+      
+      await db.batch(
+        data.operators.data(operator =>
+          operatorsStmt.bind(
+            operator.id,
+            operator.appellation,
+            operator.name_zh,
+            operator.name_en,
+            operator.name_jp,
+            operator.rarity,
+            operator.profession,
+            operator.subProfessionId,
+            operator.IsRecruitOnly
+          )
+        )
+      );
+      
+      const tagStmt = db.prepare(`
+        INSERT INTO recruitment_tags (id, name_zh, name_en, name_jp)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+          name_zh = excluded.name_zh,
+          name_en = excluded.name_en,
+          name_jp = excluded.name_jp
       `);
   
-      const batch = db.batch(
-        data.gachaTags.map(tag =>
-          insertStmt.bind(tag.tagId, tag.tagName)
+      await db.batch(
+        data.tags.data(tag =>
+          tagStmt.bind(tag.id, tag.name_zh, tag.name_en, tag.name_jp)
+        )
+      );
+
+      const operatorTagStmt = db.prepare(`
+        INSERT OR IGNORE INTO operators_tags (operator_id, tag_id)
+        VALUES (?, ?)
+        ON CONFLICT(operator_id, tag_id) DO NOTHING
+      `);
+
+      await db.batch(
+        data.operators.data(operator =>
+          operator.tags.map(tagId =>
+            operatorTagStmt.bind(operator.id, tagId)
+          )
         )
       );
   
-      await batch;
   
       return new Response(
         JSON.stringify({ status: 'Tags populated successfully.', count: data.gachaTags.length }),
