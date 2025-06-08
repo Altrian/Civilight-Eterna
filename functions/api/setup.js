@@ -106,7 +106,7 @@ export async function onRequestPost(context) {
           operator.tags.map(tagId =>
             operatorTagStmt.bind(operator.id, tagId)
           )
-        )
+        ).flat()
       );
   
   
