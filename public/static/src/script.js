@@ -151,7 +151,7 @@ function populateTags(tags) {
                 listItem.setAttribute("tabindex", "0");
                 isFirstTag = false; // Set to false after the first iteration
             }
-            listItem.setAttribute("aria-labelledby", tag.tag_name);
+            listItem.setAttribute("aria-labelledby", tag.name_en);
 
             const input = document.createElement("input");
             input.className = "checkbox-input";
@@ -165,7 +165,7 @@ function populateTags(tags) {
 
             const span = document.createElement("span");
             span.className = "tag-item-name";
-            span.textContent = tag.tag_name;
+            span.textContent = tag.name_en;
             itemContainer.appendChild(span);
 
             listItem.appendChild(input);
