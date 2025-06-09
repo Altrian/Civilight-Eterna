@@ -10,10 +10,6 @@ function openDB() {
             db = event.target.result;
             if (!db.objectStoreNames.contains("tags")) {
                 db.createObjectStore("tags", { keyPath: "id" });
-}
-            if (!db.objectStoreNames.contains("operators")) {
-                store = db.createObjectStore("operators", { keyPath: "id" });
-                store.createIndex("tagsIndex", "tags", { multiEntry: true });
             }
         };
 

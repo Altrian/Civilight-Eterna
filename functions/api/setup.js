@@ -61,7 +61,7 @@ export async function onRequestPost(context) {
   
   
       return new Response(
-        JSON.stringify({ status: 'Tags populated successfully.', count: data.gachaTags.length }),
+        JSON.stringify({ status: 'Tags populated successfully.', count: data.tags.data.length }),
         { headers: { 'Content-Type': 'application/json' } }
       );
     } catch (err) {
