@@ -44,7 +44,7 @@ export async function onRequestPost(context) {
       await db.batch(operatorBindings);
       
       const tagStmt = db.prepare(`INSERT INTO recruitment_tags (id, name_zh, name_en, name_jp) VALUES (?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET name_zh = excluded.name_zh, name_en = excluded.name_en, name_jp = excluded.name_jp`);
-      const tagBindings = data.tags.data(tag =>
+      const tagBindings = data.tags.data.map(tag =>
         tagStmt.bind(tag.id, tag.name_zh, tag.name_en, tag.name_jp)
       )
       
