@@ -51,7 +51,7 @@ export async function onRequestPost(context) {
       await db.batch(tagBindings);
 
       const operatorTagStmt = db.prepare(`INSERT OR IGNORE INTO operators_tags (operator_id, tag_id) VALUES (?, ?) ON CONFLICT(operator_id, tag_id) DO NOTHING`);
-      const operatorTagBindings = data.recruitment_list.data(operator =>
+      const operatorTagBindings = data.recruitment_list.data.map(operator =>
         [...new Set(operator.tags)].map(tagId =>
           operatorTagStmt.bind(operator.id, tagId)
         )
