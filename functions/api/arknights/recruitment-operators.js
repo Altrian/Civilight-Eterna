@@ -4,11 +4,6 @@ export async function onRequest(context) {
     const { request, env } = context;
     const url = new URL(request.url);
 
-    // Check if the request is for recruitment tags
-    if (url.pathname !== '/filter') {
-      return new Response('Not Found', { status: 404 });
-    }
-
     const db = env.ARKNIGHTS_DB;
 
     const raw = url.searchParams.get('tag_ids');
