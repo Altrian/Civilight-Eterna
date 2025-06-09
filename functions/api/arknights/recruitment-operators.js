@@ -29,8 +29,8 @@ export async function onRequest(context) {
       bindArgs = [...tagIds, tagIds.length];
     }
 
-    const result = await db.prepare(sql).bind(...bindArgs).all();
-    return new Response(JSON.stringify(result.results), {
+    const { result } = await db.prepare(sql).bind(...bindArgs).all();
+    return new Response(JSON.stringify(result), {
       headers: { "Content-Type": "application/json" }
     });
 
