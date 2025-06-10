@@ -30,7 +30,12 @@ export async function onRequest(context) {
     }
 
     const { results } = await db.prepare(sql).bind(...bindArgs).all();
-    return new Response(JSON.stringify(results), {
+    const parsedResults = results.map(operators => ({
+      ...operators,
+      tags: operators.tags ? JSON.parse(operators.tags) : []
+    }));
+
+    return new Response(JSON.stringify(parsedResults), {
       headers: { "Content-Type": "application/json" }
     });
 

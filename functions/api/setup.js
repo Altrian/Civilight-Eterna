@@ -18,7 +18,7 @@ export async function onRequestPost(context) {
       }
 
       const createTables = [
-        db.exec(`CREATE TABLE IF NOT EXISTS operators (id TEXT PRIMARY KEY, appellation TEXT, name_zh TEXT, name_ja TEXT, name_en TEXT, rarity TEXT, profession TEXT, subProfessionId TEXT, IsRecruitOnly BOOLEAN)`),
+        db.exec(`CREATE TABLE IF NOT EXISTS operators (id TEXT PRIMARY KEY, appellation TEXT, name_zh TEXT, name_ja TEXT, name_en TEXT, rarity TEXT, profession TEXT, subProfessionId TEXT, IsRecruitOnly BOOLEAN, tags TEXT)`),
         db.exec(`CREATE TABLE IF NOT EXISTS recruitment_tags (id INTEGER PRIMARY KEY, name_zh TEXT, name_en TEXT, name_jp TEXT)`),
         db.exec(`CREATE TABLE IF NOT EXISTS operators_tags (operator_id TEXT, tag_id INTEGER, PRIMARY KEY (operator_id, tag_id), FOREIGN KEY (operator_id) REFERENCES operators(id), FOREIGN KEY (tag_id) REFERENCES recruitment_tags(id))`)
       ];
@@ -26,7 +26,7 @@ export async function onRequestPost(context) {
       await Promise.all(createTables);
 
 
-      const operatorsStmt = db.prepare(`INSERT INTO operators (id, appellation, name_zh, name_ja, name_en, rarity, profession, subProfessionId, IsRecruitOnly) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET appellation = excluded.appellation, name_zh = excluded.name_zh, name_ja = excluded.name_ja, name_en = excluded.name_en, rarity = excluded.rarity, profession = excluded.profession, subProfessionId = excluded.subProfessionId, IsRecruitOnly = excluded.IsRecruitOnly`);
+      const operatorsStmt = db.prepare(`INSERT INTO operators (id, appellation, name_zh, name_ja, name_en, rarity, profession, subProfessionId, IsRecruitOnly) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET appellation = excluded.appellation, name_zh = excluded.name_zh, name_ja = excluded.name_ja, name_en = excluded.name_en, rarity = excluded.rarity, profession = excluded.profession, subProfessionId = excluded.subProfessionId, IsRecruitOnly = excluded.IsRecruitOnly, tags = excluded.tags`);
       const operatorBindings = data.recruitment_list.data.map(operator =>
         operatorsStmt.bind(
           operator.id,
@@ -37,7 +37,8 @@ export async function onRequestPost(context) {
           operator.rarity,
           operator.profession,
           operator.subProfessionId,
-          operator.IsRecruitOnly
+          operator.IsRecruitOnly,
+          JSON.stringify(operator.tags || [])
         )
       );
 
