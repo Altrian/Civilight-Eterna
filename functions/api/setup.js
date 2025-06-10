@@ -26,7 +26,7 @@ export async function onRequestPost(context) {
       await Promise.all(createTables);
 
 
-      const operatorsStmt = db.prepare(`INSERT INTO operators (id, appellation, name_zh, name_ja, name_en, rarity, profession, subProfessionId, IsRecruitOnly) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET appellation = excluded.appellation, name_zh = excluded.name_zh, name_ja = excluded.name_ja, name_en = excluded.name_en, rarity = excluded.rarity, profession = excluded.profession, subProfessionId = excluded.subProfessionId, IsRecruitOnly = excluded.IsRecruitOnly, tags = excluded.tags`);
+      const operatorsStmt = db.prepare(`INSERT INTO operators (id, appellation, name_zh, name_ja, name_en, rarity, profession, subProfessionId, IsRecruitOnly, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET appellation = excluded.appellation, name_zh = excluded.name_zh, name_ja = excluded.name_ja, name_en = excluded.name_en, rarity = excluded.rarity, profession = excluded.profession, subProfessionId = excluded.subProfessionId, IsRecruitOnly = excluded.IsRecruitOnly, tags = excluded.tags`);
       const operatorBindings = data.recruitment_list.data.map(operator =>
         operatorsStmt.bind(
           operator.id,
