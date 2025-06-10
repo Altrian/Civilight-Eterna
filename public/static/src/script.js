@@ -655,9 +655,9 @@ function createSectionContent(tagIds, allowRarity6, header=null) {
             const hasAllTags = Array.isArray(tagIds) ? 
                 tagIds.every(tagId => op.tags.includes(tagId)) :
                 op.tags.includes(tagIds);
-            return hasAllTags && (allowRarity6 || op.rarity < 6);
+            return hasAllTags && (allowRarity6 || parseInt(op.rarity.split('_')[1], 10) < 6);
         })
-        .sort((a, b) => b.rarity - a.rarity || a.name.localeCompare(b.name));
+        .sort((a, b) => parseInt(a.rarity.split('_')[1], 10) - parseInt(b.rarity.split('_')[1], 10) || a.appellation.localeCompare(b.appellation));
     
     if (filteredOperators.length === 0) return null; // No operators to display
     console.log(`Filtered Operators for Tags: ${tagIds}`, filteredOperators);
@@ -680,7 +680,7 @@ function createOperatorElement(op) {
     operatorElement.className = "operator";
     operatorElement.dataset.rarity = op.rarity;
     operatorElement.classList.add(op.profession.toLowerCase());
-    operatorElement.classList.add(op.subProfession.toLowerCase());
+    operatorElement.classList.add(op.subProfessionId.toLowerCase());
     
     const operatorBox = document.createElement("div");
     operatorBox.className = "operator-box";
@@ -688,7 +688,7 @@ function createOperatorElement(op) {
     // Create operator image
     const operatorImg = document.createElement("img");
     operatorImg.src = `https://raw.githubusercontent.com/ArknightsAssets/ArknightsAssets/refs/heads/cn/assets/torappu/dynamicassets/arts/charportraits/${op.id}_1.png`;
-    operatorImg.alt = op.name;
+    operatorImg.alt = op.name_en || op.appellation;
     operatorBox.appendChild(operatorImg);
 
     // Create operator icons
@@ -705,7 +705,7 @@ function createOperatorElement(op) {
     // Create operator name
     const operatorName = document.createElement("span");
     operatorName.className = "operator-name";
-    operatorName.textContent = op.name;
+    operatorName.textContent = op.name_en || op.appellation;
     operatorBox.appendChild(operatorName);
 
     // Create background SVG
