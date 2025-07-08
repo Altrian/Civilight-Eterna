@@ -13,10 +13,14 @@ function initializeDrawer() {
     function loadState() {
         if (!isMobile) {
             const storedState = localStorage.getItem("drawerState");
-            if (storedState === "true") {
-                openDrawer();
+            if (storedState === null) {
+                openDrawer()
             } else {
-                closeDrawer();
+                if (storedState === "true") {
+                    openDrawer();
+                } else {
+                    closeDrawer();
+                }
             }
         } else {
             closeDrawer(); // Close the drawer on mobile by default

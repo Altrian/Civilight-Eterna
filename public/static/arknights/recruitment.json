@@ -1,2731 +1,1387 @@
 {
     "tags": {
-        "updatedAt": "2025-06-07",
+        "updatedAt": "2025-07-08",
         "data": [
             {
-                "id": 1,
-                "name_zh": "近卫干员",
-                "name_en": "Guard",
-                "name_jp": "前衛タイプ"
+                "id": "WARRIOR",
+                "orderNum": 1,
+                "name": {
+                    "zh": "近卫干员",
+                    "ja": "前衛タイプ",
+                    "en": "Guard"
+                }
             },
             {
-                "id": 2,
-                "name_zh": "狙击干员",
-                "name_en": "Sniper",
-                "name_jp": "狙撃タイプ"
+                "id": "SNIPER",
+                "orderNum": 2,
+                "name": {
+                    "zh": "狙击干员",
+                    "ja": "狙撃タイプ",
+                    "en": "Sniper"
+                }
             },
             {
-                "id": 3,
-                "name_zh": "重装干员",
-                "name_en": "Defender",
-                "name_jp": "重装タイプ"
+                "id": "TANK",
+                "orderNum": 3,
+                "name": {
+                    "zh": "重装干员",
+                    "ja": "重装タイプ",
+                    "en": "Defender"
+                }
             },
             {
-                "id": 4,
-                "name_zh": "医疗干员",
-                "name_en": "Medic",
-                "name_jp": "医療タイプ"
+                "id": "MEDIC",
+                "orderNum": 4,
+                "name": {
+                    "zh": "医疗干员",
+                    "ja": "医療タイプ",
+                    "en": "Medic"
+                }
             },
             {
-                "id": 5,
-                "name_zh": "辅助干员",
-                "name_en": "Supporter",
-                "name_jp": "補助タイプ"
+                "id": "SUPPORT",
+                "orderNum": 5,
+                "name": {
+                    "zh": "辅助干员",
+                    "ja": "補助タイプ",
+                    "en": "Supporter"
+                }
             },
             {
-                "id": 6,
-                "name_zh": "术师干员",
-                "name_en": "Caster",
-                "name_jp": "術師タイプ"
+                "id": "CASTER",
+                "orderNum": 6,
+                "name": {
+                    "zh": "术师干员",
+                    "ja": "術師タイプ",
+                    "en": "Caster"
+                }
             },
             {
-                "id": 7,
-                "name_zh": "特种干员",
-                "name_en": "Specialist",
-                "name_jp": "特殊タイプ"
+                "id": "SPECIAL",
+                "orderNum": 7,
+                "name": {
+                    "zh": "特种干员",
+                    "ja": "特殊タイプ",
+                    "en": "Specialist"
+                }
             },
             {
-                "id": 8,
-                "name_zh": "先锋干员",
-                "name_en": "Vanguard",
-                "name_jp": "先鋒タイプ"
+                "id": "PIONEER",
+                "orderNum": 8,
+                "name": {
+                    "zh": "先锋干员",
+                    "ja": "先鋒タイプ",
+                    "en": "Vanguard"
+                }
             },
             {
-                "id": 9,
-                "name_zh": "近战位",
-                "name_en": "Melee",
-                "name_jp": "近距離"
+                "id": "MELEE",
+                "orderNum": 9,
+                "name": {
+                    "zh": "近战位",
+                    "ja": "近距離",
+                    "en": "Melee"
+                }
             },
             {
-                "id": 10,
-                "name_zh": "远程位",
-                "name_en": "Ranged",
-                "name_jp": "遠距離"
+                "id": "RANGED",
+                "orderNum": 10,
+                "name": {
+                    "zh": "远程位",
+                    "ja": "遠距離",
+                    "en": "Ranged"
+                }
             },
             {
-                "id": 11,
-                "name_zh": "高级资深干员",
-                "name_en": "Top Operator",
-                "name_jp": "上級エリート"
+                "id": "TIER_6",
+                "orderNum": 11,
+                "name": {
+                    "zh": "高级资深干员",
+                    "ja": "上級エリート",
+                    "en": "Top Operator"
+                }
             },
             {
-                "id": 12,
-                "name_zh": "控场",
-                "name_en": "Crowd-Control",
-                "name_jp": "牽制"
+                "id": "控场",
+                "orderNum": 12,
+                "name": {
+                    "zh": "控场",
+                    "ja": "牽制",
+                    "en": "Crowd-Control"
+                }
             },
             {
-                "id": 13,
-                "name_zh": "爆发",
-                "name_en": "Nuker",
-                "name_jp": "爆発力"
+                "id": "爆发",
+                "orderNum": 13,
+                "name": {
+                    "zh": "爆发",
+                    "ja": "爆発力",
+                    "en": "Nuker"
+                }
             },
             {
-                "id": 14,
-                "name_zh": "资深干员",
-                "name_en": "Senior Operator",
-                "name_jp": "エリート"
+                "id": "TIER_5",
+                "orderNum": 14,
+                "name": {
+                    "zh": "资深干员",
+                    "ja": "エリート",
+                    "en": "Senior Operator"
+                }
             },
             {
-                "id": 15,
-                "name_zh": "治疗",
-                "name_en": "Healing",
-                "name_jp": "治療"
+                "id": "治疗",
+                "orderNum": 15,
+                "name": {
+                    "zh": "治疗",
+                    "ja": "治療",
+                    "en": "Healing"
+                }
             },
             {
-                "id": 16,
-                "name_zh": "支援",
-                "name_en": "Support",
-                "name_jp": "支援"
+                "id": "支援",
+                "orderNum": 16,
+                "name": {
+                    "zh": "支援",
+                    "ja": "支援",
+                    "en": "Support"
+                }
             },
             {
-                "id": 17,
-                "name_zh": "新手",
-                "name_en": "Starter",
-                "name_jp": "初期"
+                "id": "TIER_2",
+                "orderNum": 17,
+                "name": {
+                    "zh": "新手",
+                    "ja": "初期",
+                    "en": "Starter"
+                }
             },
             {
-                "id": 18,
-                "name_zh": "费用回复",
-                "name_en": "DP-Recovery",
-                "name_jp": "COST回復"
+                "id": "费用回复",
+                "orderNum": 18,
+                "name": {
+                    "zh": "费用回复",
+                    "ja": "COST回復",
+                    "en": "DP-Recovery"
+                }
             },
             {
-                "id": 19,
-                "name_zh": "输出",
-                "name_en": "DPS",
-                "name_jp": "火力"
+                "id": "输出",
+                "orderNum": 19,
+                "name": {
+                    "zh": "输出",
+                    "ja": "火力",
+                    "en": "DPS"
+                }
             },
             {
-                "id": 20,
-                "name_zh": "生存",
-                "name_en": "Survival",
-                "name_jp": "生存"
+                "id": "生存",
+                "orderNum": 20,
+                "name": {
+                    "zh": "生存",
+                    "ja": "生存",
+                    "en": "Survival"
+                }
             },
             {
-                "id": 21,
-                "name_zh": "群攻",
-                "name_en": "AoE",
-                "name_jp": "範囲攻撃"
+                "id": "群攻",
+                "orderNum": 21,
+                "name": {
+                    "zh": "群攻",
+                    "ja": "範囲攻撃",
+                    "en": "AoE"
+                }
             },
             {
-                "id": 22,
-                "name_zh": "防护",
-                "name_en": "Defense",
-                "name_jp": "防御"
+                "id": "防护",
+                "orderNum": 22,
+                "name": {
+                    "zh": "防护",
+                    "ja": "防御",
+                    "en": "Defense"
+                }
             },
             {
-                "id": 23,
-                "name_zh": "减速",
-                "name_en": "Slow",
-                "name_jp": "減速"
+                "id": "减速",
+                "orderNum": 23,
+                "name": {
+                    "zh": "减速",
+                    "ja": "減速",
+                    "en": "Slow"
+                }
             },
             {
-                "id": 24,
-                "name_zh": "削弱",
-                "name_en": "Debuff",
-                "name_jp": "弱化"
+                "id": "削弱",
+                "orderNum": 24,
+                "name": {
+                    "zh": "削弱",
+                    "ja": "弱化",
+                    "en": "Debuff"
+                }
             },
             {
-                "id": 25,
-                "name_zh": "快速复活",
-                "name_en": "Fast-Redeploy",
-                "name_jp": "高速再配置"
+                "id": "快速复活",
+                "orderNum": 25,
+                "name": {
+                    "zh": "快速复活",
+                    "ja": "高速再配置",
+                    "en": "Fast-Redeploy"
+                }
             },
             {
-                "id": 26,
-                "name_zh": "位移",
-                "name_en": "Shift",
-                "name_jp": "強制移動"
+                "id": "位移",
+                "orderNum": 26,
+                "name": {
+                    "zh": "位移",
+                    "ja": "強制移動",
+                    "en": "Shift"
+                }
             },
             {
-                "id": 27,
-                "name_zh": "召唤",
-                "name_en": "Summon",
-                "name_jp": "召喚"
+                "id": "召唤",
+                "orderNum": 27,
+                "name": {
+                    "zh": "召唤",
+                    "ja": "召喚",
+                    "en": "Summon"
+                }
             },
             {
-                "id": 28,
-                "name_zh": "支援机械",
-                "name_en": "Robot",
-                "name_jp": "ロボット"
+                "id": "TIER_1",
+                "orderNum": 28,
+                "name": {
+                    "zh": "支援机械",
+                    "ja": "ロボット",
+                    "en": "Robot"
+                }
             },
             {
-                "id": 29,
-                "name_zh": "元素",
-                "name_en": "Elemental",
-                "name_jp": "元素"
+                "id": "元素",
+                "orderNum": 29,
+                "name": {
+                    "zh": "元素",
+                    "ja": "元素",
+                    "en": "Elemental"
+                }
             },
             {
-                "id": 1012,
-                "name_zh": "男性干员",
-                "name_en": "Male",
-                "name_jp": "男性"
+                "id": "男性干员",
+                "orderNum": 1012,
+                "name": {
+                    "zh": "男性干员",
+                    "ja": "男性",
+                    "en": "Male"
+                }
             },
             {
-                "id": 1013,
-                "name_zh": "女性干员",
-                "name_en": "Female",
-                "name_jp": "女性"
+                "id": "女性干员",
+                "orderNum": 1013,
+                "name": {
+                    "zh": "女性干员",
+                    "ja": "女性",
+                    "en": "Female"
+                }
             }
         ]
     },
-    "recruitment_list": {
-        "updatedAt": "2025-06-07",
+    "branch": {
+        "updatedAt": "2025-06-30",
+        "data": {
+            "MEDIC": [
+                {
+                    "id": "physician",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "ringhealer",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "healer",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "wandermedic",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "incantationmedic",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "chainhealer",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                }
+            ],
+            "WARRIOR": [
+                {
+                    "id": "fearless",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "centurion",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "instructor",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "lord",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "artsfghter",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "sword",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "musha",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "crusher",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "reaper",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "librator",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "fighter",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "hammer",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "primguard",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                }
+            ],
+            "SPECIAL": [
+                {
+                    "id": "executor",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "merchant",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "hookmaster",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "stalker",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "pusher",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "dollkeeper",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "skywalker",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "geek",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "traper",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "alchemist",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                }
+            ],
+            "SNIPER": [
+                {
+                    "id": "fastshot",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "bombarder",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "aoesniper",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "reaperrange",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "longrange",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "closerange",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "siegesniper",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "loopshooter",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "hunter",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                }
+            ],
+            "SUPPORT": [
+                {
+                    "id": "bard",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "ritualist",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "slower",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "summoner",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "craftsman",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "underminer",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "blessing",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                }
+            ],
+            "TANK": [
+                {
+                    "id": "protector",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "guardian",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "unyield",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "artsprotector",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "shotprotector",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "fortress",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "duelist",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "primprotector",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                }
+            ],
+            "PIONEER": [
+                {
+                    "id": "pioneer",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "charger",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "bearer",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "tactician",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "agent",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                }
+            ],
+            "CASTER": [
+                {
+                    "id": "corecaster",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "splashcaster",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "funnel",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "mystic",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "chain",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "phalanx",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "blastcaster",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "primcaster",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                },
+                {
+                    "id": "soulcaster",
+                    "name": {
+                        "zh": "",
+                        "ja": "",
+                        "en": ""
+                    }
+                }
+            ]
+        }
+    },
+    "powers": {
+        "updatedAt": "2025-07-08",
         "data": [
             {
-                "id": "char_285_medic2",
-                "appellation": "Lancet-2",
-                "name_zh": "Lancet-2",
-                "name_ja": "Lancet-2",
-                "name_en": "Lancet-2",
-                "rarity": "TIER_1",
-                "profession": "MEDIC",
-                "subProfessionId": "physician",
-                "IsRecruitOnly": true,
-                "tags": [
-                    10,
-                    28,
-                    4,
-                    28,
-                    15
-                ]
-            },
-            {
-                "id": "char_286_cast3",
-                "appellation": "Castle-3",
-                "name_zh": "Castle-3",
-                "name_ja": "Castle-3",
-                "name_en": "Castle-3",
-                "rarity": "TIER_1",
-                "profession": "WARRIOR",
-                "subProfessionId": "fearless",
-                "IsRecruitOnly": true,
-                "tags": [
-                    9,
-                    28,
-                    1,
-                    28,
-                    16
-                ]
-            },
-            {
-                "id": "char_376_therex",
-                "appellation": "Thermal-EX",
-                "name_zh": "THRM-EX",
-                "name_ja": "THRM-EX",
-                "name_en": "THRM-EX",
-                "rarity": "TIER_1",
-                "profession": "SPECIAL",
-                "subProfessionId": "executor",
-                "IsRecruitOnly": true,
-                "tags": [
-                    9,
-                    28,
-                    7,
-                    28,
-                    13
-                ]
-            },
-            {
-                "id": "char_4000_jnight",
-                "appellation": "\"Justice Knight\"",
-                "name_zh": "正义骑士号",
-                "name_ja": "ジャスティスナイト",
-                "name_en": "Justice Knight",
-                "rarity": "TIER_1",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": true,
-                "tags": [
-                    10,
-                    28,
-                    2,
-                    28,
-                    16
-                ]
-            },
-            {
-                "id": "char_4093_frston",
-                "appellation": "Friston-3",
-                "name_zh": "Friston-3",
-                "name_ja": "Friston-3",
-                "name_en": "Friston-3",
-                "rarity": "TIER_1",
-                "profession": "TANK",
-                "subProfessionId": "protector",
-                "IsRecruitOnly": true,
-                "tags": [
-                    9,
-                    28,
-                    3,
-                    28,
-                    22
-                ]
-            },
-            {
-                "id": "char_4136_phonor",
-                "appellation": "PhonoR-0",
-                "name_zh": "PhonoR-0",
-                "name_ja": "PhonoR-0",
-                "name_en": "PhonoR-0",
-                "rarity": "TIER_1",
-                "profession": "SUPPORT",
-                "subProfessionId": "ritualist",
-                "IsRecruitOnly": true,
-                "tags": [
-                    10,
-                    28,
-                    5,
-                    28,
-                    29
-                ]
-            },
-            {
-                "id": "char_4188_confes",
-                "appellation": "CONFESS-47",
-                "name_zh": "CONFESS-47",
-                "name_ja": "",
-                "name_en": "",
-                "rarity": "TIER_1",
-                "profession": "PIONEER",
-                "subProfessionId": "pioneer",
-                "IsRecruitOnly": true,
-                "tags": [
-                    9,
-                    28,
-                    8,
-                    28,
-                    12
-                ]
-            },
-            {
-                "id": "char_502_nblade",
-                "appellation": "Yato",
-                "name_zh": "夜刀",
-                "name_ja": "ヤトウ",
-                "name_en": "Yato",
-                "rarity": "TIER_2",
-                "profession": "PIONEER",
-                "subProfessionId": "pioneer",
-                "IsRecruitOnly": true,
-                "tags": [
-                    9,
-                    17,
-                    8,
-                    17
-                ]
-            },
-            {
-                "id": "char_500_noirc",
-                "appellation": "Noir Corne",
-                "name_zh": "黑角",
-                "name_ja": "ノイルホーン",
-                "name_en": "Noir Corne",
-                "rarity": "TIER_2",
-                "profession": "TANK",
-                "subProfessionId": "protector",
-                "IsRecruitOnly": true,
-                "tags": [
-                    9,
-                    17,
-                    3,
-                    17
-                ]
-            },
-            {
-                "id": "char_503_rang",
-                "appellation": "Rangers",
-                "name_zh": "巡林者",
-                "name_ja": "レンジャー",
-                "name_en": "Rangers",
-                "rarity": "TIER_2",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": true,
-                "tags": [
-                    10,
-                    17,
-                    2,
-                    17
-                ]
-            },
-            {
-                "id": "char_501_durin",
-                "appellation": "Durin",
-                "name_zh": "杜林",
-                "name_ja": "ドゥリン",
-                "name_en": "Durin",
-                "rarity": "TIER_2",
-                "profession": "CASTER",
-                "subProfessionId": "corecaster",
-                "IsRecruitOnly": true,
-                "tags": [
-                    10,
-                    17,
-                    6,
-                    17
-                ]
-            },
-            {
-                "id": "char_009_12fce",
-                "appellation": "12F",
-                "name_zh": "12F",
-                "name_ja": "12F",
-                "name_en": "12F",
-                "rarity": "TIER_2",
-                "profession": "CASTER",
-                "subProfessionId": "splashcaster",
-                "IsRecruitOnly": true,
-                "tags": [
-                    10,
-                    17,
-                    6,
-                    17
-                ]
-            },
-            {
-                "id": "char_211_adnach",
-                "appellation": "Adnachiel",
-                "name_zh": "安德切尔",
-                "name_ja": "アドナキエル",
-                "name_en": "Adnachiel",
-                "rarity": "TIER_3",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": true,
-                "tags": [
-                    10,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_123_fang",
-                "appellation": "Fang",
-                "name_zh": "芬",
-                "name_ja": "フェン",
-                "name_en": "Fang",
-                "rarity": "TIER_3",
-                "profession": "PIONEER",
-                "subProfessionId": "pioneer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    8,
-                    18
-                ]
-            },
-            {
-                "id": "char_240_wyvern",
-                "appellation": "Vanilla",
-                "name_zh": "香草",
-                "name_ja": "バニラ",
-                "name_en": "Vanilla",
-                "rarity": "TIER_3",
-                "profession": "PIONEER",
-                "subProfessionId": "pioneer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    8,
-                    18
-                ]
-            },
-            {
-                "id": "char_192_falco",
-                "appellation": "Plume",
-                "name_zh": "翎羽",
-                "name_ja": "プリュム",
-                "name_en": "Plume",
-                "rarity": "TIER_3",
-                "profession": "PIONEER",
-                "subProfessionId": "charger",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    8,
-                    19,
-                    18
-                ]
-            },
-            {
-                "id": "char_208_melan",
-                "appellation": "Melantha",
-                "name_zh": "玫兰莎",
-                "name_ja": "メランサ",
-                "name_en": "Melantha",
-                "rarity": "TIER_3",
-                "profession": "WARRIOR",
-                "subProfessionId": "fearless",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    19,
-                    20
-                ]
-            },
-            {
-                "id": "char_122_beagle",
-                "appellation": "Beagle",
-                "name_zh": "米格鲁",
-                "name_ja": "ビーグル",
-                "name_en": "Beagle",
-                "rarity": "TIER_3",
-                "profession": "TANK",
-                "subProfessionId": "protector",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    3,
-                    22
-                ]
-            },
-            {
-                "id": "char_124_kroos",
-                "appellation": "Kroos",
-                "name_zh": "克洛丝",
-                "name_ja": "クルース",
-                "name_en": "Kroos",
-                "rarity": "TIER_3",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_121_lava",
-                "appellation": "Lava",
-                "name_zh": "炎熔",
-                "name_ja": "ラヴァ",
-                "name_en": "Lava",
-                "rarity": "TIER_3",
-                "profession": "CASTER",
-                "subProfessionId": "splashcaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    6,
-                    21
-                ]
-            },
-            {
-                "id": "char_120_hibisc",
-                "appellation": "Hibiscus",
-                "name_zh": "芙蓉",
-                "name_ja": "ハイビスカス",
-                "name_en": "Hibiscus",
-                "rarity": "TIER_3",
-                "profession": "MEDIC",
-                "subProfessionId": "physician",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    4,
-                    15
-                ]
-            },
-            {
-                "id": "char_212_ansel",
-                "appellation": "Ansel",
-                "name_zh": "安赛尔",
-                "name_ja": "アンセル",
-                "name_en": "Ansel",
-                "rarity": "TIER_3",
-                "profession": "MEDIC",
-                "subProfessionId": "physician",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    4,
-                    15
-                ]
-            },
-            {
-                "id": "char_210_stward",
-                "appellation": "Steward",
-                "name_zh": "史都华德",
-                "name_ja": "スチュワード",
-                "name_en": "Steward",
-                "rarity": "TIER_3",
-                "profession": "CASTER",
-                "subProfessionId": "corecaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    6,
-                    19
-                ]
-            },
-            {
-                "id": "char_278_orchid",
-                "appellation": "Orchid",
-                "name_zh": "梓兰",
-                "name_ja": "オーキッド",
-                "name_en": "Orchid",
-                "rarity": "TIER_3",
-                "profession": "SUPPORT",
-                "subProfessionId": "slower",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    5,
-                    23
-                ]
-            },
-            {
-                "id": "char_282_catap",
-                "appellation": "Catapult",
-                "name_zh": "空爆",
-                "name_ja": "カタパルト",
-                "name_en": "Catapult",
-                "rarity": "TIER_3",
-                "profession": "SNIPER",
-                "subProfessionId": "aoesniper",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    2,
-                    21
-                ]
-            },
-            {
-                "id": "char_283_midn",
-                "appellation": "Midnight",
-                "name_zh": "月见夜",
-                "name_ja": "ミッドナイト",
-                "name_en": "Midnight",
-                "rarity": "TIER_3",
-                "profession": "WARRIOR",
-                "subProfessionId": "lord",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    19
-                ]
-            },
-            {
-                "id": "char_281_popka",
-                "appellation": "Popukar",
-                "name_zh": "泡普卡",
-                "name_ja": "ポプカル",
-                "name_en": "Popukar",
-                "rarity": "TIER_3",
-                "profession": "WARRIOR",
-                "subProfessionId": "centurion",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    21,
-                    20
-                ]
-            },
-            {
-                "id": "char_127_estell",
-                "appellation": "Estelle",
-                "name_zh": "艾丝黛尔",
-                "name_ja": "エステル",
-                "name_en": "Estelle",
-                "rarity": "TIER_4",
-                "profession": "WARRIOR",
-                "subProfessionId": "centurion",
-                "IsRecruitOnly": true,
-                "tags": [
-                    9,
-                    1,
-                    21,
-                    20
-                ]
-            },
-            {
-                "id": "char_385_finlpp",
-                "appellation": "Purestream",
-                "name_zh": "清流",
-                "name_ja": "セイリュウ",
-                "name_en": "Purestream",
-                "rarity": "TIER_4",
-                "profession": "MEDIC",
-                "subProfessionId": "healer",
-                "IsRecruitOnly": true,
-                "tags": [
-                    10,
-                    4,
-                    15,
-                    16
-                ]
-            },
-            {
-                "id": "char_141_nights",
-                "appellation": "Haze",
-                "name_zh": "夜烟",
-                "name_ja": "ヘイズ",
-                "name_en": "Haze",
-                "rarity": "TIER_4",
-                "profession": "CASTER",
-                "subProfessionId": "corecaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    6,
-                    19,
-                    24
-                ]
-            },
-            {
-                "id": "char_109_fmout",
-                "appellation": "Gitano",
-                "name_zh": "远山",
-                "name_ja": "ギターノ",
-                "name_en": "Gitano",
-                "rarity": "TIER_4",
-                "profession": "CASTER",
-                "subProfessionId": "splashcaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    6,
-                    21
-                ]
-            },
-            {
-                "id": "char_235_jesica",
-                "appellation": "Jessica",
-                "name_zh": "杰西卡",
-                "name_ja": "ジェシカ",
-                "name_en": "Jessica",
-                "rarity": "TIER_4",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    2,
-                    19,
-                    20
-                ]
-            },
-            {
-                "id": "char_126_shotst",
-                "appellation": "Meteor",
-                "name_zh": "流星",
-                "name_ja": "メテオ",
-                "name_en": "Meteor",
-                "rarity": "TIER_4",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    2,
-                    19,
-                    24
-                ]
-            },
-            {
-                "id": "char_118_yuki",
-                "appellation": "ShiraYuki",
-                "name_zh": "白雪",
-                "name_ja": "シラユキ",
-                "name_en": "Shirayuki",
-                "rarity": "TIER_4",
-                "profession": "SNIPER",
-                "subProfessionId": "aoesniper",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    2,
-                    21,
-                    23
-                ]
-            },
-            {
-                "id": "char_149_scave",
-                "appellation": "Scavenger",
-                "name_zh": "清道夫",
-                "name_ja": "スカベンジャー",
-                "name_en": "Scavenger",
-                "rarity": "TIER_4",
-                "profession": "PIONEER",
-                "subProfessionId": "pioneer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    8,
-                    18,
-                    19
-                ]
-            },
-            {
-                "id": "char_290_vigna",
-                "appellation": "Vigna",
-                "name_zh": "红豆",
-                "name_ja": "ヴィグナ",
-                "name_en": "Vigna",
-                "rarity": "TIER_4",
-                "profession": "PIONEER",
-                "subProfessionId": "charger",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    8,
-                    19,
-                    18
-                ]
-            },
-            {
-                "id": "char_130_doberm",
-                "appellation": "Dobermann",
-                "name_zh": "杜宾",
-                "name_ja": "ドーベルマン",
-                "name_en": "Dobermann",
-                "rarity": "TIER_4",
-                "profession": "WARRIOR",
-                "subProfessionId": "instructor",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    19,
-                    16
-                ]
-            },
-            {
-                "id": "char_289_gyuki",
-                "appellation": "Matoimaru",
-                "name_zh": "缠丸",
-                "name_ja": "マトイマル",
-                "name_en": "Matoimaru",
-                "rarity": "TIER_4",
-                "profession": "WARRIOR",
-                "subProfessionId": "fearless",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    20,
-                    19
-                ]
-            },
-            {
-                "id": "char_193_frostl",
-                "appellation": "Frostleaf",
-                "name_zh": "霜叶",
-                "name_ja": "フロストリーフ",
-                "name_en": "Frostleaf",
-                "rarity": "TIER_4",
-                "profession": "WARRIOR",
-                "subProfessionId": "lord",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    23,
-                    19
-                ]
-            },
-            {
-                "id": "char_185_frncat",
-                "appellation": "Mousse",
-                "name_zh": "慕斯",
-                "name_ja": "ムース",
-                "name_en": "Mousse",
-                "rarity": "TIER_4",
-                "profession": "WARRIOR",
-                "subProfessionId": "artsfghter",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    19
-                ]
-            },
-            {
-                "id": "char_237_gravel",
-                "appellation": "Gravel",
-                "name_zh": "砾",
-                "name_ja": "グラベル",
-                "name_en": "Gravel",
-                "rarity": "TIER_4",
-                "profession": "SPECIAL",
-                "subProfessionId": "executor",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    7,
-                    25,
-                    22
-                ]
-            },
-            {
-                "id": "char_236_rope",
-                "appellation": "Rope",
-                "name_zh": "暗索",
-                "name_ja": "ロープ",
-                "name_en": "Rope",
-                "rarity": "TIER_4",
-                "profession": "SPECIAL",
-                "subProfessionId": "hookmaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    7,
-                    26
-                ]
-            },
-            {
-                "id": "char_117_myrrh",
-                "appellation": "Myrrh",
-                "name_zh": "末药",
-                "name_ja": "ミルラ",
-                "name_en": "Myrrh",
-                "rarity": "TIER_4",
-                "profession": "MEDIC",
-                "subProfessionId": "physician",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    4,
-                    15
-                ]
-            },
-            {
-                "id": "char_181_flower",
-                "appellation": "Perfumer",
-                "name_zh": "调香师",
-                "name_ja": "パフューマー",
-                "name_en": "Perfumer",
-                "rarity": "TIER_4",
-                "profession": "MEDIC",
-                "subProfessionId": "ringhealer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    4,
-                    15
-                ]
-            },
-            {
-                "id": "char_199_yak",
-                "appellation": "Matterhorn",
-                "name_zh": "角峰",
-                "name_ja": "マッターホルン",
-                "name_en": "Matterhorn",
-                "rarity": "TIER_4",
-                "profession": "TANK",
-                "subProfessionId": "protector",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    3,
-                    22
-                ]
-            },
-            {
-                "id": "char_150_snakek",
-                "appellation": "Cuora",
-                "name_zh": "蛇屠箱",
-                "name_ja": "クオーラ",
-                "name_en": "Cuora",
-                "rarity": "TIER_4",
-                "profession": "TANK",
-                "subProfessionId": "protector",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    3,
-                    22
-                ]
-            },
-            {
-                "id": "char_196_sunbr",
-                "appellation": "Гум",
-                "name_zh": "古米",
-                "name_ja": "グム",
-                "name_en": "Gummy",
-                "rarity": "TIER_4",
-                "profession": "TANK",
-                "subProfessionId": "guardian",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    3,
-                    22,
-                    15
-                ]
-            },
-            {
-                "id": "char_183_skgoat",
-                "appellation": "Earthspirit",
-                "name_zh": "地灵",
-                "name_ja": "アーススピリット",
-                "name_en": "Earthspirit",
-                "rarity": "TIER_4",
-                "profession": "SUPPORT",
-                "subProfessionId": "slower",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    5,
-                    23
-                ]
-            },
-            {
-                "id": "char_277_sqrrel",
-                "appellation": "Shaw",
-                "name_zh": "阿消",
-                "name_ja": "ショウ",
-                "name_en": "Shaw",
-                "rarity": "TIER_4",
-                "profession": "SPECIAL",
-                "subProfessionId": "pusher",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    7,
-                    26
-                ]
-            },
-            {
-                "id": "char_137_brownb",
-                "appellation": "Beehunter",
-                "name_zh": "猎蜂",
-                "name_ja": "ビーハンター",
-                "name_en": "Beehunter",
-                "rarity": "TIER_4",
-                "profession": "WARRIOR",
-                "subProfessionId": "fighter",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    19
-                ]
-            },
-            {
-                "id": "char_253_greyy",
-                "appellation": "Greyy",
-                "name_zh": "格雷伊",
-                "name_ja": "グレイ",
-                "name_en": "Greyy",
-                "rarity": "TIER_4",
-                "profession": "CASTER",
-                "subProfessionId": "splashcaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    6,
-                    21,
-                    23
-                ]
-            },
-            {
-                "id": "char_298_susuro",
-                "appellation": "Sussurro",
-                "name_zh": "苏苏洛",
-                "name_ja": "ススーロ",
-                "name_en": "Sussurro",
-                "rarity": "TIER_4",
-                "profession": "MEDIC",
-                "subProfessionId": "physician",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    4,
-                    15
-                ]
-            },
-            {
-                "id": "char_151_myrtle",
-                "appellation": "Myrtle",
-                "name_zh": "桃金娘",
-                "name_ja": "テンニンカ",
-                "name_en": "Myrtle",
-                "rarity": "TIER_4",
-                "profession": "PIONEER",
-                "subProfessionId": "bearer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    8,
-                    18,
-                    15
-                ]
-            },
-            {
-                "id": "char_190_clour",
-                "appellation": "Vermeil",
-                "name_zh": "红云",
-                "name_ja": "ヴァーミル",
-                "name_en": "Vermeil",
-                "rarity": "TIER_4",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_133_mm",
-                "appellation": "May",
-                "name_zh": "梅",
-                "name_ja": "メイ",
-                "name_en": "May",
-                "rarity": "TIER_4",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    2,
-                    19,
-                    23
-                ]
-            },
-            {
-                "id": "char_302_glaze",
-                "appellation": "Ambriel",
-                "name_zh": "安比尔",
-                "name_ja": "アンブリエル",
-                "name_en": "Ambriel",
-                "rarity": "TIER_4",
-                "profession": "SNIPER",
-                "subProfessionId": "longrange",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    2,
-                    19,
-                    23
-                ]
-            },
-            {
-                "id": "char_337_utage",
-                "appellation": "Utage",
-                "name_zh": "宴",
-                "name_ja": "ウタゲ",
-                "name_en": "Utage",
-                "rarity": "TIER_4",
-                "profession": "WARRIOR",
-                "subProfessionId": "musha",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    19,
-                    20
-                ]
-            },
-            {
-                "id": "char_301_cutter",
-                "appellation": "Cutter",
-                "name_zh": "刻刀",
-                "name_ja": "カッター",
-                "name_en": "Cutter",
-                "rarity": "TIER_4",
-                "profession": "WARRIOR",
-                "subProfessionId": "sword",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    13,
-                    19
-                ]
-            },
-            {
-                "id": "char_258_podego",
-                "appellation": "Podenco",
-                "name_zh": "波登可",
-                "name_ja": "ポデンコ",
-                "name_en": "Podenco",
-                "rarity": "TIER_4",
-                "profession": "SUPPORT",
-                "subProfessionId": "slower",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    5,
-                    23,
-                    15
-                ]
-            },
-            {
-                "id": "char_328_cammou",
-                "appellation": "Click",
-                "name_zh": "卡达",
-                "name_ja": "カシャ",
-                "name_en": "Click",
-                "rarity": "TIER_4",
-                "profession": "CASTER",
-                "subProfessionId": "funnel",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    6,
-                    19,
-                    12
-                ]
-            },
-            {
-                "id": "char_272_strong",
-                "appellation": "Jaye",
-                "name_zh": "孑",
-                "name_ja": "ジェイ",
-                "name_en": "Jaye",
-                "rarity": "TIER_4",
-                "profession": "SPECIAL",
-                "subProfessionId": "merchant",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    7,
-                    25,
-                    19
-                ]
-            },
-            {
-                "id": "char_366_acdrop",
-                "appellation": "Aciddrop",
-                "name_zh": "酸糖",
-                "name_ja": "アシッドドロップ",
-                "name_en": "Aciddrop",
-                "rarity": "TIER_4",
-                "profession": "SNIPER",
-                "subProfessionId": "closerange",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_271_spikes",
-                "appellation": "Arene",
-                "name_zh": "芳汀",
-                "name_ja": "アレーン",
-                "name_en": "Arene",
-                "rarity": "TIER_4",
-                "profession": "WARRIOR",
-                "subProfessionId": "lord",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    19
-                ]
-            },
-            {
-                "id": "char_381_bubble",
-                "appellation": "Bubble",
-                "name_zh": "泡泡",
-                "name_ja": "バブル",
-                "name_en": "Bubble",
-                "rarity": "TIER_4",
-                "profession": "TANK",
-                "subProfessionId": "protector",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    3,
-                    22
-                ]
-            },
-            {
-                "id": "char_347_jaksel",
-                "appellation": "Jackie",
-                "name_zh": "杰克",
-                "name_ja": "ジャッキー",
-                "name_en": "Jackie",
-                "rarity": "TIER_4",
-                "profession": "WARRIOR",
-                "subProfessionId": "fighter",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    1,
-                    19
-                ]
-            },
-            {
-                "id": "char_440_pinecn",
-                "appellation": "Pinecone",
-                "name_zh": "松果",
-                "name_ja": "パインコーン",
-                "name_en": "Pinecone",
-                "rarity": "TIER_4",
-                "profession": "SNIPER",
-                "subProfessionId": "reaperrange",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    2,
-                    21,
-                    19
-                ]
-            },
-            {
-                "id": "char_155_tiger",
-                "appellation": "Indra",
-                "name_zh": "因陀罗",
-                "name_ja": "インドラ",
-                "name_en": "Indra",
-                "rarity": "TIER_5",
-                "profession": "WARRIOR",
-                "subProfessionId": "fighter",
-                "IsRecruitOnly": true,
-                "tags": [
-                    9,
-                    14,
-                    1,
-                    19,
-                    20
-                ]
-            },
-            {
-                "id": "char_163_hpsts",
-                "appellation": "Vulcan",
-                "name_zh": "火神",
-                "name_ja": "ヴァルカン",
-                "name_en": "Vulcan",
-                "rarity": "TIER_5",
-                "profession": "TANK",
-                "subProfessionId": "unyield",
-                "IsRecruitOnly": true,
-                "tags": [
-                    9,
-                    14,
-                    3,
-                    20,
-                    22,
-                    19
-                ]
-            },
-            {
-                "id": "char_128_plosis",
-                "appellation": "Ptilopsis",
-                "name_zh": "白面鸮",
-                "name_ja": "フィリオプシス",
-                "name_en": "Ptilopsis",
-                "rarity": "TIER_5",
-                "profession": "MEDIC",
-                "subProfessionId": "ringhealer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    4,
-                    15,
-                    16
-                ]
-            },
-            {
-                "id": "char_115_headbr",
-                "appellation": "Зима",
-                "name_zh": "凛冬",
-                "name_ja": "ズィマー",
-                "name_en": "Zima",
-                "rarity": "TIER_5",
-                "profession": "PIONEER",
-                "subProfessionId": "pioneer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    8,
-                    18,
-                    16
-                ]
-            },
-            {
-                "id": "char_102_texas",
-                "appellation": "Texas",
-                "name_zh": "德克萨斯",
-                "name_ja": "テキサス",
-                "name_en": "Texas",
-                "rarity": "TIER_5",
-                "profession": "PIONEER",
-                "subProfessionId": "pioneer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    8,
-                    18,
-                    12
-                ]
-            },
-            {
-                "id": "char_143_ghost",
-                "appellation": "Specter",
-                "name_zh": "幽灵鲨",
-                "name_ja": "スペクター",
-                "name_en": "Specter",
-                "rarity": "TIER_5",
-                "profession": "WARRIOR",
-                "subProfessionId": "centurion",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    1,
-                    21,
-                    20
-                ]
-            },
-            {
-                "id": "char_129_bluep",
-                "appellation": "Blue Poison",
-                "name_zh": "蓝毒",
-                "name_ja": "アズリウス",
-                "name_en": "Blue Poison",
-                "rarity": "TIER_5",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_204_platnm",
-                "appellation": "Platinum",
-                "name_zh": "白金",
-                "name_ja": "プラチナ",
-                "name_en": "Platinum",
-                "rarity": "TIER_5",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_219_meteo",
-                "appellation": "Meteorite",
-                "name_zh": "陨星",
-                "name_ja": "メテオリーテ",
-                "name_en": "Meteorite",
-                "rarity": "TIER_5",
-                "profession": "SNIPER",
-                "subProfessionId": "aoesniper",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    2,
-                    21,
-                    24
-                ]
-            },
-            {
-                "id": "char_242_otter",
-                "appellation": "Mayer",
-                "name_zh": "梅尔",
-                "name_ja": "メイヤー",
-                "name_en": "Mayer",
-                "rarity": "TIER_5",
-                "profession": "SUPPORT",
-                "subProfessionId": "summoner",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    5,
-                    27,
-                    12
-                ]
-            },
-            {
-                "id": "char_108_silent",
-                "appellation": "Silence",
-                "name_zh": "赫默",
-                "name_ja": "サイレンス",
-                "name_en": "Silence",
-                "rarity": "TIER_5",
-                "profession": "MEDIC",
-                "subProfessionId": "physician",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    4,
-                    15
-                ]
-            },
-            {
-                "id": "char_171_bldsk",
-                "appellation": "Warfarin",
-                "name_zh": "华法琳",
-                "name_ja": "ワルファリン",
-                "name_en": "Warfarin",
-                "rarity": "TIER_5",
-                "profession": "MEDIC",
-                "subProfessionId": "physician",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    4,
-                    15,
-                    16
-                ]
-            },
-            {
-                "id": "char_148_nearl",
-                "appellation": "Nearl",
-                "name_zh": "临光",
-                "name_ja": "ニアール",
-                "name_en": "Nearl",
-                "rarity": "TIER_5",
-                "profession": "TANK",
-                "subProfessionId": "guardian",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    3,
-                    22,
-                    15
-                ]
-            },
-            {
-                "id": "char_144_red",
-                "appellation": "Projekt Red",
-                "name_zh": "红",
-                "name_ja": "レッド",
-                "name_en": "Projekt Red",
-                "rarity": "TIER_5",
-                "profession": "SPECIAL",
-                "subProfessionId": "executor",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    7,
-                    25,
-                    12
-                ]
-            },
-            {
-                "id": "char_107_liskam",
-                "appellation": "Liskarm",
-                "name_zh": "雷蛇",
-                "name_ja": "リスカム",
-                "name_en": "Liskarm",
-                "rarity": "TIER_5",
-                "profession": "TANK",
-                "subProfessionId": "shotprotector",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    3,
-                    22,
-                    19
-                ]
-            },
-            {
-                "id": "char_201_moeshd",
-                "appellation": "Croissant",
-                "name_zh": "可颂",
-                "name_ja": "クロワッサン",
-                "name_en": "Croissant",
-                "rarity": "TIER_5",
-                "profession": "TANK",
-                "subProfessionId": "protector",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    3,
-                    22,
-                    26
-                ]
-            },
-            {
-                "id": "char_145_prove",
-                "appellation": "Provence",
-                "name_zh": "普罗旺斯",
-                "name_ja": "プロヴァンス",
-                "name_en": "Provence",
-                "rarity": "TIER_5",
-                "profession": "SNIPER",
-                "subProfessionId": "closerange",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_158_milu",
-                "appellation": "Firewatch",
-                "name_zh": "守林人",
-                "name_ja": "ファイヤーウォッチ",
-                "name_en": "Firewatch",
-                "rarity": "TIER_5",
-                "profession": "SNIPER",
-                "subProfessionId": "longrange",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    2,
-                    19,
-                    13
-                ]
-            },
-            {
-                "id": "char_173_slchan",
-                "appellation": "Cliffheart",
-                "name_zh": "崖心",
-                "name_ja": "クリフハート",
-                "name_en": "Cliffheart",
-                "rarity": "TIER_5",
-                "profession": "SPECIAL",
-                "subProfessionId": "hookmaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    7,
-                    26,
-                    19
-                ]
-            },
-            {
-                "id": "char_174_slbell",
-                "appellation": "Pramanix",
-                "name_zh": "初雪",
-                "name_ja": "プラマニクス",
-                "name_en": "Pramanix",
-                "rarity": "TIER_5",
-                "profession": "SUPPORT",
-                "subProfessionId": "underminer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    5,
-                    24
-                ]
-            },
-            {
-                "id": "char_195_glassb",
-                "appellation": "Истина",
-                "name_zh": "真理",
-                "name_ja": "イースチナ",
-                "name_en": "Istina",
-                "rarity": "TIER_5",
-                "profession": "SUPPORT",
-                "subProfessionId": "slower",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    5,
-                    23,
-                    19
-                ]
-            },
-            {
-                "id": "char_215_mantic",
-                "appellation": "Manticore",
-                "name_zh": "狮蝎",
-                "name_ja": "マンティコア",
-                "name_en": "Manticore",
-                "rarity": "TIER_5",
-                "profession": "SPECIAL",
-                "subProfessionId": "stalker",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    7,
-                    19,
-                    20
-                ]
-            },
-            {
-                "id": "char_241_panda",
-                "appellation": "FEater",
-                "name_zh": "食铁兽",
-                "name_ja": "エフイーター",
-                "name_en": "FEater",
-                "rarity": "TIER_5",
-                "profession": "SPECIAL",
-                "subProfessionId": "pusher",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    7,
-                    26,
-                    23
-                ]
-            },
-            {
-                "id": "char_164_nightm",
-                "appellation": "Nightmare",
-                "name_zh": "夜魔",
-                "name_ja": "ナイトメア",
-                "name_en": "Nightmare",
-                "rarity": "TIER_5",
-                "profession": "CASTER",
-                "subProfessionId": "corecaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    6,
-                    19,
-                    15,
-                    23
-                ]
-            },
-            {
-                "id": "char_308_swire",
-                "appellation": "Swire",
-                "name_zh": "诗怀雅",
-                "name_ja": "スワイヤー",
-                "name_en": "Swire",
-                "rarity": "TIER_5",
-                "profession": "WARRIOR",
-                "subProfessionId": "instructor",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    1,
-                    19,
-                    16
-                ]
-            },
-            {
-                "id": "char_326_glacus",
-                "appellation": "Glaucus",
-                "name_zh": "格劳克斯",
-                "name_ja": "グラウコス",
-                "name_en": "Glaucus",
-                "rarity": "TIER_5",
-                "profession": "SUPPORT",
-                "subProfessionId": "slower",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    5,
-                    23,
-                    12
-                ]
-            },
-            {
-                "id": "char_274_astesi",
-                "appellation": "Astesia",
-                "name_zh": "星极",
-                "name_ja": "アステシア",
-                "name_en": "Astesia",
-                "rarity": "TIER_5",
-                "profession": "WARRIOR",
-                "subProfessionId": "artsfghter",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    1,
-                    19,
-                    22
-                ]
-            },
-            {
-                "id": "char_279_excu",
-                "appellation": "Executor",
-                "name_zh": "送葬人",
-                "name_ja": "イグゼキュター",
-                "name_en": "Executor",
-                "rarity": "TIER_5",
-                "profession": "SNIPER",
-                "subProfessionId": "reaperrange",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    2,
-                    21
-                ]
-            },
-            {
-                "id": "char_243_waaifu",
-                "appellation": "Waai Fu",
-                "name_zh": "槐琥",
-                "name_ja": "ワイフー",
-                "name_en": "Waai Fu",
-                "rarity": "TIER_5",
-                "profession": "SPECIAL",
-                "subProfessionId": "executor",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    7,
-                    25,
-                    24
-                ]
-            },
-            {
-                "id": "char_367_swllow",
-                "appellation": "GreyThroat",
-                "name_zh": "灰喉",
-                "name_ja": "グレースロート",
-                "name_en": "GreyThroat",
-                "rarity": "TIER_5",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_261_sddrag",
-                "appellation": "Reed",
-                "name_zh": "苇草",
-                "name_ja": "リード",
-                "name_en": "Reed",
-                "rarity": "TIER_5",
-                "profession": "PIONEER",
-                "subProfessionId": "charger",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    8,
-                    18,
-                    19
-                ]
-            },
-            {
-                "id": "char_356_broca",
-                "appellation": "Broca",
-                "name_zh": "布洛卡",
-                "name_ja": "ブローカ",
-                "name_en": "Broca",
-                "rarity": "TIER_5",
-                "profession": "WARRIOR",
-                "subProfessionId": "centurion",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    1,
-                    21,
-                    20
-                ]
-            },
-            {
-                "id": "char_226_hmau",
-                "appellation": "Hung",
-                "name_zh": "吽",
-                "name_ja": "ウン",
-                "name_en": "Hung",
-                "rarity": "TIER_5",
-                "profession": "TANK",
-                "subProfessionId": "guardian",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    3,
-                    22,
-                    15
-                ]
-            },
-            {
-                "id": "char_306_leizi",
-                "appellation": "Leizi",
-                "name_zh": "惊蛰",
-                "name_ja": "レイズ",
-                "name_en": "Leizi",
-                "rarity": "TIER_5",
-                "profession": "CASTER",
-                "subProfessionId": "chain",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    6,
-                    19
-                ]
-            },
-            {
-                "id": "char_379_sesa",
-                "appellation": "Sesa",
-                "name_zh": "慑砂",
-                "name_ja": "シェーシャ",
-                "name_en": "Sesa",
-                "rarity": "TIER_5",
-                "profession": "SNIPER",
-                "subProfessionId": "aoesniper",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    2,
-                    21,
-                    24
-                ]
-            },
-            {
-                "id": "char_254_vodfox",
-                "appellation": "Shamare",
-                "name_zh": "巫恋",
-                "name_ja": "シャマレ",
-                "name_en": "Shamare",
-                "rarity": "TIER_5",
-                "profession": "SUPPORT",
-                "subProfessionId": "underminer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    5,
-                    24
-                ]
-            },
-            {
-                "id": "char_401_elysm",
-                "appellation": "Elysium",
-                "name_zh": "极境",
-                "name_ja": "エリジウム",
-                "name_en": "Elysium",
-                "rarity": "TIER_5",
-                "profession": "PIONEER",
-                "subProfessionId": "bearer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    8,
-                    18,
-                    16
-                ]
-            },
-            {
-                "id": "char_378_asbest",
-                "appellation": "Asbestos",
-                "name_zh": "石棉",
-                "name_ja": "アスベストス",
-                "name_en": "Asbestos",
-                "rarity": "TIER_5",
-                "profession": "TANK",
-                "subProfessionId": "artsprotector",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    3,
-                    22,
-                    19
-                ]
-            },
-            {
-                "id": "char_343_tknogi",
-                "appellation": "Tsukinogi",
-                "name_zh": "月禾",
-                "name_ja": "ツキノギ",
-                "name_en": "Tsukinogi",
-                "rarity": "TIER_5",
-                "profession": "SUPPORT",
-                "subProfessionId": "blessing",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    5,
-                    16,
-                    20
-                ]
-            },
-            {
-                "id": "char_373_lionhd",
-                "appellation": "Leonhardt",
-                "name_zh": "莱恩哈特",
-                "name_ja": "レオンハルト",
-                "name_en": "Leonhardt",
-                "rarity": "TIER_5",
-                "profession": "CASTER",
-                "subProfessionId": "splashcaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    6,
-                    21,
-                    13
-                ]
-            },
-            {
-                "id": "char_294_ayer",
-                "appellation": "Ayerscarpe",
-                "name_zh": "断崖",
-                "name_ja": "エアースカーペ",
-                "name_en": "Ayerscarpe",
-                "rarity": "TIER_5",
-                "profession": "WARRIOR",
-                "subProfessionId": "lord",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    1,
-                    19,
-                    21
-                ]
-            },
-            {
-                "id": "char_218_cuttle",
-                "appellation": "Andreana",
-                "name_zh": "安哲拉",
-                "name_ja": "アンドレアナ",
-                "name_en": "Andreana",
-                "rarity": "TIER_5",
-                "profession": "SNIPER",
-                "subProfessionId": "longrange",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    2,
-                    19,
-                    23
-                ]
-            },
-            {
-                "id": "char_349_chiave",
-                "appellation": "Chiave",
-                "name_zh": "贾维",
-                "name_ja": "キアーベ",
-                "name_en": "Chiave",
-                "rarity": "TIER_5",
-                "profession": "PIONEER",
-                "subProfessionId": "pioneer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    8,
-                    18,
-                    19
-                ]
-            },
-            {
-                "id": "char_344_beewax",
-                "appellation": "Beeswax",
-                "name_zh": "蜜蜡",
-                "name_ja": "ビーズワクス",
-                "name_en": "Beeswax",
-                "rarity": "TIER_5",
-                "profession": "CASTER",
-                "subProfessionId": "phalanx",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    6,
-                    21,
-                    22
-                ]
-            },
-            {
-                "id": "char_415_flint",
-                "appellation": "Flint",
-                "name_zh": "燧石",
-                "name_ja": "フリント",
-                "name_en": "Flint",
-                "rarity": "TIER_5",
-                "profession": "WARRIOR",
-                "subProfessionId": "fighter",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    1,
-                    19
-                ]
-            },
-            {
-                "id": "char_365_aprl",
-                "appellation": "April",
-                "name_zh": "四月",
-                "name_ja": "エイプリル",
-                "name_en": "April",
-                "rarity": "TIER_5",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_346_aosta",
-                "appellation": "Aosta",
-                "name_zh": "奥斯塔",
-                "name_ja": "アオスタ",
-                "name_en": "Aosta",
-                "rarity": "TIER_5",
-                "profession": "SNIPER",
-                "subProfessionId": "reaperrange",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    2,
-                    21
-                ]
-            },
-            {
-                "id": "char_436_whispr",
-                "appellation": "Whisperain",
-                "name_zh": "絮雨",
-                "name_ja": "ウィスパーレイン",
-                "name_en": "Whisperain",
-                "rarity": "TIER_5",
-                "profession": "MEDIC",
-                "subProfessionId": "healer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    4,
-                    15
-                ]
-            },
-            {
-                "id": "char_214_kafka",
-                "appellation": "Kafka",
-                "name_zh": "卡夫卡",
-                "name_ja": "カフカ",
-                "name_en": "Kafka",
-                "rarity": "TIER_5",
-                "profession": "SPECIAL",
-                "subProfessionId": "executor",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    14,
-                    7,
-                    25,
-                    12
-                ]
-            },
-            {
-                "id": "char_338_iris",
-                "appellation": "Iris",
-                "name_zh": "爱丽丝",
-                "name_ja": "",
-                "name_en": "",
-                "rarity": "TIER_5",
-                "profession": "CASTER",
-                "subProfessionId": "mystic",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    14,
-                    6,
-                    19
-                ]
-            },
-            {
-                "id": "char_103_angel",
-                "appellation": "Exusiai",
-                "name_zh": "能天使",
-                "name_ja": "エクシア",
-                "name_en": "Exusiai",
-                "rarity": "TIER_6",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_112_siege",
-                "appellation": "Siege",
-                "name_zh": "推进之王",
-                "name_ja": "シージ",
-                "name_en": "Siege",
-                "rarity": "TIER_6",
-                "profession": "PIONEER",
-                "subProfessionId": "pioneer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    8,
-                    18,
-                    19
-                ]
-            },
-            {
-                "id": "char_134_ifrit",
-                "appellation": "Ifrit",
-                "name_zh": "伊芙利特",
-                "name_ja": "イフリータ",
-                "name_en": "Ifrit",
-                "rarity": "TIER_6",
-                "profession": "CASTER",
-                "subProfessionId": "blastcaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    6,
-                    21,
-                    24
-                ]
-            },
-            {
-                "id": "char_147_shining",
-                "appellation": "Shining",
-                "name_zh": "闪灵",
-                "name_ja": "シャイニング",
-                "name_en": "Shining",
-                "rarity": "TIER_6",
-                "profession": "MEDIC",
-                "subProfessionId": "physician",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    4,
-                    15,
-                    16
-                ]
-            },
-            {
-                "id": "char_179_cgbird",
-                "appellation": "Nightingale",
-                "name_zh": "夜莺",
-                "name_ja": "ナイチンゲール",
-                "name_en": "Nightingale",
-                "rarity": "TIER_6",
-                "profession": "MEDIC",
-                "subProfessionId": "ringhealer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    4,
-                    15,
-                    16
-                ]
-            },
-            {
-                "id": "char_136_hsguma",
-                "appellation": "Hoshiguma",
-                "name_zh": "星熊",
-                "name_ja": "ホシグマ",
-                "name_en": "Hoshiguma",
-                "rarity": "TIER_6",
-                "profession": "TANK",
-                "subProfessionId": "protector",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    3,
-                    22,
-                    19
-                ]
-            },
-            {
-                "id": "char_202_demkni",
-                "appellation": "Saria",
-                "name_zh": "塞雷娅",
-                "name_ja": "サリア",
-                "name_en": "Saria",
-                "rarity": "TIER_6",
-                "profession": "TANK",
-                "subProfessionId": "guardian",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    3,
-                    22,
-                    15,
-                    16
-                ]
-            },
-            {
-                "id": "char_172_svrash",
-                "appellation": "SilverAsh",
-                "name_zh": "银灰",
-                "name_ja": "シルバーアッシュ",
-                "name_en": "SilverAsh",
-                "rarity": "TIER_6",
-                "profession": "WARRIOR",
-                "subProfessionId": "lord",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    1,
-                    19,
-                    16
-                ]
-            },
-            {
-                "id": "char_263_skadi",
-                "appellation": "Skadi",
-                "name_zh": "斯卡蒂",
-                "name_ja": "スカジ",
-                "name_en": "Skadi",
-                "rarity": "TIER_6",
-                "profession": "WARRIOR",
-                "subProfessionId": "fearless",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    1,
-                    19,
-                    20
-                ]
-            },
-            {
-                "id": "char_010_chen",
-                "appellation": "Ch'en",
-                "name_zh": "陈",
-                "name_ja": "チェン",
-                "name_en": "Ch'en",
-                "rarity": "TIER_6",
-                "profession": "WARRIOR",
-                "subProfessionId": "sword",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    1,
-                    13,
-                    19
-                ]
-            },
-            {
-                "id": "char_340_shwaz",
-                "appellation": "Schwarz",
-                "name_zh": "黑",
-                "name_ja": "シュヴァルツ",
-                "name_en": "Schwarz",
-                "rarity": "TIER_6",
-                "profession": "SNIPER",
-                "subProfessionId": "closerange",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_188_helage",
-                "appellation": "Hellagur",
-                "name_zh": "赫拉格",
-                "name_ja": "ヘラグ",
-                "name_en": "Hellagur",
-                "rarity": "TIER_6",
-                "profession": "WARRIOR",
-                "subProfessionId": "musha",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    1,
-                    19,
-                    20
-                ]
-            },
-            {
-                "id": "char_248_mgllan",
-                "appellation": "Magallan",
-                "name_zh": "麦哲伦",
-                "name_ja": "マゼラン",
-                "name_en": "Magallan",
-                "rarity": "TIER_6",
-                "profession": "SUPPORT",
-                "subProfessionId": "summoner",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    5,
-                    16,
-                    23,
-                    19
-                ]
-            },
-            {
-                "id": "char_213_mostma",
-                "appellation": "Mostima",
-                "name_zh": "莫斯提马",
-                "name_ja": "モスティマ",
-                "name_en": "Mostima",
-                "rarity": "TIER_6",
-                "profession": "CASTER",
-                "subProfessionId": "splashcaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    6,
-                    21,
-                    16,
-                    12
-                ]
-            },
-            {
-                "id": "char_017_huang",
-                "appellation": "Blaze",
-                "name_zh": "煌",
-                "name_ja": "ブレイズ",
-                "name_en": "Blaze",
-                "rarity": "TIER_6",
-                "profession": "WARRIOR",
-                "subProfessionId": "centurion",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    1,
-                    19,
-                    20
-                ]
-            },
-            {
-                "id": "char_225_haak",
-                "appellation": "Aak",
-                "name_zh": "阿",
-                "name_ja": "ア",
-                "name_en": "Aak",
-                "rarity": "TIER_6",
-                "profession": "SPECIAL",
-                "subProfessionId": "geek",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    7,
-                    16,
-                    19
-                ]
-            },
-            {
-                "id": "char_2013_cerber",
-                "appellation": "Ceobe",
-                "name_zh": "刻俄柏",
-                "name_ja": "ケオベ",
-                "name_en": "Ceobe",
-                "rarity": "TIER_6",
-                "profession": "CASTER",
-                "subProfessionId": "corecaster",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    6,
-                    19,
-                    12
-                ]
-            },
-            {
-                "id": "char_222_bpipe",
-                "appellation": "Bagpipe",
-                "name_zh": "风笛",
-                "name_ja": "バグパイプ",
-                "name_en": "Bagpipe",
-                "rarity": "TIER_6",
-                "profession": "PIONEER",
-                "subProfessionId": "charger",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    8,
-                    18,
-                    19
-                ]
-            },
-            {
-                "id": "char_250_phatom",
-                "appellation": "Phantom",
-                "name_zh": "傀影",
-                "name_ja": "ファントム",
-                "name_en": "Phantom",
-                "rarity": "TIER_6",
-                "profession": "SPECIAL",
-                "subProfessionId": "executor",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    7,
-                    25,
-                    12,
-                    19
-                ]
-            },
-            {
-                "id": "char_400_weedy",
-                "appellation": "Weedy",
-                "name_zh": "温蒂",
-                "name_ja": "ウィーディ",
-                "name_en": "Weedy",
-                "rarity": "TIER_6",
-                "profession": "SPECIAL",
-                "subProfessionId": "pusher",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    7,
-                    26,
-                    19,
-                    12
-                ]
-            },
-            {
-                "id": "char_197_poca",
-                "appellation": "Роса",
-                "name_zh": "早露",
-                "name_ja": "ロサ",
-                "name_en": "Rosa",
-                "rarity": "TIER_6",
-                "profession": "SNIPER",
-                "subProfessionId": "siegesniper",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    2,
-                    19,
-                    12
-                ]
-            },
-            {
-                "id": "char_358_lisa",
-                "appellation": "Suzuran",
-                "name_zh": "铃兰",
-                "name_ja": "スズラン",
-                "name_en": "Suzuran",
-                "rarity": "TIER_6",
-                "profession": "SUPPORT",
-                "subProfessionId": "slower",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    5,
-                    23,
-                    16,
-                    19
-                ]
-            },
-            {
-                "id": "char_293_thorns",
-                "appellation": "Thorns",
-                "name_zh": "棘刺",
-                "name_ja": "ソーンズ",
-                "name_en": "Thorns",
-                "rarity": "TIER_6",
-                "profession": "WARRIOR",
-                "subProfessionId": "lord",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    1,
-                    19,
-                    22
-                ]
-            },
-            {
-                "id": "char_416_zumama",
-                "appellation": "Eunectes",
-                "name_zh": "森蚺",
-                "name_ja": "ユーネクテス",
-                "name_en": "Eunectes",
-                "rarity": "TIER_6",
-                "profession": "TANK",
-                "subProfessionId": "duelist",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    3,
-                    19,
-                    20,
-                    22
-                ]
-            },
-            {
-                "id": "char_350_surtr",
-                "appellation": "Surtr",
-                "name_zh": "史尔特尔",
-                "name_ja": "スルト",
-                "name_en": "Surtr",
-                "rarity": "TIER_6",
-                "profession": "WARRIOR",
-                "subProfessionId": "artsfghter",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    1,
-                    19
-                ]
-            },
-            {
-                "id": "char_423_blemsh",
-                "appellation": "Blemishine",
-                "name_zh": "瑕光",
-                "name_ja": "ブレミシャイン",
-                "name_en": "Blemishine",
-                "rarity": "TIER_6",
-                "profession": "TANK",
-                "subProfessionId": "guardian",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    3,
-                    22,
-                    15,
-                    19
-                ]
-            },
-            {
-                "id": "char_311_mudrok",
-                "appellation": "Mudrock",
-                "name_zh": "泥岩",
-                "name_ja": "マドロック",
-                "name_en": "Mudrock",
-                "rarity": "TIER_6",
-                "profession": "TANK",
-                "subProfessionId": "unyield",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    3,
-                    20,
-                    22,
-                    19
-                ]
-            },
-            {
-                "id": "char_264_f12yin",
-                "appellation": "Mountain",
-                "name_zh": "山",
-                "name_ja": "マウンテン",
-                "name_en": "Mountain",
-                "rarity": "TIER_6",
-                "profession": "WARRIOR",
-                "subProfessionId": "fighter",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    1,
-                    19,
-                    20
-                ]
-            },
-            {
-                "id": "char_332_archet",
-                "appellation": "Archetto",
-                "name_zh": "空弦",
-                "name_ja": "",
-                "name_en": "",
-                "rarity": "TIER_6",
-                "profession": "SNIPER",
-                "subProfessionId": "fastshot",
-                "IsRecruitOnly": false,
-                "tags": [
-                    10,
-                    11,
-                    2,
-                    19
-                ]
-            },
-            {
-                "id": "char_362_saga",
-                "appellation": "Saga",
-                "name_zh": "嵯峨",
-                "name_ja": "",
-                "name_en": "",
-                "rarity": "TIER_6",
-                "profession": "PIONEER",
-                "subProfessionId": "pioneer",
-                "IsRecruitOnly": false,
-                "tags": [
-                    9,
-                    11,
-                    8,
-                    18,
-                    19
-                ]
+                "id": "none",
+                "orderNum": 0,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "无团队",
+                    "ja": "所属なし",
+                    "en": "No team"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "rhodes",
+                "orderNum": 1,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "罗德岛",
+                    "ja": "ロドス・アイランド",
+                    "en": "Rhodes Island"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "yan",
+                "orderNum": 2,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "炎",
+                    "ja": "炎",
+                    "en": "Yan"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "lungmen",
+                "orderNum": 3,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "炎-龙门",
+                    "ja": "炎−龍門",
+                    "en": "Yan-Lungmen"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "egir",
+                "orderNum": 4,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "阿戈尔",
+                    "ja": "エーギル",
+                    "en": "Ægir"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "bolivar",
+                "orderNum": 5,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "玻利瓦尔",
+                    "ja": "ボリバル",
+                    "en": "Bolívar"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "columbia",
+                "orderNum": 6,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "哥伦比亚",
+                    "ja": "クルビア",
+                    "en": "Columbia"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "higashi",
+                "orderNum": 7,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "东",
+                    "ja": "極東",
+                    "en": "Higashi"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "iberia",
+                "orderNum": 8,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "伊比利亚",
+                    "ja": "イベリア",
+                    "en": "Iberia"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "kazimierz",
+                "orderNum": 10,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "卡西米尔",
+                    "ja": "カジミエーシュ",
+                    "en": "Kazimierz"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "kjerag",
+                "orderNum": 11,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "谢拉格",
+                    "ja": "イェラグ",
+                    "en": "Kjerag"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "laterano",
+                "orderNum": 12,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "拉特兰",
+                    "ja": "ラテラーノ",
+                    "en": "Laterano"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "leithanien",
+                "orderNum": 13,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "莱塔尼亚",
+                    "ja": "リターニア",
+                    "en": "Leithanien"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "minos",
+                "orderNum": 14,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "米诺斯",
+                    "ja": "ミノス",
+                    "en": "Minos"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "rim",
+                "orderNum": 15,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "雷姆必拓",
+                    "ja": "レム・ビリトン",
+                    "en": "Rim Billiton"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "sami",
+                "orderNum": 16,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "萨米",
+                    "ja": "サーミ",
+                    "en": "Sami"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "sargon",
+                "orderNum": 17,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "萨尔贡",
+                    "ja": "サルゴン",
+                    "en": "Sargon"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "siracusa",
+                "orderNum": 18,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "叙拉古",
+                    "ja": "シラクーザ",
+                    "en": "Siracusa"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "ursus",
+                "orderNum": 19,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "乌萨斯",
+                    "ja": "ウルサス",
+                    "en": "Ursus"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "victoria",
+                "orderNum": 20,
+                "powerLevel": 0,
+                "name": {
+                    "zh": "维多利亚",
+                    "ja": "ヴィクトリア",
+                    "en": "Victoria"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "elite",
+                "orderNum": 21,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "罗德岛-精英干员",
+                    "ja": "エリートオペレーター",
+                    "en": "Rhodes Island-Elite Operator"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "sweep",
+                "orderNum": 22,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "S.W.E.E.P.",
+                    "ja": "S.W.E.E.P.",
+                    "en": "S.W.E.E.P."
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "babel",
+                "orderNum": 23,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "巴别塔",
+                    "ja": "バベル",
+                    "en": "Babel"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "abyssal",
+                "orderNum": 24,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "深海猎人",
+                    "ja": "アビサルハンター",
+                    "en": "Abyssal Hunters"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "blacksteel",
+                "orderNum": 25,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "黑钢国际",
+                    "ja": "BSW",
+                    "en": "Blacksteel Worldwide"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "glasgow",
+                "orderNum": 26,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "格拉斯哥帮",
+                    "ja": "グラスゴー",
+                    "en": "Glasgow"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "karlan",
+                "orderNum": 27,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "喀兰贸易",
+                    "ja": "カランド貿易",
+                    "en": "Karlan Trade CO., LTD"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "lgd",
+                "orderNum": 28,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "龙门近卫局",
+                    "ja": "龍門近衛局",
+                    "en": "Lungmen Guard Department"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "penguin",
+                "orderNum": 29,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "企鹅物流",
+                    "ja": "ペンギン急便",
+                    "en": "Penguin Logistics"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "pinus",
+                "orderNum": 30,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "红松骑士团",
+                    "ja": "レッドパイン騎士団",
+                    "en": "Pinus Sylvestris"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "rhine",
+                "orderNum": 31,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "莱茵生命",
+                    "ja": "ライン生命",
+                    "en": "Rhine Lab"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "siesta",
+                "orderNum": 32,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "汐斯塔",
+                    "ja": "シエスタ",
+                    "en": "Siesta"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "sui",
+                "orderNum": 33,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "炎-岁",
+                    "ja": "炎-歳",
+                    "en": "Yan-Sui"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "dublinn",
+                "orderNum": 34,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "深池",
+                    "ja": "ダブリン",
+                    "en": "Dublinn"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "tara",
+                "orderNum": 35,
+                "powerLevel": 1,
+                "name": {
+                    "zh": "塔拉",
+                    "ja": "",
+                    "en": ""
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "action4",
+                "orderNum": 36,
+                "powerLevel": 2,
+                "name": {
+                    "zh": "行动组A4",
+                    "ja": "行動隊A4",
+                    "en": "Op Team A4"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "reserve1",
+                "orderNum": 37,
+                "powerLevel": 2,
+                "name": {
+                    "zh": "行动预备组A1",
+                    "ja": "行動予備隊A1",
+                    "en": "Reserve Op Team A1"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "reserve4",
+                "orderNum": 38,
+                "powerLevel": 2,
+                "name": {
+                    "zh": "行动预备组A4",
+                    "ja": "行動予備隊A4",
+                    "en": "Reserve Op Team A4"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "reserve6",
+                "orderNum": 39,
+                "powerLevel": 2,
+                "name": {
+                    "zh": "行动预备组A6",
+                    "ja": "行動予備隊A6",
+                    "en": "Reserve Op Team A6"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "chiave",
+                "orderNum": 40,
+                "powerLevel": 2,
+                "name": {
+                    "zh": "贾维团伙",
+                    "ja": "キアーベ一味",
+                    "en": "Chiave Gang"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "followers",
+                "orderNum": 42,
+                "powerLevel": 2,
+                "name": {
+                    "zh": "使徒",
+                    "ja": "使徒",
+                    "en": "Followers"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "lee",
+                "orderNum": 43,
+                "powerLevel": 2,
+                "name": {
+                    "zh": "鲤氏侦探事务所",
+                    "ja": "リー探偵事務所",
+                    "en": "Lee's Detective Agency"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "rainbow",
+                "orderNum": 44,
+                "powerLevel": 2,
+                "name": {
+                    "zh": "彩虹小队",
+                    "ja": "レインボー小隊",
+                    "en": "Team Rainbow"
+                },
+                "isLimited": false,
+                "isRaw": true
+            },
+            {
+                "id": "student",
+                "orderNum": 45,
+                "powerLevel": 2,
+                "name": {
+                    "zh": "乌萨斯学生自治团",
+                    "ja": "ウルサス学生自治団",
+                    "en": "Ursus Student Self-Governing Group"
+                },
+                "isLimited": false,
+                "isRaw": false
+            },
+            {
+                "id": "laios",
+                "orderNum": 46,
+                "powerLevel": 2,
+                "name": {
+                    "zh": "莱欧斯小队",
+                    "ja": "ライオスパーティー",
+                    "en": "Laios's Party"
+                },
+                "isLimited": false,
+                "isRaw": true
             }
         ]
     }

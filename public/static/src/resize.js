@@ -14,13 +14,13 @@ function adjustTextSize(element, options) {
         const c = element;
         if (!(c != null && c.parentElement)) return;
 
-        const f = c.parentElement.getBoundingClientRect();
+        const containerRect = c.parentElement.getBoundingClientRect();
 
         let p = 0;
         if (options.extraText) {
             const tempDiv = document.createElement("div");
             tempDiv.className = options.extraTextClass || "";
-            tempDiv.style.width = f.width + "px";
+            tempDiv.style.width = containerRect.width + "px";
             tempDiv.innerText = options.extraText;
             tempDiv.style.position = "fixed";
             tempDiv.style.visibility = "hidden";
@@ -29,26 +29,24 @@ function adjustTextSize(element, options) {
             tempDiv.remove();
         }
 
-        let m = 0;
+        let siblingsHeight = 0;
         const v = c.parentElement.children;
         let E;
         for (let i = 0; E = v[i], i < v.length; i++) {
-            E !== c && (!E.textContent && getComputedStyle(E).flexGrow === "1" || (m += E.getBoundingClientRect().height));
-            
-
+            E !== c && (!E.textContent && getComputedStyle(E).flexGrow !== "1" || (siblingsHeight += E.getBoundingClientRect().height));
         }
 
-        const targetHeight = (options.targetHeight ?? f.height) - p - m;
+        const avaliableHeight = (options.targetHeight ?? containerRect.height) - p - siblingsHeight;
         
 
-        if (f.width * targetHeight <= lastSize && (lastSize = f.width * targetHeight, c.scrollHeight <= targetHeight && c.scrollWidth <= f.width)) {
+        if (containerRect.width * avaliableHeight <= lastSize && (lastSize = containerRect.width * avaliableHeight, c.scrollHeight <= avaliableHeight && c.scrollWidth <= containerRect.width)) {
             
             return;
         }
         
 
         lock = true;
-        lastSize = f.width * targetHeight;
+        lastSize = containerRect.width * avaliableHeight;
 
         const h = "__bigtext_target";
         c.classList.add(h);
@@ -56,10 +54,10 @@ function adjustTextSize(element, options) {
         c.classList.remove(h);
         b.style.position = "fixed";
         b.style.visibility = "hidden";
-        b.style.left = -(f.width * 2) + "px";
-        b.style.top = -(targetHeight * 2) + "px";
-        b.style.width = f.width + "px";
-        b.style.height = targetHeight + "px";
+        b.style.left = -(containerRect.width * 2) + "px";
+        b.style.top = -(avaliableHeight * 2) + "px";
+        b.style.width = containerRect.width + "px";
+        b.style.height = avaliableHeight + "px";
         
 
         const y = b.querySelector(`.${h}`);
@@ -68,15 +66,15 @@ function adjustTextSize(element, options) {
 
         const fontSizes = options.small ? t : u;
         for (size = 0; size < fontSizes.length - 1 && (y.style.fontSize = fontSizes[size], 
-            !(y.scrollHeight <= Math.ceil(targetHeight) && y.scrollWidth <= Math.ceil(f.width))); ) {
+            !(y.scrollHeight <= Math.ceil(avaliableHeight) && y.scrollWidth <= Math.ceil(containerRect.width))); ) {
             size++;
             
             
             
         }
         c.style.fontSize = fontSizes[size];
+        c.style.textWrap = "balance";
         
-
         const w = y.scrollHeight;
         let O = y.scrollWidth;
         
@@ -89,10 +87,11 @@ function adjustTextSize(element, options) {
         
         c.style.width = (O + 1) + "px";
         b.remove();
+        
         lock = false;
     };
 
-    const debouncedResizeText = debounce(resizeText, 1000 / 15);
+    const debouncedResizeText = debounce(resizeText, 0);
 
     const resizeObserver = new ResizeObserver(debouncedResizeText);
     resizeObserver.observe(element.parentElement);

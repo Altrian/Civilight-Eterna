@@ -659,6 +659,7 @@ small {
   line-height: 1.1em;
   overflow-wrap: break-word;
   text-shadow: rgba(0, 0, 0, 0.3) 1px 2px 4px;
+  text-wrap: balance;
   margin-bottom: .25rem;
 }
 
