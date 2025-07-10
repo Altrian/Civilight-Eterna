@@ -711,6 +711,7 @@ small {
   grid-area: tags;
   background: rgb(var(--theme-accent));
   padding: .5rem 1rem;
+  min-height: 3.5rem;
 }
 
 .tag-selection > *:not(:first-child) {

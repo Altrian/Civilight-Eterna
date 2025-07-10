@@ -285,6 +285,7 @@ function populateTags(tags) {
 			}
 		} else {
 			selectedTags[CATEGORIES_MAP[event.target.name]].delete(event.target.id);
+			fetchedTags.delete(event.target.id); // Remove from fetched tags
 		}
 		updateTagsState();
 		updateOperators();
@@ -431,9 +432,9 @@ async function updateOperators() {
 	// Identify which tags haven't been fetched yet
 	Object.values(selectedTags).forEach(tagSet => {
 		tagSet.forEach(tagId => {
-			if (!fetchedTags.has(tagId)) {
-				missingTags.push(tagId);
-			}
+			if (fetchedTags.has(tagId)) return; // Skip if tag is already fetched
+			fetchedTags.add(tagId); // Mark tag as fetched
+			missingTags.push(tagId);
 		});
 	});
 
@@ -459,16 +460,13 @@ async function updateOperators() {
 
 		// Store operators uniquely in a Map (keyed by `id`)
 		fetchedOperators.forEach(op => cachedOperators.set(op.id, op));
-
-		// Mark fetched tags as retrieved
-		missingTags.forEach(tagId => fetchedTags.add(tagId));
 	}
 
 	// Convert Set to Array before using .every()
 	let selectedTagArray = Object.values(selectedTags).flatMap(set => [...set]);
 
 	displayResults();
-
+	cachedOperators.clear(); // Clear cached operators after displaying results
 	operatorResults.style.minHeight = "";
 }
 
@@ -896,8 +894,9 @@ window.testAPI = testAPI; // Expose for testing
 
 // Call the function when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+	loadTag();
 	initializeCheckbox('toggle-rarity-common');
 	initializeCheckbox('toggle-rarity-robot');
-	loadTag();
+	
 });
 
