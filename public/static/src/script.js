@@ -120,10 +120,12 @@ function populateTags(tags) {
 		}
 	});
 	// Sort Specialization tags by name
-	const locale = navigator.language || 'en'; // fallback to 'en' if unavailable
+	const locale = navigator.language.substring(0,2) || 'zh'; // fallback to 'en' if unavailable
+	console.log("Sorting Specialization tags by name in locale:", locale);
+	console.log("Categorized Tags:", categorizedTags.Specialization);
 	categorizedTags.Specialization.sort((a, b) =>
-		a[`name_${locale}`]?.localeCompare(b[`name_${locale}`], locale) ??
-		a[`name_en`]?.localeCompare(b[`name_en`], 'en') // fallback if field is missing
+		a['name'][locale]?.localeCompare(b['name'][locale], locale) ??
+		a['name']['zh']?.localeCompare(b['name']['zh']) // fallback if field is missing
 	);
 
 	// Create tag-category divider
