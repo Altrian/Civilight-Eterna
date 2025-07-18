@@ -1,6 +1,7 @@
 import { fetchAllTags, fetchRecruitableOperators, fetchRecruitmentData } from "./api.js";
 import { saveToDB, getFromDB, isLocalDataOutdated } from "./db.js";
 import { filterOperators } from "./recruitment.js";
+import { toastNotification } from "./toast.js";
 import characterData from "../arknights/characters_en.json" with { type: "json" };
 import recruitmentData from "../arknights/recruitment.json" with { type: "json" };
 
@@ -17,7 +18,6 @@ let selectedTags = { // Store selected tags by category
 	"tagList": new Set()
 }; 
 let allTags = [];
-let allTagsElements = []; // Store all tag elements for easy access
 let fetchedTags = new Set(); // Tracks fetched tags
 let cachedOperators = new Map(); // Store unique operators
 let currentSections = new Map(); // Store current sections for toggling
@@ -192,18 +192,16 @@ function populateTags(tags) {
 		container.appendChild(categoryDiv);
 	}
 
-	// Event delegation for clicks
-	container.addEventListener("click", (e) => {
-		const li = e.target.closest(".tag-item");
-		if (!li || li.getAttribute("aria-disabled") === "true") return;
+    const allTagsElements = Array.from(container.querySelectorAll(".tag-item"));
+    const resetFilterState = setupKeyboardNavigation(allTagsElements);
 
-		const checkbox = li.querySelector("input[type='checkbox']");
-		if (!checkbox) return;
-
-		checkbox.checked = !checkbox.checked;
-		checkbox.dispatchEvent(new Event("change", { bubbles: true }));
-	});
-
+    function clearTagInputOnly() {
+        const inputForm = document.getElementById("tag-input-form");
+        const input = inputForm.querySelector("#tag-input");
+        input.value = "";
+        allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
+        resetFilterState();
+    }
 	// Event delegation for keyboard navigation
 	container.addEventListener("keydown", (e) => {
 		const activeElement = document.activeElement;
@@ -271,62 +269,76 @@ function populateTags(tags) {
 			nextTag.focus();
 		}
 	});
+	// Event delegation for clicks
+	container.addEventListener("click", (e) => {
+		const li = e.target.closest(".tag-item");
+		if (!li || li.getAttribute("aria-disabled") === "true") return;
 
+		const checkbox = li.querySelector("input[type='checkbox']");
+		if (!checkbox) return;
+
+		checkbox.checked = !checkbox.checked;
+		checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+	});
 	// Handle checkbox logic
 	container.addEventListener("change", (event) => {
 		if (!event.target.matches("input[type='checkbox']")) return;
 
-		
+		let changeSuccess = false;
 		if (event.target.checked) {
 			const allSelectedTags = Object.values(selectedTags).reduce((sum, set) => sum + set.size, 0);
 			if (allSelectedTags < maxTags) {
 				selectedTags[CATEGORIES_MAP[event.target.name]].add(event.target.id);
+				changeSuccess = true; // Successfully added tag
 			} else {
 				event.target.checked = false;
+				toastNotification(`You can only select up to ${maxTags} tags.`, {
+					autoDismiss: 3000,
+				});
 				return;
 			}
 		} else {
 			selectedTags[CATEGORIES_MAP[event.target.name]].delete(event.target.id);
 			fetchedTags.delete(event.target.id); // Remove from fetched tags
+			changeSuccess = true; // Successfully removed tag
 		}
-		updateTagsState();
+		updateTagsState(container, allTagsElements);
 		updateOperators();
+		if (changeSuccess) {
+			clearTagInputOnly(); // Clear input only if tag state changed
+			console.log(`Tag ${event.target.id} ${event.target.checked ? 'added' : 'removed'}.`);
+		}
 	});
-	// Handle keyboard navigation
-	allTagsElements = Array.from(container.querySelectorAll(".tag-item"));
-	setupKeyboardNavigation()
 }
 
-function setupKeyboardNavigation() {
+function setupKeyboardNavigation(allTagsElements) {
 	let filteredTags = []
 	let currentIndex = 0;
 	console.log("Setting up keyboard navigation for tags");
 	const inputForm = document.getElementById("tag-input-form");
 	const input = inputForm.querySelector("#tag-input");
 
-	inputForm.addEventListener("submit", (e) => {
-		e.preventDefault(); // prevent page reload on Enter
-	});
+    function resetFilterState() {
+        filteredTags = [];
+        allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
+    }
+
+	inputForm.addEventListener("submit", (e) => e.preventDefault());
 
 
 	// Highlight + keyboard
 	input.addEventListener("input", () => {
 		if (!input.value) {
-			allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
-			filteredTags = [];
+			resetFilterState();
 			return;
 		}
 		const filter = input.value.toLowerCase();
 		filteredTags = allTagsElements.filter(tag =>
 			tag.innerText.toLowerCase().startsWith(filter)
 		);
-		console.log("Filtered Tags:", filteredTags);
+		console.log("Filtered Tags:", filteredTags.map(tag => tag.innerText).join(", "));
 
-		allTagsElements.forEach(tag => {
-			tag.classList.remove("highlighted", "active-highlight");
-		});
-
-
+		allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
 		if (filteredTags.length > 0) {
 			currentIndex = 0;
 			filteredTags.forEach(tag => tag.classList.add("highlighted"));
@@ -337,11 +349,9 @@ function setupKeyboardNavigation() {
 	input.addEventListener("focus", () => {
 		const filter = input.value.toLowerCase().trim();
 		if (!filter) return; // skip if input is empty
-
 		filteredTags = allTagsElements.filter(tag =>
 			tag.innerText.toLowerCase().startsWith(filter)
 		);
-
 		if (filteredTags.length > 0) {
 			currentIndex = 0;
 			filteredTags.forEach(tag => tag.classList.add("highlighted"));
@@ -349,15 +359,10 @@ function setupKeyboardNavigation() {
 		}
 	});
 
-	input.addEventListener("blur", () => {
-		allTagsElements.forEach(tag => {
-			tag.classList.remove("highlighted", "active-highlight");
-		});
-	});
+	input.addEventListener("blur", resetFilterState);
 
 	input.addEventListener("keydown", (e) => {
 		if (filteredTags.length === 0) return;
-
 		if (e.key === "Tab") {
 			e.preventDefault();
 			filteredTags[currentIndex].classList.remove("active-highlight");
@@ -365,13 +370,11 @@ function setupKeyboardNavigation() {
 			currentIndex = (currentIndex + 1) % filteredTags.length;
 			filteredTags[currentIndex].classList.add("active-highlight");
 		}
-
 		if (e.key === "Enter") {
 			if (!input.value.trim() || filteredTags.length === 0) {
 				e.preventDefault();
 				return;
 			}
-
 			e.preventDefault();
 			const selectedTag = filteredTags[currentIndex];
 			if (selectedTag && selectedTag.getAttribute("aria-disabled") !== "true") {
@@ -382,13 +385,8 @@ function setupKeyboardNavigation() {
 		if (e.key === "Escape") {
 			e.preventDefault();
 			console.log("Escape pressed, clearing input and tags");
-
 			input.value = "";
-			filteredTags = [];
-
-			allTagsElements.forEach(tag => {
-				tag.classList.remove("highlighted", "active-highlight");
-			});
+			resetFilterState();
 			allTagsElements.forEach(tag => {
 				const checkbox = tag.querySelector('input[type="checkbox"]');
 				if (checkbox && checkbox.checked) {
@@ -396,29 +394,35 @@ function setupKeyboardNavigation() {
 					checkbox.dispatchEvent(new Event("change", { bubbles: true }));
 				}
 			});
-
 		}
 	});
+	return resetFilterState;
 }
 
-function updateTagsState() {
-	const container = document.getElementById("tag-selection");
+function updateTagsState(container, allTagsElements) {
 	const input = document.getElementById("tag-input")
 	const reachedMax = selectedTags.size >= maxTags;
 
 	container.classList.toggle('limit-reached', reachedMax);
 	input.disabled = reachedMax;
+    allTagsElements.forEach(tag => {
+        const checkbox = tag.querySelector("input[type='checkbox']");
+        if (!checkbox.checked) {
+            tag.setAttribute("aria-disabled", reachedMax);
+            tag.classList.toggle("disabled", reachedMax);
+        } else {
+            tag.setAttribute("aria-disabled", false);
+            tag.classList.remove("disabled");
+        }
+        tag.setAttribute("aria-checked", checkbox.checked);
+    });
+}
 
-	container.querySelectorAll(".tag-item").forEach(tag => {
-		if (!tag.querySelector("input[type='checkbox']").checked) {
-			tag.setAttribute("aria-disabled", reachedMax);
-			tag.classList.toggle("disabled", reachedMax);
-		} else {
-			tag.setAttribute("aria-disabled", false);
-			tag.classList.remove("disabled");
-		}
-		tag.setAttribute("aria-checked", tag.querySelector("input").checked);
-	});
+function clearTagInputOnly() {
+    const inputForm = document.getElementById("tag-input-form");
+    const input = inputForm.querySelector("#tag-input");
+    input.value = "";
+	allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
 }
 
 function getSectionKey(tags) {
