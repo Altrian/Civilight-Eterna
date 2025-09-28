@@ -1,9 +1,7 @@
-import { fetchAllTags, fetchRecruitableOperators, fetchRecruitmentData } from "./api.js";
+import { fetchOperatorData, fetchRecruitmentData } from "./api.js";
 import { saveToDB, getFromDB, isLocalDataOutdated } from "./db.js";
 import { filterOperators } from "./recruitment.js";
 import { toastNotification } from "./toast.js";
-import characterData from "../arknights/characters_en.json" with { type: "json" };
-import recruitmentData from "../arknights/recruitment.json" with { type: "json" };
 
 let STORAGE_KEY_COMMON = 'hideRarityCommonSections';
 let STORAGE_KEY_ROBOT = 'hideOnlyRarityRobotSections';
@@ -17,6 +15,9 @@ let selectedTags = { // Store selected tags by category
 	"profession": new Set(), 
 	"tagList": new Set()
 }; 
+
+let characterData = null;
+let recruitmentData = null;
 let allTags = [];
 let fetchedTags = new Set(); // Tracks fetched tags
 let cachedOperators = new Map(); // Store unique operators
@@ -38,56 +39,11 @@ const CATEGORIES_MAP = {
 	"Specialization": "tagList"
 }
 
-window.addEventListener("beforeinstallprompt", event => {
-	event.preventDefault();
-	deferredPrompt = event;
-
-	/* document.getElementById("installPWA").style.display = "block"; */ // Show install button
-});
-
-/* document.getElementById("installPWA").addEventListener("click", () => {
-	if (deferredPrompt) {
-		deferredPrompt.prompt();
-		deferredPrompt.userChoice.then(choiceResult => {
-			if (choiceResult.outcome === "accepted") {
-				console.log("✅ User installed PWA!");
-
-				// Register service worker after installation
-				navigator.serviceWorker.register("sw.js").then(reg => {
-					console.log("✅ Service Worker registered!", reg.scope);
-				});
-			} else {
-				console.log("❌ User dismissed PWA install.");
-			}
-			deferredPrompt = null;
-		});
-	}
-}); */
-
-// Check if PWA is installed
-window.addEventListener("appinstalled", () => {
-	isPWAInstalled = true;
-});
-
-async function fetchAllOperators() {
-	const operators = await fetchRecruitableOperators();
-	saveToDB("operators", operators);
-}
-
-async function loadTags(forceUpdate = false) {
-	let tags = await getFromDB("tags");
-
-	if (!tags.length || forceUpdate) {
-		tags = await fetchAllTags();
-		saveToDB("tags", tags);
-	}
-
-	populateTags(tags);
-}
-
 async function loadTag() {
+	recruitmentData = await fetchRecruitmentData();
 	let tags = recruitmentData.tags.data || [];
 	populateTags(tags);
+	characterData = await fetchOperatorData();
 }
 
 function populateTags(tags) {
@@ -560,19 +516,39 @@ function displayResults() {
 }
 
 function compareSections(sectionA, sectionB) {
-	const operatorsA = Array.from(sectionA.querySelectorAll('.operator'));
-	const operatorsB = Array.from(sectionB.querySelectorAll('.operator'));
+  const operatorsA = Array.from(sectionA.querySelectorAll('.operator'));
+  const operatorsB = Array.from(sectionB.querySelectorAll('.operator'));
 
-	const raritiesA = [...new Set(operatorsA.map(op => parseInt(op.dataset.rarity)))].sort((x, y) => y - x);
-	const raritiesB = [...new Set(operatorsB.map(op => parseInt(op.dataset.rarity)))].sort((x, y) => y - x);
+  const raritiesA = operatorsA.map(op => parseInt(op.dataset.rarity, 10));
+  const raritiesB = operatorsB.map(op => parseInt(op.dataset.rarity, 10));
 
-	if (raritiesA.length === 1 && raritiesB.length > 1) return -1;
-	if (raritiesB.length === 1 && raritiesA.length > 1) return 1;
-	if (raritiesA.length === 1 && raritiesB.length === 1) {
-		if (raritiesA[0] !== raritiesB[0]) return raritiesB[0] - raritiesA[0];
-	}
+  const uniqueA = [...new Set(raritiesA)].sort((x, y) => y - x);
+  const uniqueB = [...new Set(raritiesB)].sort((x, y) => y - x);
 
-	return operatorsA.length - operatorsB.length;
+  const minA = Math.min(...raritiesA);
+  const minB = Math.min(...raritiesB);
+
+  const onlyOneA = uniqueA.length === 1;
+  const onlyOneB = uniqueB.length === 1;
+
+  if (onlyOneA && uniqueA[0] === 1 && minB <= 3 && !(onlyOneB && uniqueB[0] === 1)) return -1;
+  if (onlyOneB && uniqueB[0] === 1 && minA <= 3 && !(onlyOneA && uniqueB[0] === 1)) return 1;
+
+  if (minA !== minB) return minB - minA;
+
+  const minCountA = raritiesA.filter(r => r === minA).length;
+  const minCountB = raritiesB.filter(r => r === minB).length;
+  if (minCountA !== minCountB) return minCountA - minCountB;
+
+  const maxA = Math.max(...raritiesA);
+  const maxB = Math.max(...raritiesB);
+  if (maxA !== maxB) return maxB - maxA;
+
+  const maxCountA = raritiesA.filter(r => r === maxA).length;
+  const maxCountB = raritiesB.filter(r => r === maxB).length;
+  if (maxCountA !== maxCountB) return maxCountB - maxCountA;
+
+  return operatorsA.length - operatorsB.length;
 }
 
 function createSection({ title, tagIds, allowRarity6 }) {
