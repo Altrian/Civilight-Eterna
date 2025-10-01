@@ -563,7 +563,6 @@ small {
   align-items: center;
   text-align: center;
   min-width: 0;
-  height: var(--banner-height);
   position: relative;
 }
 
@@ -578,25 +577,8 @@ small {
   }
 }
 
-.layout-container .title>.subtitle {
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.25rem;
-  display: inline-block;
-  overflow: hidden;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-}
 
-@media (min-width: 40rem) {
-  .layout-container .title>.subtitle {
-    font-size: 1.25rem;
-    line-height: 1.75rem; 
-  }
-}
-
-
-.layout-container .title>.input, .layout-container .title>.tags {
+.layout-container .title>.input {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -654,7 +636,7 @@ small {
 }
 
 .layout-container p {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 700;
   line-height: 1.1em;
   overflow-wrap: break-word;

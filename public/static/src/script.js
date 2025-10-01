@@ -757,36 +757,6 @@ function updateVisibility() {
 	});
 }
 
-function handleResponsiveElement() {
-	const remToPx = parseFloat(getComputedStyle(document.documentElement).fontSize); // Convert rem to px
-	const breakpoint = 48 * remToPx; // Example: 48rem to px
-	let screenWidth = window.innerWidth;
-	let existingElement = document.querySelector(".banner-background");
-
-	if (screenWidth >= breakpoint) {
-		// Add the element only if it doesn't exist
-		if (!existingElement) {
-			let newElement = document.createElement("div");
-			newElement.classList.add("banner-background");
-			const banner = document.querySelector(".layout-container");
-			banner.insertBefore(newElement, banner.firstChild);
-		}
-	} else {
-		// Remove the element if it exists
-		if (existingElement) {
-			existingElement.remove();
-		}
-	}
-}
-
-// Run on page load
-handleResponsiveElement();
-
-// Run on window resize
-window.addEventListener("resize", handleResponsiveElement);
-
-
-
 // Attach event listeners for UI toggles
 document.getElementById("toggle-rarity-common").addEventListener("change", function () {
 	hideRarityCommonSections = this.checked;
