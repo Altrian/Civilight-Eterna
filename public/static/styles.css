@@ -1333,6 +1333,43 @@ small {
   pointer-events: none;
 }
 
+.btn:has(+ #recruitment-settings-popover:popover-open)::before {
+  background-color: rgb(var(--theme-accent));
+}
+
+.modal {
+  max-width: 100%;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  flex-grow: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+
+  .modal-settings {
+    max-width: 800px;
+  }
+
+  @media (max-width: 39.9375rem) {
+    background-color: rgb(var(--theme-background));
+    border-radius: 0;
+    height: 100%;
+    margin: 0;
+    width: 100%;
+    max-height: unset;
+  }
+
+  @media (min-width: 40rem) {
+    background-color: rgb(var(--theme-background));
+    border-radius: .5rem;
+    margin: 16px;
+    max-height: calc(100% - 3rem);
+  }
+}
+
+
 /* Base toast container */
 .toast-notifications {
   --toast-gap: 0.5rem;
@@ -1512,4 +1549,3 @@ small {
 @keyframes toast-progress {
   to { transform: scaleX(0); }
 }
-
