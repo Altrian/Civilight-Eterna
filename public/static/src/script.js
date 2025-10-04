@@ -819,6 +819,36 @@ function initializeCheckbox(checkboxId) {
 	});
 }
 
+function initializeRadioGroup(radioGroupId) {
+	const radioGroup = document.querySelector(`.${radioGroupId}`);
+
+	function updateRadioGroupState() {
+		radioGroup.querySelectorAll('.radio').forEach(label => {
+			const input = label.querySelector('input[type="radio"]');
+			const isChecked = input.checked;
+
+			// Update visual highlight
+			label.classList.toggle('active', isChecked);
+
+			// Update ARIA state
+			label.setAttribute('aria-checked', isChecked);
+		});
+	}
+	const savedInput = radioGroup.querySelector(`input[value="${localStorage.getItem('viewMode')}"]`);
+	if(savedInput) savedInput.checked = true;
+	// Initialize active styles on page load
+	updateRadioGroupState();
+
+	// Listen for changes on the radio inputs
+	radioGroup.addEventListener('change', (e) => {
+		if (e.target.matches('input[type="radio"]')) {
+			localStorage.setItem('viewMode', e.target.value);
+			updateRadioGroupState();
+			console.log('Selected view mode:', e.target.value);
+		}
+	});
+}
+
 export function testAPI() {
 	const filters = {
 		all: {
@@ -849,6 +879,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	loadTag();
 	initializeCheckbox('toggle-rarity-common');
 	initializeCheckbox('toggle-rarity-robot');
-	
+	initializeRadioGroup('toggle-group');
+
 });
 

@@ -669,6 +669,45 @@ small {
   margin-left: auto;
 }
 
+.layout-container .recruitment-settings {
+  grid-area: title;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.recruitment-settings .view {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.radio {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: .5rem;
+  white-space: nowrap;
+}
+
+.radio-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 2.5rem;
+  min-width: 2.5rem;
+}
+
+.toggle-group {
+  border-radius: .375rem;
+  display: inline-flex;
+  position: relative;
+}
+
 .recruitment-buttons .checkbox {
   cursor: pointer;
   display: flex;
@@ -1347,8 +1386,7 @@ small {
   left: 50%;
   transform: translate(-50%, -50%);
 
-
-  .modal-settings {
+  &.modal-settings {
     max-width: 800px;
   }
 
@@ -1369,6 +1407,11 @@ small {
   }
 }
 
+.modal::backdrop {
+  background-color: rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(3px);
+  transition: .5s cubic-bezier(0,1.2,1,1);
+}
 
 /* Base toast container */
 .toast-notifications {
