@@ -882,7 +882,7 @@ function initializeRadioGroup(radioGroupId) {
 	const radioGroup = document.querySelector(`.${radioGroupId}`);
 
 	function updateRadioGroupState() {
-		radioGroup.querySelectorAll('.radio').forEach(label => {
+		radioGroup.querySelectorAll('.btn-radio').forEach(label => {
 			const input = label.querySelector('input[type="radio"]');
 			const isChecked = input.checked;
 
@@ -906,6 +906,7 @@ function initializeRadioGroup(radioGroupId) {
 			console.log('Selected view mode:', e.target.value);
 		}
 	});
+	console.log("Initialized radio group:", radioGroupId);
 }
 
 export function testAPI() {

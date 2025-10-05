@@ -683,13 +683,21 @@ small {
   justify-content: center;
 }
 
-.radio {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  position: relative;
-  gap: .5rem;
-  white-space: nowrap;
+.view-label {
+  margin-right: .75rem;
+}
+
+.btn-radio {
+  border-radius: 0;
+}
+
+.btn-radio::before {
+  background-color: rgb(var(--theme-accent));
+  z-index: 0;
+}
+
+.btn-radio:not(.active):hover::before {
+  background-color: rgb(var(--theme-accent-10));
 }
 
 .radio-icon {
@@ -697,15 +705,43 @@ small {
   display: flex;
   align-items: center;
   justify-content: center;
-
   min-height: 2.5rem;
   min-width: 2.5rem;
+  z-index: 2;
+}
+
+.btn-radio:first-child {
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+.btn-radio:last-child {
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
 }
 
 .toggle-group {
-  border-radius: .375rem;
   display: inline-flex;
   position: relative;
+}
+
+.toggle-group::before {
+  content: "";
+  position: absolute;
+  position-anchor: --btn;
+  inset: anchor(top) anchor(right) anchor(bottom) anchor(left);
+  background-color: rgb(var(--theme-contrast-1));
+  border-radius: .25rem;
+  z-index: 1;
+  transition: .2s;
+}
+
+.toggle-group .btn-radio:is(:active, .active) {
+  anchor-name: --btn;
+}
+
+.toggle-group:has(.btn-radio:active) .btn-radio.active:not(:active) {
+  anchor-name: --btn;
 }
 
 .recruitment-buttons .checkbox {
@@ -906,6 +942,10 @@ small {
   isolation: isolate;
   position: relative;
   padding: 0 .3rem .3rem;
+}
+
+#recruitment-list[data-hide-robot="true"] .operator[data-rarity="1"] {
+  display: none;
 }
 
 .operator-box {
