@@ -508,47 +508,100 @@ function displayResults() {
 
 	// Sort sections in DOM
 	const sortedSections = Array.from(containerElement.children);
-	sortedSections.sort((a, b) => compareSections(a, b));
+	sortedSections.sort((a, b) => {
+		return compareSections(a, b);
+		console.log(`Comparing sections "${a.dataset.sectionKey}" and "${b.dataset.sectionKey}": ${reason}`);
+		return result;
+	});
 	sortedSections.forEach(section => containerElement.appendChild(section));
 
 	// Apply initial visibility state
 	updateVisibility();
 }
 
+function compareSectionsDebug(sectionA, sectionB) {
+  const g = s => Array.from(s.querySelectorAll('.operator')).map(op => +op.dataset.rarity);
+  const a = g(sectionA), b = g(sectionB);
+
+  const maxA = Math.max(...a), maxB = Math.max(...b);
+  const minA = Math.min(...a), minB = Math.min(...b);
+  const lowA = a.some(r => r === 2 || r === 3), lowB = b.some(r => r === 2 || r === 3);
+  const pureA = new Set(a).size === 1, pureB = new Set(b).size === 1;
+
+  if (lowA && !lowB) return { result: 1, reason: 'Rule 1: Section A has rarity 2/3, loses to section without' };
+  if (lowB && !lowA) return { result: -1, reason: 'Rule 1: Section B has rarity 2/3, loses to section without' };
+
+  if (pureA && pureB) {
+    if (maxA !== maxB) return { result: maxB - maxA, reason: `Rule 2: Both pure, higher rarity wins (${maxA} vs ${maxB})` };
+    return { result: a.length - b.length, reason: `Rule 2b: Both pure, same rarity, fewer operators wins (${a.length} vs ${b.length})` };
+  }
+
+  if (!pureA && !pureB) {
+    if (maxA !== maxB) return { result: maxB - maxA, reason: `Rule 3: Both mixed, higher max wins (${maxA} vs ${maxB})` };
+    if (minA !== minB) return { result: minB - minA, reason: `Rule 3b: Both mixed, same max, higher min wins (${minA} vs ${minB})` };
+    const minCountA = a.filter(r => r === minA).length;
+    const minCountB = b.filter(r => r === minB).length;
+    if (minCountA !== minCountB) return { result: minCountA - minCountB, reason: `Rule 3c: Both mixed, same max & min, fewer min-rarity operators wins (${minCountA} vs ${minCountB})` };
+    return { result: 0, reason: 'Rule 3d: Both mixed, same max & min, tie' };
+  }
+
+  // Mixed vs Pure
+  if (pureA && !pureB) return { result: maxB <= maxA ? -1 : 1, reason: maxB <= maxA ? 'Rule 4: Mixed max <= pure, pure first' : 'Rule 4: Mixed max > pure, tie' };
+  if (pureB && !pureA) return { result: maxA <= maxB ? 1 : -1, reason: maxA <= maxB ? 'Rule 4: Mixed max <= pure, pure first' : 'Rule 4: Mixed max > pure, tie' };
+
+  return { result: 0, reason: 'Fallback tie' };
+}
+
+
 function compareSections(sectionA, sectionB) {
-  const operatorsA = Array.from(sectionA.querySelectorAll('.operator'));
-  const operatorsB = Array.from(sectionB.querySelectorAll('.operator'));
+  // Extract rarity values from both sections
+  const g = s => Array.from(s.querySelectorAll('.operator')).map(op => +op.dataset.rarity);
+  const a = g(sectionA), b = g(sectionB);
 
-  const raritiesA = operatorsA.map(op => parseInt(op.dataset.rarity, 10));
-  const raritiesB = operatorsB.map(op => parseInt(op.dataset.rarity, 10));
+  // Determine rarity range for both
+  const maxA = Math.max(...a), maxB = Math.max(...b);
+  const minA = Math.min(...a), minB = Math.min(...b);
 
-  const uniqueA = [...new Set(raritiesA)].sort((x, y) => y - x);
-  const uniqueB = [...new Set(raritiesB)].sort((x, y) => y - x);
+  // Identify if section contains rarities 2 or 3
+  const lowA = a.some(r => r === 2 || r === 3);
+  const lowB = b.some(r => r === 2 || r === 3);
 
-  const minA = Math.min(...raritiesA);
-  const minB = Math.min(...raritiesB);
+  // Identify if section is pure (only one rarity)
+  const pureA = new Set(a).size === 1;
+  const pureB = new Set(b).size === 1;
 
-  const onlyOneA = uniqueA.length === 1;
-  const onlyOneB = uniqueB.length === 1;
+  // 🔹 Rule 1: Sections with rarities 2 or 3 lose to those without
+  if (lowA && !lowB) return 1;
+  if (lowB && !lowA) return -1;
 
-  if (onlyOneA && uniqueA[0] === 1 && minB <= 3 && !(onlyOneB && uniqueB[0] === 1)) return -1;
-  if (onlyOneB && uniqueB[0] === 1 && minA <= 3 && !(onlyOneA && uniqueB[0] === 1)) return 1;
+  // 🔹 Rule 2: Both sections are pure (single rarity)
+  if (pureA && pureB) {
+    // Higher rarity first
+    if (maxA !== maxB) return maxB - maxA;
+    // Same rarity → fewer operators first
+    return a.length - b.length;
+  }
 
-  if (minA !== minB) return minB - minA;
+  // 🔹 Rule 3: Both sections are mixed (multiple rarities)
+  if (!pureA && !pureB) {
+    // Higher max rarity first
+    if (maxA !== maxB) return maxB - maxA;
+    // If same max, higher min rarity first
+    if (minA !== minB) return minB - minA;
+    // If same max & min, fewer lowest-rarity operators first
+    const minCountA = a.filter(r => r === minA).length;
+    const minCountB = b.filter(r => r === minB).length;
+    if (minCountA !== minCountB) return minCountA - minCountB;
+    return 0;
+  }
 
-  const minCountA = raritiesA.filter(r => r === minA).length;
-  const minCountB = raritiesB.filter(r => r === minB).length;
-  if (minCountA !== minCountB) return minCountA - minCountB;
+  // 🔹 Rule 4: Mixed vs Pure comparison
+  // Pure first if mixed max ≤ pure rarity
+  if (pureA && !pureB) return maxB <= maxA ? -1 : 1;
+  if (pureB && !pureA) return maxA <= maxB ? 1 : -1;
 
-  const maxA = Math.max(...raritiesA);
-  const maxB = Math.max(...raritiesB);
-  if (maxA !== maxB) return maxB - maxA;
-
-  const maxCountA = raritiesA.filter(r => r === maxA).length;
-  const maxCountB = raritiesB.filter(r => r === maxB).length;
-  if (maxCountA !== maxCountB) return maxCountB - maxCountA;
-
-  return operatorsA.length - operatorsB.length;
+  // 🔹 Rule 5: Tie fallback
+  return 0;
 }
 
 function createSection({ title, tagIds, allowRarity6 }) {
@@ -746,7 +799,11 @@ function createOperatorBackgroundSvg() {
 
 // Function to toggle section visibility based on current toggles
 function updateVisibility() {
-	document.querySelectorAll("#recruitment-list section").forEach(section => {
+	const recruitmentList = document.getElementById("recruitment-list");
+	if (hideOnlyRarityRobotSections) {
+		recruitmentList.dataset.hideRobot = "true";
+	}
+	recruitmentList.querySelectorAll("section").forEach(section => {
 		if (hideRarityCommonSections && section.dataset.RarityCommon === "true") {
 			section.style.display = "none";
 		} else if (hideOnlyRarityRobotSections && section.dataset.OnlyRarityRobot === "true") {
@@ -765,6 +822,8 @@ document.getElementById("toggle-rarity-common").addEventListener("change", funct
 });
 
 document.getElementById("toggle-rarity-robot").addEventListener("change", function () {
+	const recruitmentList = document.getElementById("recruitment-list");
+	recruitmentList.dataset.hideRobot = this.checked ? "true" : "false";
 	hideOnlyRarityRobotSections = this.checked;
 	localStorage.setItem(STORAGE_KEY_ROBOT, hideOnlyRarityRobotSections);
 	updateVisibility();

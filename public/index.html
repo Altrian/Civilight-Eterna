@@ -93,22 +93,22 @@
                                     <div class="view">
                                         <span class="view-label">View: </span>
                                         <div class="toggle-group" role="radiogroup" aria-label="View mode">
-                                            <label class="radio" role="radio" tabindex="0" aria-checked="false">
+                                            <label class="btn btn-radio" role="radio" tabindex="0" aria-checked="false">
                                                 <span class="radio-icon">
                                                     <svg data-v-9ba4cb7e="" data-v-b597ada3=""
                                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         fill="none" viewBox="0 0 24 24"
-                                                        class="icon text-icon-contrast text-undefined">
+                                                        class="">
                                                         <path stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="2"
                                                             d="M10 3H3v7h7zm11 0h-7v7h7zm0 11h-7v7h7zm-11 0H3v7h7z">
                                                         </path>
                                                     </svg>
-                                                    <input type="radio" id="portrait" name="view-mode" value="portrait" class="radio-input"
-                                                        hidden>
+                                                    <input type="radio" id="portrait" name="view-mode" value="portrait"
+                                                        class="radio-input" hidden>
                                                 </span>
                                             </label>
-                                            <label class="radio" role="radio" tabindex="0" aria-checked="false">
+                                            <label class="btn btn-radio" role="radio" tabindex="0" aria-checked="false">
                                                 <span class="radio-icon">
                                                     <svg data-v-9ba4cb7e="" data-v-b597ada3=""
                                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -117,8 +117,21 @@
                                                             stroke-linejoin="round" stroke-width="2"
                                                             d="M21 3H3v7h18zm0 11H3v7h18z"></path>
                                                     </svg>
-                                                    <input type="radio" id="avatar" name="view-mode" value="avatar" class="radio-input"
-                                                        hidden>
+                                                    <input type="radio" id="avatar" name="view-mode" value="avatar"
+                                                        class="radio-input" hidden>
+                                                </span>
+                                            </label>
+                                            <label class="btn btn-radio" role="radio" tabindex="0" aria-checked="false">
+                                                <span class="radio-icon">
+                                                    <svg data-v-9ba4cb7e="" data-v-b597ada3=""
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M21 3H3v7h18zm0 11H3v7h18z"></path>
+                                                    </svg>
+                                                    <input type="radio" id="list" name="view-mode" value="list"
+                                                        class="radio-input" hidden>
                                                 </span>
                                             </label>
                                         </div>
@@ -202,7 +215,7 @@
                             </div>
                         </div>
                         <div id="tag-selection" class="tag-selection"></div>
-                        <div id="recruitment-list" class="recruitment-list">
+                        <div id="recruitment-list" class="recruitment-list" data-hide-robot="false">
                             <div class="recruitment-list-container">
                             </div>
                         </div>
