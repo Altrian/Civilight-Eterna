@@ -869,6 +869,30 @@ small {
   margin-bottom: .3rem;
 }
 
+.recruitment-list[data-hide-common="true"] .operator-section[data-rarity-common="true"] {
+  display: none;
+} 
+
+.recruitment-list[data-hide-robot="true"] .operator-section[data-only-robot="true"] {
+  display: none;
+}
+
+.recruitment-list[data-hide-robot="true"] .operator.robot {
+  display: none;
+}
+
+.recruitment-list[data-server="Global"] .operator[data-recruitment="2"], 
+.recruitment-list[data-server="Global"] .operator[data-recruitment="3"] {
+  display: none;
+}
+
+.recruitment-list[data-server="Global"] .operator-section:not(:has(.operator:not([data-recruitment="2"]))), 
+.recruitment-list[data-server="Global"] .operator-section:not(:has(.operator:not([data-recruitment="3"]))) {
+  display: none;
+}
+
+
+
 .operator-section:not(:last-of-type) {
   margin-bottom: 1.5rem;
 }

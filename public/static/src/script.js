@@ -3,12 +3,7 @@ import { saveToDB, getFromDB, isLocalDataOutdated } from "./db.js";
 import { filterOperators } from "./recruitment.js";
 import { toastNotification } from "./toast.js";
 
-let STORAGE_KEY_COMMON = 'hideRarityCommonSections';
-let STORAGE_KEY_ROBOT = 'hideOnlyRarityRobotSections';
-
 const maxTags = 5;
-let hideRarityCommonSections = localStorage.getItem(STORAGE_KEY_COMMON) === 'true';
-let hideOnlyRarityRobotSections = localStorage.getItem(STORAGE_KEY_ROBOT) === 'true';
 let selectedTags = { // Store selected tags by category
 	"rarity": new Set(), 
 	"position": new Set(), 
@@ -514,9 +509,6 @@ function displayResults() {
 		return result;
 	});
 	sortedSections.forEach(section => containerElement.appendChild(section));
-
-	// Apply initial visibility state
-	updateVisibility();
 }
 
 function compareSectionsDebug(sectionA, sectionB) {
@@ -626,8 +618,8 @@ function createSection({ title, tagIds, allowRarity6 }) {
 	// Set rarity attributes
 	const operators = Array.from(content.children);
 	const rarities = new Set(operators.map(op => op.dataset.rarity));
-	sectionElement.dataset.RarityCommon = rarities.has("2") || rarities.has("3") ? "true" : "false";
-	sectionElement.dataset.OnlyRarityRobot = rarities.size === 1 && rarities.has("1") ? "true" : "false";
+	sectionElement.dataset.rarityCommon = rarities.has("2") || rarities.has("3") ? "true" : "false";
+	sectionElement.dataset.onlyRobot = rarities.size === 1 && rarities.has("1") ? "true" : "false";
 
 	return sectionElement;
 }
@@ -743,6 +735,7 @@ function createSectionContent(tagIds, allowRarity6, header = null) {
 function createOperatorElement(op) {
 	const operatorElement = document.createElement("li");
 	operatorElement.className = "operator";
+	operatorElement.dataset.recruitment = op.recruitment
 	operatorElement.dataset.rarity = parseInt(op.rarity.split('_')[1], 10);
 	operatorElement.classList.add(op.profession.toLowerCase());
 	operatorElement.classList.add(op.subProfessionId.toLowerCase());
@@ -797,38 +790,6 @@ function createOperatorBackgroundSvg() {
 	return svg;
 }
 
-// Function to toggle section visibility based on current toggles
-function updateVisibility() {
-	const recruitmentList = document.getElementById("recruitment-list");
-	if (hideOnlyRarityRobotSections) {
-		recruitmentList.dataset.hideRobot = "true";
-	}
-	recruitmentList.querySelectorAll("section").forEach(section => {
-		if (hideRarityCommonSections && section.dataset.RarityCommon === "true") {
-			section.style.display = "none";
-		} else if (hideOnlyRarityRobotSections && section.dataset.OnlyRarityRobot === "true") {
-			section.style.display = "none";
-		} else {
-			section.style.display = "";
-		}
-	});
-}
-
-// Attach event listeners for UI toggles
-document.getElementById("toggle-rarity-common").addEventListener("change", function () {
-	hideRarityCommonSections = this.checked;
-	localStorage.setItem(STORAGE_KEY_COMMON, hideRarityCommonSections);
-	updateVisibility();
-});
-
-document.getElementById("toggle-rarity-robot").addEventListener("change", function () {
-	const recruitmentList = document.getElementById("recruitment-list");
-	recruitmentList.dataset.hideRobot = this.checked ? "true" : "false";
-	hideOnlyRarityRobotSections = this.checked;
-	localStorage.setItem(STORAGE_KEY_ROBOT, hideOnlyRarityRobotSections);
-	updateVisibility();
-});
-
 if (performance.getEntriesByType("navigation")[0]?.type === "reload") {
 	console.log("Page was reloaded.");
 } else {
@@ -836,20 +797,13 @@ if (performance.getEntriesByType("navigation")[0]?.type === "reload") {
 }
 
 
-function initializeCheckbox(checkboxId) {
+function initializeCheckbox(checkboxId, onChangeCallback = null) {
 	const label = document.querySelector(`label[for="${checkboxId}"]`);
 	const checkbox = document.getElementById(checkboxId);
 
 	if (!label || !checkbox) {
 		console.warn(`Checkbox with id "${checkboxId}" or its label not found`);
 		return;
-	}
-
-	// Restore saved state
-	if (checkboxId === 'toggle-rarity-common') {
-		checkbox.checked = hideRarityCommonSections;
-	} else if (checkboxId === 'toggle-rarity-robot') {
-		checkbox.checked = hideOnlyRarityRobotSections;
 	}
 
 	const [uncheckedIcon, checkedIcon] = label.querySelectorAll('.icon > svg');
@@ -860,8 +814,14 @@ function initializeCheckbox(checkboxId) {
 		checkedIcon.classList.toggle('hidden', !checkbox.checked);
 	}
 
-	// Update visual state without triggering change event
+	checkbox.checked = localStorage.getItem(checkboxId) === 'true';
 	updateCheckboxState();
+	if (onChangeCallback) onChangeCallback(checkbox.checked);
+
+	checkbox.addEventListener('change', (e) => {
+		localStorage.setItem(checkboxId, e.target.checked);
+		if (onChangeCallback) onChangeCallback(e.target.checked);
+	});
 
 	label.addEventListener('click', (e) => {
 		e.preventDefault();
@@ -878,8 +838,8 @@ function initializeCheckbox(checkboxId) {
 	});
 }
 
-function initializeRadioGroup(radioGroupId) {
-	const radioGroup = document.querySelector(`.${radioGroupId}`);
+function initializeRadioGroup(radioGroupId, defaultValue = null, onChangeCallback = null) {
+	const radioGroup = document.querySelector(`.toggle-group[aria-labelledby="${radioGroupId}"]`);
 
 	function updateRadioGroupState() {
 		radioGroup.querySelectorAll('.btn-radio').forEach(label => {
@@ -891,19 +851,33 @@ function initializeRadioGroup(radioGroupId) {
 
 			// Update ARIA state
 			label.setAttribute('aria-checked', isChecked);
+
 		});
 	}
-	const savedInput = radioGroup.querySelector(`input[value="${localStorage.getItem('viewMode')}"]`);
-	if(savedInput) savedInput.checked = true;
+	let selectedInput = radioGroup.querySelector(`input[value="${localStorage.getItem(radioGroupId)}"]`);
+	if (selectedInput) selectedInput.checked = true;
+	if (!selectedInput && defaultValue) {
+		selectedInput = radioGroup.querySelector(`input[value="${defaultValue}"]`);
+		selectedInput.checked = true;
+		localStorage.setItem(radioGroupId, defaultValue);
+	}
+	
+
+
 	// Initialize active styles on page load
 	updateRadioGroupState();
+	// Call callback if provided
+	if (onChangeCallback) onChangeCallback(selectedInput.value);
+
 
 	// Listen for changes on the radio inputs
 	radioGroup.addEventListener('change', (e) => {
 		if (e.target.matches('input[type="radio"]')) {
-			localStorage.setItem('viewMode', e.target.value);
+			localStorage.setItem(radioGroupId, e.target.value);
 			updateRadioGroupState();
-			console.log('Selected view mode:', e.target.value);
+			// Call callback if provided
+			if (onChangeCallback) onChangeCallback(e.target.value);
+			console.log(`For ${radioGroupId} the selected option: `, e.target.value);
 		}
 	});
 	console.log("Initialized radio group:", radioGroupId);
@@ -937,9 +911,22 @@ window.testAPI = testAPI; // Expose for testing
 // Call the function when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
 	loadTag();
-	initializeCheckbox('toggle-rarity-common');
-	initializeCheckbox('toggle-rarity-robot');
-	initializeRadioGroup('toggle-group');
+	initializeCheckbox('toggle-rarity-common', (value) => {
+		const recruitmentList = document.getElementById("recruitment-list");
+		recruitmentList.dataset.hideCommon = value;
+	});
+	initializeCheckbox('toggle-rarity-robot', (value) => {
+		const recruitmentList = document.getElementById("recruitment-list")
+		recruitmentList.dataset.hideRobot = value
+	});
+	initializeRadioGroup('view-mode-select', 'portrait', (value) => {
+		const recruitmentList = document.getElementById("recruitment-list");
+		recruitmentList.dataset.viewMode = value;
+	});
+	initializeRadioGroup('server-select', 'Global', (value) => {
+		const recruitmentList = document.getElementById("recruitment-list")
+		recruitmentList.dataset.server = value;
+	});
 
 });
 

@@ -92,13 +92,12 @@
                                 <div class="recruitment-settings">
                                     <div class="view">
                                         <span class="view-label">View: </span>
-                                        <div class="toggle-group" role="radiogroup" aria-label="View mode">
+                                        <div class="toggle-group" role="radiogroup" aria-labelledby="view-mode-select">
                                             <label class="btn btn-radio" role="radio" tabindex="0" aria-checked="false">
                                                 <span class="radio-icon">
                                                     <svg data-v-9ba4cb7e="" data-v-b597ada3=""
                                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        fill="none" viewBox="0 0 24 24"
-                                                        class="">
+                                                        fill="none" viewBox="0 0 24 24" class="">
                                                         <path stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="2"
                                                             d="M10 3H3v7h7zm11 0h-7v7h7zm0 11h-7v7h7zm-11 0H3v7h7z">
@@ -155,6 +154,37 @@
                                     <div id="recruitment-settings-popover" class="modal modal-settings" popover
                                         anchor="recruitment-settings">
                                         <div class="modal-content">
+                                            <div class="toggle-group" role="radiogroup" aria-labelledby="server-select">
+                                                <label class="btn btn-radio" role="radio" tabindex="0"
+                                                    aria-checked="false">
+                                                    <span class="radio-icon">
+                                                        <svg data-v-9ba4cb7e="" data-v-b597ada3=""
+                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            fill="none" viewBox="0 0 24 24" class="">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="M10 3H3v7h7zm11 0h-7v7h7zm0 11h-7v7h7zm-11 0H3v7h7z">
+                                                            </path>
+                                                        </svg>
+                                                        <input type="radio" id="Global" name="Server"
+                                                            value="Global" class="radio-input" hidden>
+                                                    </span>
+                                                </label>
+                                                <label class="btn btn-radio" role="radio" tabindex="0"
+                                                    aria-checked="false">
+                                                    <span class="radio-icon">
+                                                        <svg data-v-9ba4cb7e="" data-v-b597ada3=""
+                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="M21 3H3v7h18zm0 11H3v7h18z"></path>
+                                                        </svg>
+                                                        <input type="radio" id="CN" name="Server" value="CN"
+                                                            class="radio-input" hidden>
+                                                    </span>
+                                                </label>
+                                            </div>
                                             <div class="recruitment-buttons">
                                                 <label class="checkbox" tabindex="0" role="checkbox"
                                                     for="toggle-rarity-common" aria-disabled="false"
@@ -215,7 +245,8 @@
                             </div>
                         </div>
                         <div id="tag-selection" class="tag-selection"></div>
-                        <div id="recruitment-list" class="recruitment-list" data-hide-robot="false">
+                        <div id="recruitment-list" class="recruitment-list"
+                            data-hide-common="false" data-hide-robot="false" data-view-mode="portrait" data-server="Global">
                             <div class="recruitment-list-container">
                             </div>
                         </div>
