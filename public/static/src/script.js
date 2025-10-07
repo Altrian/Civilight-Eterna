@@ -851,7 +851,6 @@ function initializeRadioGroup(radioGroupId, defaultValue = null, onChangeCallbac
 
 			// Update ARIA state
 			label.setAttribute('aria-checked', isChecked);
-
 		});
 	}
 	let selectedInput = radioGroup.querySelector(`input[value="${localStorage.getItem(radioGroupId)}"]`);
@@ -865,7 +864,12 @@ function initializeRadioGroup(radioGroupId, defaultValue = null, onChangeCallbac
 
 
 	// Initialize active styles on page load
+	radioGroup.classList.add('no-transition');
 	updateRadioGroupState();
+	requestAnimationFrame(() => {
+		radioGroup.classList.remove('no-transition');
+	});
+
 	// Call callback if provided
 	if (onChangeCallback) onChangeCallback(selectedInput.value);
 
@@ -927,6 +931,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const recruitmentList = document.getElementById("recruitment-list")
 		recruitmentList.dataset.server = value;
 	});
+	document.documentElement.style.visibility = 'visible';
 
 });
 

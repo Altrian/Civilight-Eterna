@@ -167,6 +167,10 @@
   }
 }
 
+.no-transition::before,
+.no-transition::after {
+  transition: none !important;
+}
 
 *,:after,:before {
   border: 0 solid #e5e7eb;
@@ -691,10 +695,7 @@ small {
   border-radius: 0;
 }
 
-.btn-radio::before {
-  background-color: rgb(var(--theme-accent));
-  z-index: 0;
-}
+
 
 .btn-radio:not(.active):hover::before {
   background-color: rgb(var(--theme-accent-10));
@@ -1407,6 +1408,12 @@ small {
   position: absolute;
   inset: 0;
   transition: all .1s ease-out;
+}
+
+.btn-radio::before {
+  background-color: rgb(var(--theme-accent));
+  z-index: 0;
+  transition: none;
 }
 
 .recruitment-buttons .btn::before {
