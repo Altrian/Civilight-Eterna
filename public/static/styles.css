@@ -167,6 +167,12 @@
   }
 }
 
+html.no-transition *,
+html.no-transition *::before,
+html.no-transition *::after {
+  transition: none !important;
+}
+
 .no-transition::before,
 .no-transition::after {
   transition: none !important;
@@ -770,6 +776,10 @@ small {
   background: rgb(var(--theme-accent));
   padding: .5rem 1rem;
   min-height: 3.5rem;
+}
+
+.tag-selection:empty {
+  display: none;
 }
 
 .tag-selection > *:not(:first-child) {
@@ -1662,4 +1672,28 @@ small {
 
 @keyframes toast-progress {
   to { transform: scaleX(0); }
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 400;
+  src: url(./fonts/poppins/poppins-v19-400.woff2) format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  src: url(./fonts/poppins/poppins-v19-500.woff2) format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 700;
+  src: url(./fonts/poppins/poppins-v19-700.woff2) format("woff2");
 }

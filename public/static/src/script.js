@@ -5,11 +5,11 @@ import { toastNotification } from "./toast.js";
 
 const maxTags = 5;
 let selectedTags = { // Store selected tags by category
-	"rarity": new Set(), 
-	"position": new Set(), 
-	"profession": new Set(), 
+	"rarity": new Set(),
+	"position": new Set(),
+	"profession": new Set(),
 	"tagList": new Set()
-}; 
+};
 
 let characterData = null;
 let recruitmentData = null;
@@ -71,7 +71,7 @@ function populateTags(tags) {
 		}
 	});
 	// Sort Specialization tags by name
-	const locale = navigator.language.substring(0,2) || 'zh'; // fallback to 'en' if unavailable
+	const locale = navigator.language.substring(0, 2) || 'zh'; // fallback to 'en' if unavailable
 	console.log("Sorting Specialization tags by name in locale:", locale);
 	console.log("Categorized Tags:", categorizedTags.Specialization);
 	categorizedTags.Specialization.sort((a, b) =>
@@ -143,16 +143,16 @@ function populateTags(tags) {
 		container.appendChild(categoryDiv);
 	}
 
-    const allTagsElements = Array.from(container.querySelectorAll(".tag-item"));
-    const resetFilterState = setupKeyboardNavigation(allTagsElements);
+	const allTagsElements = Array.from(container.querySelectorAll(".tag-item"));
+	const resetFilterState = setupKeyboardNavigation(allTagsElements);
 
-    function clearTagInputOnly() {
-        const inputForm = document.getElementById("tag-input-form");
-        const input = inputForm.querySelector("#tag-input");
-        input.value = "";
-        allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
-        resetFilterState();
-    }
+	function clearTagInputOnly() {
+		const inputForm = document.getElementById("tag-input-form");
+		const input = inputForm.querySelector("#tag-input");
+		input.value = "";
+		allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
+		resetFilterState();
+	}
 	// Event delegation for keyboard navigation
 	container.addEventListener("keydown", (e) => {
 		const activeElement = document.activeElement;
@@ -269,10 +269,10 @@ function setupKeyboardNavigation(allTagsElements) {
 	const inputForm = document.getElementById("tag-input-form");
 	const input = inputForm.querySelector("#tag-input");
 
-    function resetFilterState() {
-        filteredTags = [];
-        allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
-    }
+	function resetFilterState() {
+		filteredTags = [];
+		allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
+	}
 
 	inputForm.addEventListener("submit", (e) => e.preventDefault());
 
@@ -356,23 +356,23 @@ function updateTagsState(container, allTagsElements) {
 
 	container.classList.toggle('limit-reached', reachedMax);
 	input.disabled = reachedMax;
-    allTagsElements.forEach(tag => {
-        const checkbox = tag.querySelector("input[type='checkbox']");
-        if (!checkbox.checked) {
-            tag.setAttribute("aria-disabled", reachedMax);
-            tag.classList.toggle("disabled", reachedMax);
-        } else {
-            tag.setAttribute("aria-disabled", false);
-            tag.classList.remove("disabled");
-        }
-        tag.setAttribute("aria-checked", checkbox.checked);
-    });
+	allTagsElements.forEach(tag => {
+		const checkbox = tag.querySelector("input[type='checkbox']");
+		if (!checkbox.checked) {
+			tag.setAttribute("aria-disabled", reachedMax);
+			tag.classList.toggle("disabled", reachedMax);
+		} else {
+			tag.setAttribute("aria-disabled", false);
+			tag.classList.remove("disabled");
+		}
+		tag.setAttribute("aria-checked", checkbox.checked);
+	});
 }
 
 function clearTagInputOnly() {
-    const inputForm = document.getElementById("tag-input-form");
-    const input = inputForm.querySelector("#tag-input");
-    input.value = "";
+	const inputForm = document.getElementById("tag-input-form");
+	const input = inputForm.querySelector("#tag-input");
+	input.value = "";
 	allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
 }
 
@@ -473,7 +473,7 @@ function displayResults() {
 		const combinationNames = combination.map(tagId =>
 			allTags.find(t => t.id === tagId).name.en || allTags.find(t => t.id === tagId).name.zh);
 		const key = getSectionKey(combinationNames);
-		
+
 		if (!currentSections.has(key)) {
 			// Create combination section only if it doesn't exist
 			const section = createSection({
@@ -512,88 +512,88 @@ function displayResults() {
 }
 
 function compareSectionsDebug(sectionA, sectionB) {
-  const g = s => Array.from(s.querySelectorAll('.operator')).map(op => +op.dataset.rarity);
-  const a = g(sectionA), b = g(sectionB);
+	const g = s => Array.from(s.querySelectorAll('.operator')).map(op => +op.dataset.rarity);
+	const a = g(sectionA), b = g(sectionB);
 
-  const maxA = Math.max(...a), maxB = Math.max(...b);
-  const minA = Math.min(...a), minB = Math.min(...b);
-  const lowA = a.some(r => r === 2 || r === 3), lowB = b.some(r => r === 2 || r === 3);
-  const pureA = new Set(a).size === 1, pureB = new Set(b).size === 1;
+	const maxA = Math.max(...a), maxB = Math.max(...b);
+	const minA = Math.min(...a), minB = Math.min(...b);
+	const lowA = a.some(r => r === 2 || r === 3), lowB = b.some(r => r === 2 || r === 3);
+	const pureA = new Set(a).size === 1, pureB = new Set(b).size === 1;
 
-  if (lowA && !lowB) return { result: 1, reason: 'Rule 1: Section A has rarity 2/3, loses to section without' };
-  if (lowB && !lowA) return { result: -1, reason: 'Rule 1: Section B has rarity 2/3, loses to section without' };
+	if (lowA && !lowB) return { result: 1, reason: 'Rule 1: Section A has rarity 2/3, loses to section without' };
+	if (lowB && !lowA) return { result: -1, reason: 'Rule 1: Section B has rarity 2/3, loses to section without' };
 
-  if (pureA && pureB) {
-    if (maxA !== maxB) return { result: maxB - maxA, reason: `Rule 2: Both pure, higher rarity wins (${maxA} vs ${maxB})` };
-    return { result: a.length - b.length, reason: `Rule 2b: Both pure, same rarity, fewer operators wins (${a.length} vs ${b.length})` };
-  }
+	if (pureA && pureB) {
+		if (maxA !== maxB) return { result: maxB - maxA, reason: `Rule 2: Both pure, higher rarity wins (${maxA} vs ${maxB})` };
+		return { result: a.length - b.length, reason: `Rule 2b: Both pure, same rarity, fewer operators wins (${a.length} vs ${b.length})` };
+	}
 
-  if (!pureA && !pureB) {
-    if (maxA !== maxB) return { result: maxB - maxA, reason: `Rule 3: Both mixed, higher max wins (${maxA} vs ${maxB})` };
-    if (minA !== minB) return { result: minB - minA, reason: `Rule 3b: Both mixed, same max, higher min wins (${minA} vs ${minB})` };
-    const minCountA = a.filter(r => r === minA).length;
-    const minCountB = b.filter(r => r === minB).length;
-    if (minCountA !== minCountB) return { result: minCountA - minCountB, reason: `Rule 3c: Both mixed, same max & min, fewer min-rarity operators wins (${minCountA} vs ${minCountB})` };
-    return { result: 0, reason: 'Rule 3d: Both mixed, same max & min, tie' };
-  }
+	if (!pureA && !pureB) {
+		if (maxA !== maxB) return { result: maxB - maxA, reason: `Rule 3: Both mixed, higher max wins (${maxA} vs ${maxB})` };
+		if (minA !== minB) return { result: minB - minA, reason: `Rule 3b: Both mixed, same max, higher min wins (${minA} vs ${minB})` };
+		const minCountA = a.filter(r => r === minA).length;
+		const minCountB = b.filter(r => r === minB).length;
+		if (minCountA !== minCountB) return { result: minCountA - minCountB, reason: `Rule 3c: Both mixed, same max & min, fewer min-rarity operators wins (${minCountA} vs ${minCountB})` };
+		return { result: 0, reason: 'Rule 3d: Both mixed, same max & min, tie' };
+	}
 
-  // Mixed vs Pure
-  if (pureA && !pureB) return { result: maxB <= maxA ? -1 : 1, reason: maxB <= maxA ? 'Rule 4: Mixed max <= pure, pure first' : 'Rule 4: Mixed max > pure, tie' };
-  if (pureB && !pureA) return { result: maxA <= maxB ? 1 : -1, reason: maxA <= maxB ? 'Rule 4: Mixed max <= pure, pure first' : 'Rule 4: Mixed max > pure, tie' };
+	// Mixed vs Pure
+	if (pureA && !pureB) return { result: maxB <= maxA ? -1 : 1, reason: maxB <= maxA ? 'Rule 4: Mixed max <= pure, pure first' : 'Rule 4: Mixed max > pure, tie' };
+	if (pureB && !pureA) return { result: maxA <= maxB ? 1 : -1, reason: maxA <= maxB ? 'Rule 4: Mixed max <= pure, pure first' : 'Rule 4: Mixed max > pure, tie' };
 
-  return { result: 0, reason: 'Fallback tie' };
+	return { result: 0, reason: 'Fallback tie' };
 }
 
 
 function compareSections(sectionA, sectionB) {
-  // Extract rarity values from both sections
-  const g = s => Array.from(s.querySelectorAll('.operator')).map(op => +op.dataset.rarity);
-  const a = g(sectionA), b = g(sectionB);
+	// Extract rarity values from both sections
+	const g = s => Array.from(s.querySelectorAll('.operator')).map(op => +op.dataset.rarity);
+	const a = g(sectionA), b = g(sectionB);
 
-  // Determine rarity range for both
-  const maxA = Math.max(...a), maxB = Math.max(...b);
-  const minA = Math.min(...a), minB = Math.min(...b);
+	// Determine rarity range for both
+	const maxA = Math.max(...a), maxB = Math.max(...b);
+	const minA = Math.min(...a), minB = Math.min(...b);
 
-  // Identify if section contains rarities 2 or 3
-  const lowA = a.some(r => r === 2 || r === 3);
-  const lowB = b.some(r => r === 2 || r === 3);
+	// Identify if section contains rarities 2 or 3
+	const lowA = a.some(r => r === 2 || r === 3);
+	const lowB = b.some(r => r === 2 || r === 3);
 
-  // Identify if section is pure (only one rarity)
-  const pureA = new Set(a).size === 1;
-  const pureB = new Set(b).size === 1;
+	// Identify if section is pure (only one rarity)
+	const pureA = new Set(a).size === 1;
+	const pureB = new Set(b).size === 1;
 
-  // 🔹 Rule 1: Sections with rarities 2 or 3 lose to those without
-  if (lowA && !lowB) return 1;
-  if (lowB && !lowA) return -1;
+	// 🔹 Rule 1: Sections with rarities 2 or 3 lose to those without
+	if (lowA && !lowB) return 1;
+	if (lowB && !lowA) return -1;
 
-  // 🔹 Rule 2: Both sections are pure (single rarity)
-  if (pureA && pureB) {
-    // Higher rarity first
-    if (maxA !== maxB) return maxB - maxA;
-    // Same rarity → fewer operators first
-    return a.length - b.length;
-  }
+	// 🔹 Rule 2: Both sections are pure (single rarity)
+	if (pureA && pureB) {
+		// Higher rarity first
+		if (maxA !== maxB) return maxB - maxA;
+		// Same rarity → fewer operators first
+		return a.length - b.length;
+	}
 
-  // 🔹 Rule 3: Both sections are mixed (multiple rarities)
-  if (!pureA && !pureB) {
-    // Higher max rarity first
-    if (maxA !== maxB) return maxB - maxA;
-    // If same max, higher min rarity first
-    if (minA !== minB) return minB - minA;
-    // If same max & min, fewer lowest-rarity operators first
-    const minCountA = a.filter(r => r === minA).length;
-    const minCountB = b.filter(r => r === minB).length;
-    if (minCountA !== minCountB) return minCountA - minCountB;
-    return 0;
-  }
+	// 🔹 Rule 3: Both sections are mixed (multiple rarities)
+	if (!pureA && !pureB) {
+		// Higher max rarity first
+		if (maxA !== maxB) return maxB - maxA;
+		// If same max, higher min rarity first
+		if (minA !== minB) return minB - minA;
+		// If same max & min, fewer lowest-rarity operators first
+		const minCountA = a.filter(r => r === minA).length;
+		const minCountB = b.filter(r => r === minB).length;
+		if (minCountA !== minCountB) return minCountA - minCountB;
+		return 0;
+	}
 
-  // 🔹 Rule 4: Mixed vs Pure comparison
-  // Pure first if mixed max ≤ pure rarity
-  if (pureA && !pureB) return maxB <= maxA ? -1 : 1;
-  if (pureB && !pureA) return maxA <= maxB ? 1 : -1;
+	// 🔹 Rule 4: Mixed vs Pure comparison
+	// Pure first if mixed max ≤ pure rarity
+	if (pureA && !pureB) return maxB <= maxA ? -1 : 1;
+	if (pureB && !pureA) return maxA <= maxB ? 1 : -1;
 
-  // 🔹 Rule 5: Tie fallback
-  return 0;
+	// 🔹 Rule 5: Tie fallback
+	return 0;
 }
 
 function createSection({ title, tagIds, allowRarity6 }) {
@@ -860,16 +860,12 @@ function initializeRadioGroup(radioGroupId, defaultValue = null, onChangeCallbac
 		selectedInput.checked = true;
 		localStorage.setItem(radioGroupId, defaultValue);
 	}
-	
 
 
-	// Initialize active styles on page load
-	radioGroup.classList.add('no-transition');
+
+	//radioGroup.classList.add('no-transition');
 	updateRadioGroupState();
-	requestAnimationFrame(() => {
-		radioGroup.classList.remove('no-transition');
-	});
-
+	
 	// Call callback if provided
 	if (onChangeCallback) onChangeCallback(selectedInput.value);
 
@@ -931,7 +927,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		const recruitmentList = document.getElementById("recruitment-list")
 		recruitmentList.dataset.server = value;
 	});
-	document.documentElement.style.visibility = 'visible';
+	document.documentElement.removeAttribute('style');
+	requestAnimationFrame(() => {
+		document.documentElement.classList.remove('no-transition');
+	});
 
 });
 
