@@ -730,6 +730,7 @@ small {
 .toggle-group {
   display: inline-flex;
   position: relative;
+  anchor-scope: all;
 }
 
 .toggle-group::before {
@@ -748,7 +749,7 @@ small {
 }
 
 .toggle-group:has(.btn-radio:active) .btn-radio.active:not(:active) {
-  anchor-name: --btn;
+  anchor-name: none;
 }
 
 .recruitment-buttons .checkbox {

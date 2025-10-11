@@ -313,6 +313,19 @@ function setupKeyboardNavigation(allTagsElements) {
 	input.addEventListener("blur", resetFilterState);
 
 	input.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
+			e.preventDefault();
+			console.log("Escape pressed, clearing input and tags");
+			input.value = "";
+			resetFilterState();
+			allTagsElements.forEach(tag => {
+				const checkbox = tag.querySelector('input[type="checkbox"]');
+				if (checkbox && checkbox.checked) {
+					checkbox.checked = false;
+					checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+				}
+			});
+		}
 		if (filteredTags.length === 0) return;
 		if (e.key === "Tab") {
 			e.preventDefault();
@@ -331,20 +344,6 @@ function setupKeyboardNavigation(allTagsElements) {
 			if (selectedTag && selectedTag.getAttribute("aria-disabled") !== "true") {
 				selectedTag.click();
 			}
-		}
-
-		if (e.key === "Escape") {
-			e.preventDefault();
-			console.log("Escape pressed, clearing input and tags");
-			input.value = "";
-			resetFilterState();
-			allTagsElements.forEach(tag => {
-				const checkbox = tag.querySelector('input[type="checkbox"]');
-				if (checkbox && checkbox.checked) {
-					checkbox.checked = false;
-					checkbox.dispatchEvent(new Event("change", { bubbles: true }));
-				}
-			});
 		}
 	});
 	return resetFilterState;
