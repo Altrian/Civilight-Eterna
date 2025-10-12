@@ -685,6 +685,7 @@ small {
   flex-direction: row;
   flex-shrink: 0;
   margin-left: auto;
+  gap: .5rem;
 }
 
 .recruitment-settings .view {
@@ -1459,6 +1460,37 @@ small {
 }
 
 .modal {
+  position: fixed;
+  inset: auto;
+  background-color: rgb(var(--theme-background));
+  padding: 1.5rem;
+  top: 50%;
+  left: 50%;
+  overflow: auto;
+  overscroll-behavior: contain;
+  transform: translate(-50%, -50%);
+
+  @media (min-width: 48rem) {
+    position: relative;
+    top: calc(anchor(bottom) + .5rem);
+    right: anchor(right);
+    left: auto;
+    transform: translate(0, 0);
+  }
+  @media (min-width: 64rem) {
+    right: calc(anchor(right) - 1rem);
+  }
+
+}
+
+
+.modal::backdrop {
+  background-color: rgb(0 0 0 / 0.4);
+  transition: background-color .5s cubic-bezier(0,1.2,1,1)
+}
+
+
+.modale {
   max-width: 100%;
   min-height: 0;
   overflow: auto;
@@ -1489,7 +1521,7 @@ small {
   }
 }
 
-.modal::backdrop {
+.modale::backdrop {
   background-color: rgb(0 0 0 / 0.4);
   backdrop-filter: blur(3px);
   transition: .5s cubic-bezier(0,1.2,1,1);
