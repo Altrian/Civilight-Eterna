@@ -155,4 +155,4 @@ const options = {
     extraText: null,
     extraTextClass: null,
 };
-adjustTextSize(element, options);
+// adjustTextSize(element, options);

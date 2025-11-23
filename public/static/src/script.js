@@ -44,7 +44,7 @@ async function loadTag() {
 function populateTags(tags) {
 	allTags = tags;
 	const container = document.getElementById("tag-selection");
-	container.innerHTML = "";
+	container.replaceChildren(); // Clear existing tags
 
 	// Create a map to store tags by category
 	const categorizedTags = {
@@ -144,7 +144,11 @@ function populateTags(tags) {
 	}
 
 	const allTagsElements = Array.from(container.querySelectorAll(".tag-item"));
-	const resetFilterState = setupKeyboardNavigation(allTagsElements);
+	
+	const resetFilterState = setupInput({
+		data: allTagsElements.map(tagEl => ({Id: tagEl.querySelector("input").id, Category: tagEl.querySelector("input").name, Name: tagEl.innerText})),
+		tagsElements: allTagsElements,
+	})
 
 	function clearTagInputOnly() {
 		const inputForm = document.getElementById("tag-input-form");
@@ -262,90 +266,214 @@ function populateTags(tags) {
 	});
 }
 
-function setupKeyboardNavigation(allTagsElements) {
-	let filteredTags = []
-	let currentIndex = 0;
-	console.log("Setting up keyboard navigation for tags");
-	const inputForm = document.getElementById("tag-input-form");
-	const input = inputForm.querySelector("#tag-input");
+function setupInput({
+	data = [],
+	tagsElements = [],
+	tagList = true,
+	maxSelections = 5,
+	elements = {
+		form: "tag-input-form",
+		input: "tag-input",
+		chipContainer: "tag-input-chips",
+		popover: "tag-input-popover",
+		list: "tag-input-list"
+	}
+}) {
+	const inputForm = document.getElementById(elements.form);
+	const input = inputForm.querySelector(`#${elements.input}`);
+	const pop = inputForm.querySelector(`#${elements.popover}`);
+	const chipContainer = inputForm.querySelector(`#${elements.chipContainer}`);
+	const list = inputForm.querySelector(`#${elements.list}`);
 
+	let used = new Set();
+	let filteredTags = [];
+	let current = [];
+	let index = 0;
+	let activeEl = null;
+	let activeTagEl = null;
+	let pointerDown = false;
+
+    function createSuggestionElement(d) {
+        const li = document.createElement("li");
+        li.className = "tag-suggestion";
+        li.dataset.id = d.Id;
+		li.dataset.category = d.Category;
+        li.textContent = d.Name;
+        return li;
+    }
+
+    function highlight(items) {
+        const next = items[index];
+        if (activeEl === next) return;
+
+        if (activeEl) activeEl.classList.remove("active");
+        if (next) {
+            next.classList.add("active");
+            next.scrollIntoView({ block: "nearest" });
+        }
+        activeEl = next;
+
+		if (tagList) {
+			const nextTag = filteredTags[index];
+			if (activeTagEl === nextTag) return;
+			if (activeTagEl) activeTagEl.classList.remove("active-highlight");
+			if (nextTag) {
+				nextTag.classList.add("active-highlight");
+			}
+			activeTagEl = nextTag;
+			console.log("Active Tag Highlighted:", activeTagEl ? activeTagEl.innerText : "None");
+		}
+    }
+
+    function updateTagListHighlights(filter) {
+		filteredTags = tagsElements.filter(tag =>
+			tag.innerText.toLowerCase().startsWith(filter)
+		);
+		tagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
+		if (filteredTags.length > 0) {
+			index = 0;
+			filteredTags.forEach(tag => tag.classList.add("highlighted"));
+			filteredTags[index].classList.add("active-highlight");
+		}
+	}
+	
 	function resetFilterState() {
-		filteredTags = [];
-		allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
+		current = [];
+		tagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
+	}	
+
+    function showAllFilter() {
+		pop.showPopover();
+        current = data.filter(d => !used.has(d.Id));
+
+        list.replaceChildren(...current.map(createSuggestionElement));
+
+        if (current.length) {
+            index = 0;
+            highlight(list.children);
+            pop.showPopover();
+        } else {
+            pop.hidePopover();
+        }
+    }
+
+    function updateFilter() {
+        const val = input.value.trim().toLowerCase();
+
+        if (!val) {
+            showAllFilter();
+			resetFilterState();
+            return;
+        }
+
+        const starts = data.filter(
+            d => !used.has(d.Id) && d.Name.toLowerCase().startsWith(val)
+        );
+
+        current = [...starts];
+
+        list.replaceChildren(...current.map(createSuggestionElement));
+
+		if (current.length) {
+			if (tagList) {
+				updateTagListHighlights(val);
+			}
+			index = 0;
+			highlight(list.children);
+			pop.showPopover();
+		} else {
+			pop.hidePopover();
+		}
 	}
 
-	inputForm.addEventListener("submit", (e) => e.preventDefault());
-
-
-	// Highlight + keyboard
-	input.addEventListener("input", () => {
-		if (!input.value) {
-			resetFilterState();
-			return;
-		}
-		const filter = input.value.toLowerCase();
-		filteredTags = allTagsElements.filter(tag =>
-			tag.innerText.toLowerCase().startsWith(filter)
-		);
-		console.log("Filtered Tags:", filteredTags.map(tag => tag.innerText).join(", "));
-
-		allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
-		if (filteredTags.length > 0) {
-			currentIndex = 0;
-			filteredTags.forEach(tag => tag.classList.add("highlighted"));
-			filteredTags[currentIndex].classList.add("active-highlight");
-		}
-	});
-
-	input.addEventListener("focus", () => {
-		const filter = input.value.toLowerCase().trim();
-		if (!filter) return; // skip if input is empty
-		filteredTags = allTagsElements.filter(tag =>
-			tag.innerText.toLowerCase().startsWith(filter)
-		);
-		if (filteredTags.length > 0) {
-			currentIndex = 0;
-			filteredTags.forEach(tag => tag.classList.add("highlighted"));
-			filteredTags[currentIndex].classList.add("active-highlight");
-		}
-	});
-
-	input.addEventListener("blur", resetFilterState);
-
-	input.addEventListener("keydown", (e) => {
-		if (e.key === "Escape") {
-			e.preventDefault();
-			console.log("Escape pressed, clearing input and tags");
-			input.value = "";
-			resetFilterState();
-			allTagsElements.forEach(tag => {
-				const checkbox = tag.querySelector('input[type="checkbox"]');
-				if (checkbox && checkbox.checked) {
-					checkbox.checked = false;
-					checkbox.dispatchEvent(new Event("change", { bubbles: true }));
-				}
-			});
-		}
-		if (filteredTags.length === 0) return;
-		if (e.key === "Tab") {
-			e.preventDefault();
-			filteredTags[currentIndex].classList.remove("active-highlight");
-			console.log(`Tab pressed, moving to next tag ${filteredTags[currentIndex].innerText}`);
-			currentIndex = (currentIndex + 1) % filteredTags.length;
-			filteredTags[currentIndex].classList.add("active-highlight");
-		}
-		if (e.key === "Enter") {
-			if (!input.value.trim() || filteredTags.length === 0) {
-				e.preventDefault();
-				return;
-			}
-			e.preventDefault();
-			const selectedTag = filteredTags[currentIndex];
-			if (selectedTag && selectedTag.getAttribute("aria-disabled") !== "true") {
-				selectedTag.click();
+	function useSelected(id, category, name) {
+		console.log("Selected tag:", tagsElements);
+		used.add(id);
+		selectedTags[CATEGORIES_MAP[category]].add(id);
+		console.log("Current selected tags:", selectedTags);
+		for (const li of tagsElements) {
+			const input = li.querySelector('input.checkbox-input');
+			if (input && input.id === id) {
+				input.checked = true;
+				li.setAttribute('aria-checked', 'true');
+				break;
 			}
 		}
+		updateTagsState(document.getElementById("tag-selection"), tagsElements);
+		updateOperators();
+	}
+
+
+    // --- Event handling ---
+
+    // Cancel submit event
+    inputForm.addEventListener("submit", (e) => e.preventDefault());
+
+    // While typing
+    input.addEventListener("input", updateFilter);
+
+    // --- Handle focus source ---
+    input.addEventListener("pointerdown", () => (pointerDown = true));
+    input.addEventListener("pointerup", () => {
+        pointerDown = false;
+        updateFilter();
+    });
+
+	input.addEventListener("blur", () => {
+		resetFilterState();
+		list.replaceChildren();
+		pop.hidePopover();
 	});
+
+    input.addEventListener("keydown", e => {
+        if (!pop.matches(":popover-open")) return;
+        const items = list.querySelectorAll("li");
+        if (!items.length) return;
+
+		if (e.key === "backspace" && !input.value) {
+			e.preventDefault();
+			const chips = chipContainer.querySelectorAll(".tag-chip");
+			const lastChip = chips[chips.length - 1];
+			if (lastChip) {
+				const tagId = lastChip.dataset.id;
+				used.delete(tagId);
+				lastChip.remove();
+		}};
+
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            index = (index + 1) % items.length;
+            highlight(items);
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            index = (index - 1 + items.length) % items.length;
+            highlight(items);
+        } else if (e.key === "Enter" && index >= 0) {
+			e.preventDefault();
+            const item = items[index];
+            useSelected(item.dataset.id, li.dataset.category, item.textContent);
+        }
+    });
+
+    list.addEventListener("mousedown", e => {
+		console.log("Clicked on suggestion");
+        const li = e.target.closest('.tag-suggestion');
+        if (!li) return;
+		
+        useSelected(li.dataset.id, li.dataset.category, li.textContent);
+    });
+
+    list.addEventListener("mousemove", (e) => {
+        const li = e.target.closest("li");
+        if (!li) return;
+
+        const items = [...list.children];
+        const newIndex = items.indexOf(li);
+        if (newIndex === -1) return;
+
+        index = newIndex;
+        highlight(items);
+    });
 	return resetFilterState;
 }
 
@@ -366,13 +494,6 @@ function updateTagsState(container, allTagsElements) {
 		}
 		tag.setAttribute("aria-checked", checkbox.checked);
 	});
-}
-
-function clearTagInputOnly() {
-	const inputForm = document.getElementById("tag-input-form");
-	const input = inputForm.querySelector("#tag-input");
-	input.value = "";
-	allTagsElements.forEach(tag => tag.classList.remove("highlighted", "active-highlight"));
 }
 
 function getSectionKey(tags) {
@@ -745,7 +866,7 @@ function createOperatorElement(op) {
 	// Create operator image
 	const operatorImg = document.createElement("img");
 	operatorImg.src = `https://raw.githubusercontent.com/ArknightsAssets/ArknightsAssets/refs/heads/cn/assets/torappu/dynamicassets/arts/charportraits/${op.id}_1.png`;
-	operatorImg.alt = op.name_en || op.appellation;
+	operatorImg.alt = op.name || op.appellation;
 	operatorBox.appendChild(operatorImg);
 
 	// Create operator icons
@@ -762,7 +883,7 @@ function createOperatorElement(op) {
 	// Create operator name
 	const operatorName = document.createElement("span");
 	operatorName.className = "operator-name";
-	operatorName.textContent = op.name_en || op.appellation;
+	operatorName.textContent = op.name || op.appellation;
 	operatorBox.appendChild(operatorName);
 
 	// Create background SVG

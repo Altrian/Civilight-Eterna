@@ -73,6 +73,7 @@
                                 <div class="recruitment-search">
                                     <form class="input-form recruitment-input" id="tag-input-form" role="search"
                                         aria-label="Search tags">
+                                        <div id="tag-input-chips"></div>
                                         <input type="text" id="tag-input" placeholder="Search tags" autocomplete="off">
                                         <div class="input-border"></div>
                                         <div class="search-icon">
@@ -86,6 +87,10 @@
                                         <div class="search-hint">
                                             <span class="hint-icon">Ctrl</span>
                                             <span class="hint-icon">K</span>
+                                        </div>
+                                        <div id="tag-input-popover" popover anchor="tag-input"
+                                            class="popover suggestions">
+                                            <ul id="tag-input-list"></ul>
                                         </div>
                                     </form>
                                 </div>

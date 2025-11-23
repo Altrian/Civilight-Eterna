@@ -587,6 +587,30 @@ small {
   }
 }
 
+.popover {
+  position: relative;
+  inset: auto;
+  top: calc(anchor(bottom) + .25rem);
+  left: anchor(left);
+  right: anchor(right);
+  width: auto;
+}
+
+#tag-input {
+  anchor-name: --tag-input;
+}
+
+.popover.suggestions {
+  background-color: rgb(var(--theme-accent-20));
+  position-anchor: --tag-input;
+  border-radius: .5rem;
+  max-height: 312px;
+  padding: .5rem .25rem;
+}
+
+.suggestions li.active {
+  background-color: rgb(var(--theme-accent-10-active));
+}
 
 .layout-container .title>.input {
   display: flex;
