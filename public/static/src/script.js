@@ -451,7 +451,7 @@ function setupInput({
         } else if (e.key === "Enter" && index >= 0) {
 			e.preventDefault();
             const item = items[index];
-            useSelected(item.dataset.id, li.dataset.category, item.textContent);
+            useSelected(item.dataset.id, item.dataset.category, item.textContent);
         }
     });
 
