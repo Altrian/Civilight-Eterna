@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arknights: Civilization archive</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="static/src/layout.js" defer></script>
+    <script type="module" src="static/src/script.js"></script>
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#282a36" media="(prefers-color-scheme: dark)">
+
+</html>
+
+<body>
+    <div class="header-sentinel"></div>
+    <section class="toast-notifications">
+        <div class="toast-container" data-toast-position="top"></div>
+        <div class="toast-container" data-toast-position="bottom"></div>
+    </section>
+    <div id="view">
+        <div id="content" data-skip-transition data-drawer-active="false">
+            <nav>
+                <div class="shade"></div>
+                <div class="drawer">
+                    <div class="drawer-contain">
+                        <div class="drawer-logo">
+                            <button class="btn large" data-drawer-close="">
+                                <span class="btn-text">
+                                    <svg data-v-9ba4cb7e="" data-v-6495c397="" xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24" fill="none" viewBox="0 0 24 24" class="icon"
+                                        style="color: currentcolor;">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M18 6 6 18M6 6l12 12"></path>
+                                    </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <main>
+                <header>
+                    <div class="header-main">
+                        <div class="header">
+                            <div class="header-logo">
+                                <buttton class="btn large btn-header" data-drawer-open="">
+                                    <span class="btn-text">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                            viewBox="0 0 24 24" class="icon">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M3 12h12M3 6h18M3 18h6"></path>
+                                        </svg>
+                                    </span>
+                                </buttton>
+                            </div>
+                        </div>
+                        <div class="header-background"></div>
+                    </div>
+                </header>
+                <div class="header-height"></div>
+                <div class="content">
+                    <div class="layout-container arknights-wordle">
+                        <div class="game-info">
+                            <div class="game-header">
+                                <h1 class="game-title">Arknights Wordle</h1>
+                                <div class="game-stats">
+                                    <button class="btn medium btn-stats"></button>
+                                    <div class="game-streak">Streak: 0</div>
+                                    <button class="btn medium btn-tutorial"></button>
+                                </div>
+                            </div>
+                            <p class="game-description">Guess the Arknights character in 6 tries.</p>
+                        </div>
+                        <div class="game-container">
+                            <div class="bg-card"></div>
+                            <div class="bg-card">
+                                <div class="card-header pb-4">
+                                    <div class="card-header-title">
+                                        Guess the Operator
+                                    </div>
+                                </div>
+                                <div class="card-content card-padding px-4 pt-0">
+                                    <div class="card-wrapper">
+                                        <div class="card-search-container">
+                                            <form class="card-search-form">
+                                                <input type="text" class="card-search-input"
+                                                    placeholder="Search for an operator...">
+                                                <div class="card-search-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="" aria-hidden="true">
+                                                        <path d="m21 21-4.34-4.34"></path>
+                                                        <circle cx="11" cy="11" r="8"></circle>
+                                                    </svg>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
